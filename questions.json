@@ -1,0 +1,14 @@
+{
+    "1": [
+      {
+        "question": "Bu videoda ne oldu?",
+        "options": ["A", "B", "C", "D"],
+        "correct": "B"
+      },
+      {
+        "question": "Ana karakter kimdi?",
+        "options": ["A", "B", "C", "D"],
+        "correct": "D"
+      }
+    ]
+  }

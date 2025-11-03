@@ -1,0 +1,48 @@
+# Sanal ortam klasörü
+deney-env/
+env/
+.venv/
+venv/
+
+# __pycache__ ve derlenmiş Python dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter notebook checkpoint dosyaları
+.ipynb_checkpoints/
+
+# VSCode, PyCharm gibi IDE ayarları
+.vscode/
+.idea/
+
+# MacOS sistem dosyaları
+.DS_Store
+
+# Log, cache, runtime ve debug dosyaları
+*.log
+*.pot
+*.mo
+
+# Göz izleme veya deney datası
+gaze_data/
+results/
+*.csv
+
+# Geçici dosyalar ve backuplar
+*.bak
+*.tmp
+*.swp
+*~
+
+# Ortam değişkeni dosyası (varsa)
+.env
+.env.*
+
+# Output / build dizinleri (örneğin PyInstaller kullanırsan)
+build/
+dist/
+*.spec
+
+# pip freeze çıktı dosyası (eğer elle oluşturuyorsan)
+pip-freeze.txt
