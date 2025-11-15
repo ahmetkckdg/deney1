@@ -1,14 +1,12 @@
 {
     "1": [
       {
-        "question": "Bu videoda ne oldu?",
-        "options": ["A", "B", "C", "D"],
-        "correct": "B"
+        "question": "İzlediğiniz videodaki kişi sizce hangi duyguyu ifade etmektedir?",
+        "options": ["A) Mutluluk", "B) Üzüntü ", "C) Nötr", "D) Korku", "E) Kızgınlık", "F) Tiksinti"]
       },
       {
-        "question": "Ana karakter kimdi?",
-        "options": ["A", "B", "C", "D"],
-        "correct": "D"
+        "question": "İzlediğiniz videodaki kişinin duygusunun ne kadar şiddetli olduğunu düşünüyorsunuz? Lütfen 1'den 5'e puanlayın.\n(1 = neredeyse yok, 5 = çok belirgin)",
+        "options": ["1", "2", "3", "4", "5"]
       }
     ]
   }
