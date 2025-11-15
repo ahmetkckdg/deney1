@@ -1,0 +1,253 @@
+"""
+Video karelerindeki yüz landmark'larını tespit edip kaydeder.
+Her kare için yüz bölgelerinin (gözler, burun, ağız, vb.) piksel koordinatlarını çıkarır.
+"""
+
+import cv2
+import mediapipe as mp
+import os
+import csv
+import json
+from pathlib import Path
+
+# Video dizini
+VIDEO_DIR = "videos"
+OUTPUT_DIR = "results/face_landmarks"
+FPS = 30  # Video FPS (30fps)
+
+# MediaPipe Face Mesh ayarları
+mp_face_mesh = mp.solutions.face_mesh
+mp_drawing = mp.solutions.drawing_utils
+mp_drawing_styles = mp.solutions.drawing_styles
+
+# Yüz bölgeleri tanımlamaları (MediaPipe Face Mesh landmark indeksleri - 468 landmark)
+# MediaPipe Face Mesh: https://github.com/google/mediapipe/blob/master/mediapipe/modules/face_geometry/data/canonical_face_model_uv_visualization.png
+FACE_REGIONS = {
+    # Sol göz (left eye) - göz çevresi landmark'ları
+    "left_eye": [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246],
+    # Sağ göz (right eye) - göz çevresi landmark'ları
+    "right_eye": [362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385, 384, 398],
+    # Burun (nose) - burun ve çevresi
+    "nose": [1, 2, 5, 4, 6, 19, 20, 94, 125, 141, 235, 236, 3, 51, 48, 115, 131, 134, 102, 49, 220, 305, 281, 363, 360],
+    # Ağız (mouth) - ağız ve dudaklar
+    "mouth": [61, 146, 91, 181, 84, 17, 314, 405, 320, 307, 375, 321, 308, 324, 318],
+    # Sol yanak (left cheek)
+    "left_cheek": [116, 117, 118, 119, 120, 121, 126, 142, 36, 205, 206, 207, 213, 192, 147],
+    # Sağ yanak (right cheek)
+    "right_cheek": [345, 346, 347, 348, 349, 350, 451, 452, 453, 464, 435, 416, 434, 432],
+    # Alın (forehead)
+    "forehead": [10, 151, 9, 107, 55, 65, 52, 53, 46, 124, 35, 31, 228, 229, 230, 231, 232, 233, 244, 245],
+    # Çene (chin)
+    "chin": [18, 200, 199, 175, 169, 170, 140, 136, 150, 176, 148, 152, 377, 400, 378, 379, 365, 397, 288, 361, 323]
+}
+
+def get_region_bounds(landmarks, region_indices, img_width, img_height):
+    """Belirli bir yüz bölgesinin bounding box'ını hesaplar"""
+    if not region_indices:
+        return None
+    
+    x_coords = []
+    y_coords = []
+    
+    for idx in region_indices:
+        if idx < len(landmarks.landmark):
+            landmark = landmarks.landmark[idx]
+            x = int(landmark.x * img_width)
+            y = int(landmark.y * img_height)
+            x_coords.append(x)
+            y_coords.append(y)
+    
+    if not x_coords or not y_coords:
+        return None
+    
+    return {
+        "min_x": min(x_coords),
+        "max_x": max(x_coords),
+        "min_y": min(y_coords),
+        "max_y": max(y_coords),
+        "center_x": (min(x_coords) + max(x_coords)) / 2,
+        "center_y": (min(y_coords) + max(y_coords)) / 2,
+        "width": max(x_coords) - min(x_coords),
+        "height": max(y_coords) - min(y_coords)
+    }
+
+def get_region_center(landmarks, region_indices, img_width, img_height):
+    """Belirli bir yüz bölgesinin merkez noktasını hesaplar"""
+    if not region_indices:
+        return None
+    
+    x_sum = 0
+    y_sum = 0
+    count = 0
+    
+    for idx in region_indices:
+        if idx < len(landmarks.landmark):
+            landmark = landmarks.landmark[idx]
+            x_sum += landmark.x * img_width
+            y_sum += landmark.y * img_height
+            count += 1
+    
+    if count == 0:
+        return None
+    
+    return {
+        "center_x": x_sum / count,
+        "center_y": y_sum / count
+    }
+
+def process_video(video_path, output_file):
+    """Videoyu kare kare işleyip yüz landmark'larını çıkarır"""
+    video_name = os.path.basename(video_path)
+    video_id = os.path.splitext(video_name)[0]
+    
+    print(f"İşleniyor: {video_name}")
+    
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print(f"Hata: {video_path} açılamadı!")
+        return
+    
+    # Video özellikleri
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    
+    print(f"  FPS: {fps}, Toplam kare: {total_frames}, Boyut: {width}x{height}")
+    
+    # MediaPipe Face Mesh
+    with mp_face_mesh.FaceMesh(
+        static_image_mode=False,
+        max_num_faces=1,
+        refine_landmarks=True,
+        min_detection_confidence=0.5,
+        min_tracking_confidence=0.5
+    ) as face_mesh:
+        
+        frame_data = []
+        frame_number = 0
+        
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
+            
+            frame_number += 1
+            frame_time = frame_number / fps  # Saniye cinsinden zaman
+            
+            # BGR'den RGB'ye çevir (MediaPipe RGB bekliyor)
+            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            
+            # Yüz landmark'larını tespit et
+            results = face_mesh.process(rgb_frame)
+            
+            frame_info = {
+                "video_id": video_id,
+                "frame_number": frame_number,
+                "frame_time": round(frame_time, 3),
+                "video_width": width,
+                "video_height": height
+            }
+            
+            if results.multi_face_landmarks:
+                # İlk yüzü al (genellikle tek yüz var)
+                face_landmarks = results.multi_face_landmarks[0]
+                
+                # Her yüz bölgesi için koordinatları hesapla
+                for region_name, region_indices in FACE_REGIONS.items():
+                    # Bounding box
+                    bounds = get_region_bounds(face_landmarks, region_indices, width, height)
+                    if bounds:
+                        frame_info[f"{region_name}_min_x"] = int(bounds["min_x"])
+                        frame_info[f"{region_name}_max_x"] = int(bounds["max_x"])
+                        frame_info[f"{region_name}_min_y"] = int(bounds["min_y"])
+                        frame_info[f"{region_name}_max_y"] = int(bounds["max_y"])
+                        frame_info[f"{region_name}_center_x"] = round(bounds["center_x"], 2)
+                        frame_info[f"{region_name}_center_y"] = round(bounds["center_y"], 2)
+                        frame_info[f"{region_name}_width"] = int(bounds["width"])
+                        frame_info[f"{region_name}_height"] = int(bounds["height"])
+                    else:
+                        # Yüz bölgesi bulunamadı
+                        frame_info[f"{region_name}_min_x"] = None
+                        frame_info[f"{region_name}_max_x"] = None
+                        frame_info[f"{region_name}_min_y"] = None
+                        frame_info[f"{region_name}_max_y"] = None
+                        frame_info[f"{region_name}_center_x"] = None
+                        frame_info[f"{region_name}_center_y"] = None
+                        frame_info[f"{region_name}_width"] = None
+                        frame_info[f"{region_name}_height"] = None
+            else:
+                # Yüz bulunamadı
+                for region_name in FACE_REGIONS.keys():
+                    frame_info[f"{region_name}_min_x"] = None
+                    frame_info[f"{region_name}_max_x"] = None
+                    frame_info[f"{region_name}_min_y"] = None
+                    frame_info[f"{region_name}_max_y"] = None
+                    frame_info[f"{region_name}_center_x"] = None
+                    frame_info[f"{region_name}_center_y"] = None
+                    frame_info[f"{region_name}_width"] = None
+                    frame_info[f"{region_name}_height"] = None
+            
+            frame_data.append(frame_info)
+            
+            # İlerleme göster
+            if frame_number % 30 == 0:
+                print(f"  İşlenen kare: {frame_number}/{total_frames}")
+        
+        cap.release()
+    
+    # CSV'ye kaydet
+    if frame_data:
+        os.makedirs(os.path.dirname(output_file), exist_ok=True)
+        
+        # CSV başlıkları
+        fieldnames = ["video_id", "frame_number", "frame_time", "video_width", "video_height"]
+        for region_name in FACE_REGIONS.keys():
+            fieldnames.extend([
+                f"{region_name}_min_x", f"{region_name}_max_x",
+                f"{region_name}_min_y", f"{region_name}_max_y",
+                f"{region_name}_center_x", f"{region_name}_center_y",
+                f"{region_name}_width", f"{region_name}_height"
+            ])
+        
+        with open(output_file, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(frame_data)
+        
+        print(f"  ✓ Kaydedildi: {output_file} ({len(frame_data)} kare)")
+    else:
+        print(f"  ⚠ Hiç veri bulunamadı!")
+
+def main():
+    """Tüm videoları işle"""
+    video_dir = Path(VIDEO_DIR)
+    output_dir = Path(OUTPUT_DIR)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Tüm video dosyalarını bul
+    video_files = sorted(video_dir.glob("*.mp4"))
+    
+    if not video_files:
+        print(f"Videolar bulunamadı: {VIDEO_DIR}")
+        return
+    
+    print(f"Toplam {len(video_files)} video bulundu.\n")
+    
+    for video_path in video_files:
+        video_id = video_path.stem
+        output_file = output_dir / f"{video_id}_landmarks.csv"
+        
+        # Eğer dosya zaten varsa atla (yeniden işlemek için silin)
+        if output_file.exists():
+            print(f"Atlanıyor (zaten var): {video_id}")
+            continue
+        
+        process_video(str(video_path), str(output_file))
+        print()
+    
+    print("Tüm videolar işlendi!")
+
+if __name__ == "__main__":
+    main()
+
