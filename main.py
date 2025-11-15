@@ -4,8 +4,7 @@ import json
 import csv
 import time
 from collections import OrderedDict
-# EYE TRACKING: Geri açmak için comment'i kaldırın
-# from eye_tracker import EyeTracker
+from eye_tracker import EyeTracker
 
 # === Global Ayarlar === #
 VIDEO_DIR = "videos"
@@ -32,7 +31,6 @@ def setup_monitor():
 # Window'u başlangıçta None olarak tanımla (login'den sonra oluşturulacak)
 win = None
 
-# EYE TRACKING: Geri açmak için comment'i kaldırın
 # Eye tracker global değişkeni
 eye_tracker = None
 
@@ -192,52 +190,51 @@ def run_demographic_form():
     
     return participant_id, demographic_data
 
-# EYE TRACKING: Geri açmak için comment'i kaldırın
 # Gaze verilerini toplu kaydetmek için buffer
-# gaze_buffer = []
-# GAZE_BUFFER_SIZE = 50  # 50 veri toplandığında dosyaya yaz
+gaze_buffer = []
+GAZE_BUFFER_SIZE = 50  # 50 veri toplandığında dosyaya yaz
 
-# def save_gaze_data(participant_id, video_id, x, y, timestamp, video_time, flush=False):
-#     """Gaze verilerini buffer'a ekler, buffer dolduğunda veya flush=True olduğunda CSV'ye kaydeder"""
-#     global gaze_buffer
-#     
-#     # Eğer flush isteniyorsa sadece buffer'ı kaydet, yeni veri ekleme
-#     if flush:
-#         if len(gaze_buffer) > 0:
-#             os.makedirs(os.path.dirname(GAZE_DATA_FILE), exist_ok=True)
-#             file_exists = os.path.isfile(GAZE_DATA_FILE)
-#             
-#             with open(GAZE_DATA_FILE, 'a', newline='', encoding="utf-8") as f:
-#                 writer = csv.writer(f)
-#                 if not file_exists:
-#                     writer.writerow(["participant_id", "video_id", "gaze_x", "gaze_y", "timestamp", "video_time"])
-#                 writer.writerows(gaze_buffer)
-#             
-#             gaze_buffer = []  # Buffer'ı temizle
-#         return
-#     
-#     # Normal durumda veriyi buffer'a ekle
-#     gaze_buffer.append([
-#         participant_id,
-#         video_id,
-#         round(x, 2),
-#         round(y, 2),
-#         round(timestamp, 3),
-#         round(video_time, 3)
-#     ])
-#     
-#     # Buffer dolduğunda dosyaya yaz
-#     if len(gaze_buffer) >= GAZE_BUFFER_SIZE:
-#         os.makedirs(os.path.dirname(GAZE_DATA_FILE), exist_ok=True)
-#         file_exists = os.path.isfile(GAZE_DATA_FILE)
-#         
-#         with open(GAZE_DATA_FILE, 'a', newline='', encoding="utf-8") as f:
-#             writer = csv.writer(f)
-#             if not file_exists:
-#                 writer.writerow(["participant_id", "video_id", "gaze_x", "gaze_y", "timestamp", "video_time"])
-#             writer.writerows(gaze_buffer)
-#         
-#         gaze_buffer = []  # Buffer'ı temizle
+def save_gaze_data(participant_id, video_id, x, y, timestamp, video_time, flush=False):
+    """Gaze verilerini buffer'a ekler, buffer dolduğunda veya flush=True olduğunda CSV'ye kaydeder"""
+    global gaze_buffer
+    
+    # Eğer flush isteniyorsa sadece buffer'ı kaydet, yeni veri ekleme
+    if flush:
+        if len(gaze_buffer) > 0:
+            os.makedirs(os.path.dirname(GAZE_DATA_FILE), exist_ok=True)
+            file_exists = os.path.isfile(GAZE_DATA_FILE)
+            
+            with open(GAZE_DATA_FILE, 'a', newline='', encoding="utf-8") as f:
+                writer = csv.writer(f)
+                if not file_exists:
+                    writer.writerow(["participant_id", "video_id", "gaze_x", "gaze_y", "timestamp", "video_time"])
+                writer.writerows(gaze_buffer)
+            
+            gaze_buffer = []  # Buffer'ı temizle
+        return
+    
+    # Normal durumda veriyi buffer'a ekle
+    gaze_buffer.append([
+        participant_id,
+        video_id,
+        round(x, 2),
+        round(y, 2),
+        round(timestamp, 3),
+        round(video_time, 3)
+    ])
+    
+    # Buffer dolduğunda dosyaya yaz
+    if len(gaze_buffer) >= GAZE_BUFFER_SIZE:
+        os.makedirs(os.path.dirname(GAZE_DATA_FILE), exist_ok=True)
+        file_exists = os.path.isfile(GAZE_DATA_FILE)
+        
+        with open(GAZE_DATA_FILE, 'a', newline='', encoding="utf-8") as f:
+            writer = csv.writer(f)
+            if not file_exists:
+                writer.writerow(["participant_id", "video_id", "gaze_x", "gaze_y", "timestamp", "video_time"])
+            writer.writerows(gaze_buffer)
+        
+        gaze_buffer = []  # Buffer'ı temizle
 
 def play_video_with_controls(video_path, video_index=None, participant_id=None, video_id=None):
     # Video boyutunu window boyutuna göre ayarla (1280x720 tam ekran)
@@ -314,10 +311,9 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
     clock = core.Clock()
     clock.reset()
     
-    # EYE TRACKING: Geri açmak için comment'i kaldırın
-    # # Gaze verisi kaydetme optimizasyonu - zaman bazlı örnekleme
-    # last_gaze_time = 0
-    # gaze_sample_rate = 1.0 / 30.0  # 30Hz (her 33ms'de bir)
+    # Gaze verisi kaydetme optimizasyonu - zaman bazlı örnekleme
+    last_gaze_time = 0
+    gaze_sample_rate = 1.0 / 30.0  # 30Hz (her 33ms'de bir)
     
     # Video oynatma loop'u - optimize edilmiş
     # Video oynatma için PsychoPy'nin kendi timing'ini kullan
@@ -336,22 +332,28 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                 safe_exit()
                 return
         
-        # EYE TRACKING: Geri açmak için comment'i kaldırın
-        # # Eye tracking verilerini kaydet (optimize edilmiş - zaman bazlı)
-        # if current_time - last_gaze_time >= gaze_sample_rate:
-        #     last_gaze_time = current_time
-        #     if eye_tracker and eye_tracker.is_tracking():
-        #         gaze_data = eye_tracker.get_gaze_data()
-        #         if gaze_data and participant_id and video_id:
-        #             x, y, timestamp = gaze_data
-        #             video_time = current_time
-        #             save_gaze_data(participant_id, video_id, x, y, timestamp, video_time, flush=False)
+        # Eye tracking verilerini kaydet (optimize edilmiş - zaman bazlı)
+        # Gaze verileri video ekran koordinatlarına göre normalize edilir
+        if current_time - last_gaze_time >= gaze_sample_rate:
+            last_gaze_time = current_time
+            if eye_tracker and eye_tracker.is_tracking():
+                gaze_data = eye_tracker.get_gaze_data()
+                if gaze_data and participant_id and video_id:
+                    x, y, timestamp = gaze_data
+                    # Gaze koordinatlarını video ekran boyutuna göre normalize et
+                    # TheEyeTribe koordinatları tam ekran olabilir, video ekranına göre ayarla
+                    # Video ekranı: 0,0 (sol üst) - SCREEN_WIDTH,SCREEN_HEIGHT (sağ alt)
+                    # Gaze verileri zaten video ekran koordinatlarında olmalı (kalibrasyon video ekranına göre yapıldı)
+                    # Ancak emin olmak için sınırları kontrol et
+                    x_normalized = max(0, min(SCREEN_WIDTH, x))
+                    y_normalized = max(0, min(SCREEN_HEIGHT, y))
+                    video_time = current_time
+                    save_gaze_data(participant_id, video_id, x_normalized, y_normalized, timestamp, video_time, flush=False)
     
-    # EYE TRACKING: Geri açmak için comment'i kaldırın
-    # # Video bittiğinde kalan gaze verilerini kaydet
-    # global gaze_buffer
-    # if gaze_buffer:
-    #     save_gaze_data(participant_id, video_id, 0, 0, 0, 0, flush=True)
+    # Video bittiğinde kalan gaze verilerini kaydet
+    global gaze_buffer
+    if gaze_buffer:
+        save_gaze_data(participant_id, video_id, 0, 0, 0, 0, flush=True)
     
     video.stop()
     # Mouse'u tekrar göster (video bittiğinde)
@@ -791,113 +793,115 @@ def save_result(video_id, question_index, question_data, selected, response_time
             round(response_time, 2)
         ])
 
-# EYE TRACKING: Geri açmak için comment'i kaldırın
-# def run_calibration(tracker, win):
-#     """
-#     TheEyeTribe kalibrasyonunu çalıştırır.
-#     Returns: Kalibrasyon başarılı ise True
-#     """
-#     # Ekran boyutları (global değişkenlerden)
-#     screen_width = SCREEN_WIDTH
-#     screen_height = SCREEN_HEIGHT
-#     
-#     # 9 nokta kalibrasyon pozisyonları (3x3 grid)
-#     calibration_points = [
-#         (screen_width * 0.1, screen_height * 0.1),   # Sol üst
-#         (screen_width * 0.5, screen_height * 0.1),   # Üst orta
-#         (screen_width * 0.9, screen_height * 0.1),   # Sağ üst
-#         (screen_width * 0.1, screen_height * 0.5),   # Sol orta
-#         (screen_width * 0.5, screen_height * 0.5),   # Merkez
-#         (screen_width * 0.9, screen_height * 0.5),   # Sağ orta
-#         (screen_width * 0.1, screen_height * 0.9),   # Sol alt
-#         (screen_width * 0.5, screen_height * 0.9),   # Alt orta
-#         (screen_width * 0.9, screen_height * 0.9),  # Sağ alt
-#     ]
-#     
-#     # Kalibrasyonu başlat
-#     if not tracker.calibration_start(point_count=9):
-#         print("Kalibrasyon başlatılamadı!")
-#         return False
-#     
-#     # Talimat ekranı
-#     instruction = visual.TextStim(
-#         win, 
-#         text="Kalibrasyon başlayacak.\nEkranda görünen noktalara bakın ve sabit tutun.\n\nHazır olduğunuzda SPACE tuşuna basın.",
-#         pos=(0, 0), 
-#         height=28, 
-#         color='white', 
-#         wrapWidth=1000
-#     )
-#     
-#     instruction.draw()
-#     win.flip()
-#     event.waitKeys(keyList=['space', 'escape'])
-#     
-#     if 'escape' in event.getKeys():
-#         tracker.calibration_abort()
-#         return False
-#     
-#     # Her nokta için kalibrasyon
-#     point_circle = visual.Circle(win, radius=20, fillColor='red', lineColor='red')
-#     fixation_circle = visual.Circle(win, radius=5, fillColor='white', lineColor='white')
-#     
-#     for i, (x, y) in enumerate(calibration_points):
-#         # Noktayı ekranın merkezine göre ayarla (PsychoPy koordinat sistemi)
-#         screen_x = x - screen_width / 2
-#         screen_y = -(y - screen_height / 2)  # Y ekseni ters
-#         
-#         # Büyük kırmızı nokta göster
-#         point_circle.pos = (screen_x, screen_y)
-#         
-#         # 1 saniye bekle ve göster
-#         for _ in range(30):  # ~1 saniye (30 frame @ 30fps)
-#             point_circle.draw()
-#             win.flip()
-#         
-#         # Kalibrasyon noktasını başlat (TheEyeTribe koordinat sistemi: sol üst köşe 0,0)
-#         tracker.calibration_pointstart(x, y)
-#         
-#         # Küçük beyaz nokta göster (sabit bakış için)
-#         for _ in range(60):  # ~2 saniye
-#             fixation_circle.pos = (screen_x, screen_y)
-#             fixation_circle.draw()
-#             win.flip()
-#         
-#         # Kalibrasyon noktasını bitir
-#         tracker.calibration_pointend(x, y)
-#         
-#         # Kısa bekleme
-#         core.wait(0.3)
-#     
-#     # Kalibrasyon sonucunu kontrol et
-#     result = tracker.calibration_result()
-#     
-#     if result:
-#         avg_error = result.get('calibresult', {}).get('avgdeg', float('inf'))
-#         # Genellikle 1 dereceden küçük hata iyi kabul edilir
-#         success = avg_error < 1.0
-#         
-#         if success:
-#             message = f"Kalibrasyon başarılı!\nOrtalama hata: {avg_error:.2f} derece\n\nSPACE tuşuna basın."
-#         else:
-#             message = f"Kalibrasyon başarısız.\nOrtalama hata: {avg_error:.2f} derece\n\nTekrar denemek için SPACE, devam etmek için ENTER tuşuna basın."
-#         
-#         result_text = visual.TextStim(win, text=message, pos=(0, 0), height=28, color='white', wrapWidth=1000)
-#         result_text.draw()
-#         win.flip()
-#         
-#         keys = event.waitKeys(keyList=['space', 'return', 'escape'])
-#         
-#         if 'escape' in keys:
-#             return False
-#         elif 'space' in keys and not success:
-#             # Tekrar dene
-#             tracker.calibration_clear()
-#             return run_calibration(tracker, win)
-#         else:
-#             return success
-#     
-#     return False
+def run_calibration(tracker, win):
+    """
+    TheEyeTribe kalibrasyonunu çalıştırır - Video ekran boyutuna göre optimize edilmiş yüksek doğruluklu kalibrasyon
+    Returns: Kalibrasyon başarılı ise True
+    """
+    # Video ekran boyutları (kalibrasyon video ekranına göre yapılacak)
+    screen_width = SCREEN_WIDTH  # 1280
+    screen_height = SCREEN_HEIGHT  # 720
+    
+    # 13 nokta kalibrasyon pozisyonları (daha yüksek doğruluk için)
+    # Video ekranının tamamını kapsayacak şekilde dağıtılmış
+    calibration_points = [
+        (screen_width * 0.05, screen_height * 0.05),   # Sol üst köşe
+        (screen_width * 0.25, screen_height * 0.05),   # Üst sol
+        (screen_width * 0.5, screen_height * 0.05),   # Üst orta
+        (screen_width * 0.75, screen_height * 0.05),   # Üst sağ
+        (screen_width * 0.95, screen_height * 0.05),   # Sağ üst köşe
+        (screen_width * 0.05, screen_height * 0.5),   # Sol orta
+        (screen_width * 0.25, screen_height * 0.5),   # Sol-orta
+        (screen_width * 0.5, screen_height * 0.5),   # Merkez (en önemli)
+        (screen_width * 0.75, screen_height * 0.5),   # Sağ-orta
+        (screen_width * 0.95, screen_height * 0.5),   # Sağ orta
+        (screen_width * 0.25, screen_height * 0.95),   # Alt sol
+        (screen_width * 0.5, screen_height * 0.95),   # Alt orta
+        (screen_width * 0.75, screen_height * 0.95),   # Alt sağ
+    ]
+    
+    # Kalibrasyonu başlat (13 nokta)
+    if not tracker.calibration_start(point_count=13):
+        print("Kalibrasyon başlatılamadı!")
+        return False
+    
+    # Talimat ekranı
+    instruction = visual.TextStim(
+        win, 
+        text="Yüksek doğruluklu kalibrasyon başlayacak.\nEkranda görünen noktalara dikkatle bakın ve sabit tutun.\n\nHer noktaya en az 2 saniye bakın.\n\nHazır olduğunuzda SPACE tuşuna basın.",
+        pos=(0, 0), 
+        height=SCREEN_HEIGHT * 0.03, 
+        color='white', 
+        wrapWidth=SCREEN_WIDTH * 0.8
+    )
+    
+    instruction.draw()
+    win.flip()
+    event.waitKeys(keyList=['space', 'escape'])
+    
+    if 'escape' in event.getKeys():
+        tracker.calibration_abort()
+        return False
+    
+    # Her nokta için kalibrasyon
+    point_circle = visual.Circle(win, radius=25, fillColor='red', lineColor='red', lineWidth=3)
+    fixation_circle = visual.Circle(win, radius=8, fillColor='white', lineColor='white', lineWidth=2)
+    
+    for i, (x, y) in enumerate(calibration_points):
+        # Noktayı ekranın merkezine göre ayarla (PsychoPy koordinat sistemi)
+        screen_x = x - screen_width / 2
+        screen_y = -(y - screen_height / 2)  # Y ekseni ters
+        
+        # Büyük kırmızı nokta göster (1.5 saniye)
+        point_circle.pos = (screen_x, screen_y)
+        for _ in range(45):  # ~1.5 saniye (45 frame @ 30fps)
+            point_circle.draw()
+            win.flip()
+        
+        # Kalibrasyon noktasını başlat (TheEyeTribe koordinat sistemi: sol üst köşe 0,0)
+        tracker.calibration_pointstart(x, y)
+        
+        # Küçük beyaz nokta göster (sabit bakış için - 3 saniye, daha uzun süre daha iyi doğruluk)
+        for _ in range(90):  # ~3 saniye (90 frame @ 30fps)
+            fixation_circle.pos = (screen_x, screen_y)
+            fixation_circle.draw()
+            win.flip()
+        
+        # Kalibrasyon noktasını bitir
+        tracker.calibration_pointend(x, y)
+        
+        # Noktalar arası bekleme
+        core.wait(0.5)
+    
+    # Kalibrasyon sonucunu kontrol et
+    result = tracker.calibration_result()
+    
+    if result:
+        avg_error = result.get('calibresult', {}).get('avgdeg', float('inf'))
+        # Yüksek doğruluk için 0.5 dereceden küçük hata gerekli
+        success = avg_error < 0.5
+        
+        if success:
+            message = f"Kalibrasyon başarılı!\nOrtalama hata: {avg_error:.2f} derece\n\nSPACE tuşuna basın."
+        else:
+            message = f"Kalibrasyon doğruluğu yetersiz.\nOrtalama hata: {avg_error:.2f} derece (hedef: <0.5°)\n\nTekrar denemek için SPACE, devam etmek için ENTER tuşuna basın."
+        
+        result_text = visual.TextStim(win, text=message, pos=(0, 0), height=SCREEN_HEIGHT * 0.03, color='white', wrapWidth=SCREEN_WIDTH * 0.8)
+        result_text.draw()
+        win.flip()
+        
+        keys = event.waitKeys(keyList=['space', 'return', 'escape'])
+        
+        if 'escape' in keys:
+            return False
+        elif 'space' in keys and not success:
+            # Tekrar dene
+            tracker.calibration_clear()
+            return run_calibration(tracker, win)
+        else:
+            return success
+    
+    return False
 
 def show_consent_form():
     """Bilgilendirilmiş gönüllü onam formunu gösterir ve kullanıcının onayını alır"""
@@ -1007,17 +1011,16 @@ def safe_exit():
     global eye_tracker, win
     
     try:
-        # EYE TRACKING: Geri açmak için comment'i kaldırın
-        # # Eye tracker temizliği
-        # if eye_tracker:
-        #     try:
-        #         eye_tracker.stop_tracking()
-        #     except:
-        #         pass
-        #     try:
-        #         eye_tracker.disconnect()
-        #     except:
-        #         pass
+        # Eye tracker temizliği
+        if eye_tracker:
+            try:
+                eye_tracker.stop_tracking()
+            except:
+                pass
+            try:
+                eye_tracker.disconnect()
+            except:
+                pass
         
         # Window temizliği
         if win:
@@ -1074,59 +1077,58 @@ def main():
             safe_exit()
             return
         
-        # EYE TRACKING: Geri açmak için comment'i kaldırın
-        # # Eye tracker bağlantısı
-        # eye_tracker = EyeTracker()
-        # 
-        # # Bağlantı ekranı
-        # connecting_text = visual.TextStim(
-        #     win, 
-        #     text="TheEyeTribe sunucusuna bağlanılıyor...", 
-        #     pos=(0, 0), 
-        #     height=SCREEN_HEIGHT * 0.04, 
-        #     color='white'
-        # )
-        # connecting_text.draw()
-        # win.flip()
-        # 
-        # if not eye_tracker.connect():
-        #     error_text = visual.TextStim(
-        #         win,
-        #         text="TheEyeTribe sunucusuna bağlanılamadı!\nLütfen sunucunun çalıştığından emin olun.\n\nESC tuşuna basarak çıkın.",
-        #         pos=(0, 0),
-        #         height=SCREEN_HEIGHT * 0.03,
-        #         color='red',
-        #         wrapWidth=SCREEN_WIDTH * 0.8
-        #     )
-        #     error_text.draw()
-        #     win.flip()
-        #     event.waitKeys(keyList=['escape'])
-        #     safe_exit()
-        #     return
-        # 
-        # # Kalibrasyon
-        # calibration_success = run_calibration(eye_tracker, win)
-        # 
-        # if not calibration_success:
-        #     error_text = visual.TextStim(
-        #         win,
-        #         text="Kalibrasyon başarısız oldu.\nDeney devam edemez.\n\nESC tuşuna basarak çıkın.",
-        #         pos=(0, 0),
-        #         height=SCREEN_HEIGHT * 0.03,
-        #         color='red',
-        #         wrapWidth=SCREEN_WIDTH * 0.8
-        #     )
-        #     error_text.draw()
-        #     win.flip()
-        #     event.waitKeys(keyList=['escape'])
-        #     safe_exit()
-        #     return
-        # 
-        # # Göz takibini başlat
-        # try:
-        #     eye_tracker.start_tracking()
-        # except Exception as e:
-        #     print(f"Göz takibi başlatılamadı: {e}")
+        # Eye tracker bağlantısı
+        eye_tracker = EyeTracker()
+        
+        # Bağlantı ekranı
+        connecting_text = visual.TextStim(
+            win, 
+            text="TheEyeTribe sunucusuna bağlanılıyor...", 
+            pos=(0, 0), 
+            height=SCREEN_HEIGHT * 0.04, 
+            color='white'
+        )
+        connecting_text.draw()
+        win.flip()
+        
+        if not eye_tracker.connect():
+            error_text = visual.TextStim(
+                win,
+                text="TheEyeTribe sunucusuna bağlanılamadı!\nLütfen sunucunun çalıştığından emin olun.\n\nESC tuşuna basarak çıkın.",
+                pos=(0, 0),
+                height=SCREEN_HEIGHT * 0.03,
+                color='red',
+                wrapWidth=SCREEN_WIDTH * 0.8
+            )
+            error_text.draw()
+            win.flip()
+            event.waitKeys(keyList=['escape'])
+            safe_exit()
+            return
+        
+        # Kalibrasyon
+        calibration_success = run_calibration(eye_tracker, win)
+        
+        if not calibration_success:
+            error_text = visual.TextStim(
+                win,
+                text="Kalibrasyon başarısız oldu.\nDeney devam edemez.\n\nESC tuşuna basarak çıkın.",
+                pos=(0, 0),
+                height=SCREEN_HEIGHT * 0.03,
+                color='red',
+                wrapWidth=SCREEN_WIDTH * 0.8
+            )
+            error_text.draw()
+            win.flip()
+            event.waitKeys(keyList=['escape'])
+            safe_exit()
+            return
+        
+        # Göz takibini başlat
+        try:
+            eye_tracker.start_tracking()
+        except Exception as e:
+            print(f"Göz takibi başlatılamadı: {e}")
         
         # Deney başlat
         # Videoları 4 kişiye göre gruplandır (her kişiden 6 video)
