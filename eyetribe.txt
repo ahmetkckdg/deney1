@@ -20,67 +20,63 @@ The Eye Tribe Tracker stands ready!
 
 
 Bağlantı deneniyor (test modu: True)...
-[17:29:46] [EyeTracker] ============================================================
-[17:29:46] [EyeTracker] BAĞLANTI BAŞLATILIYOR
-[17:29:46] [EyeTracker] Hedef: localhost:6555
-[17:29:46] [EyeTracker] Test modu: True
-[17:29:46] [EyeTracker] ============================================================
-[17:29:46] [EyeTracker] Adım 1: Socket oluşturuluyor...
-[17:29:46] [EyeTracker] Socket oluşturuldu: OK
-[17:29:46] [EyeTracker] Adım 2: Socket ayarları yapılıyor...
-[17:29:46] [EyeTracker] SO_REUSEADDR ayarlandı: OK
-[17:29:46] [EyeTracker] TCP_NODELAY ayarlandı: OK
-[17:29:46] [EyeTracker] Adım 3: Socket timeout ayarlanıyor: 5.0s
-[17:29:46] [EyeTracker] Timeout ayarlandı: OK
-[17:29:46] [EyeTracker] Adım 4: Bağlantı deneniyor (localhost:6555)...
-[17:29:46] [EyeTracker] Bağlantı başarılı! (Süre: 0.004s)
-[17:29:46] [EyeTracker] Socket bağlantısı doğrulandı: 127.0.0.1:6555
-[17:29:46] [EyeTracker] Adım 5: Bağlantı durumu güncellendi: connected=True    
-[17:29:46] [EyeTracker] Adım 6: Bağlantı testi başlatılıyor...
-[17:29:46] [EyeTracker] Socket durumu kontrol ediliyor...
-[17:29:46] [EyeTracker] Socket bağlı: 127.0.0.1:6555
-[17:29:46] [EyeTracker] Basit test isteği gönderiliyor...
-[17:29:46] [EyeTracker] İstek hazırlanıyor: category=tracker, request=get, values=['version'], timeout=5.0s
-[17:29:46] [EyeTracker] Bağlantı durumu: OK
-[17:29:46] [EyeTracker] Socket timeout ayarlandı: 5.0s (önceki: 5.0)
-[17:29:46] [EyeTracker] JSON isteği oluşturuldu: category=tracker, request=get 
-[17:29:46] [EyeTracker] İstek içeriği: { |   "category": "tracker", |   "request": "get", |   "values": [ |     "version" |   ] | }
-[17:29:46] [EyeTracker] İstek gönderiliyor (61 byte): {"category":"tracker","request":"get","values":["version"]}
-[17:29:46] [EyeTracker] İstek başarıyla gönderildi (61 byte)
-[17:29:46] [EyeTracker] Yanıt bekleniyor... (category=tracker, request=get)    
-[17:29:46] [EyeTracker] recv() çağrılıyor (kalan timeout: 5.00s)...
-[17:29:47] [EyeTracker] Veri alındı: 79 byte (toplam: 79 byte)
-[17:29:47] [EyeTracker] Veri alındı: 404 byte (toplam: 483 byte)
-[17:29:47] [EyeTracker] Veri alındı: 487 byte (toplam: 970 byte)
-[17:29:51] [EyeTracker] TIMEOUT: 5.04s geçti, limit: 5.0s
-[17:29:51] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
-[17:29:51] [EyeTracker] Socket timeout eski haline getirildi: 5.0
-[17:29:51] [EyeTracker] UYARI: Bağlantı testi başarısız (ConnectionError): İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
-[17:29:51] [EyeTracker] Ancak socket bağlantısı kuruldu, devam ediliyor...     
-[17:29:51] [EyeTracker] ============================================================
-[17:29:51] [EyeTracker] UYARI: Test başarısız ama socket bağlantısı aktif      
-[17:29:51] [EyeTracker] Bağlantı kabul ediliyor, devam ediliyor...
-[17:29:51] [EyeTracker] ============================================================
-[17:29:51] [EyeTracker] İstek hazırlanıyor: category=calibration, request=start, values={'pointcount': 13}, timeout=5.0s
-[17:29:51] [EyeTracker] Bağlantı durumu: OK
-[17:29:51] [EyeTracker] Socket timeout ayarlandı: 5.0s (önceki: 5.0)
-[17:29:51] [EyeTracker] JSON isteği oluşturuldu: category=calibration, request=start
-[17:29:51] [EyeTracker] İstek içeriği: { |   "category": "calibration", |   "request": "start", |   "values": { |     "pointcount": 13 |   } | }
-[17:29:51] [EyeTracker] İstek gönderiliyor (73 byte): {"category":"calibration","request":"start","values":{"pointcount":13}}
-[17:29:51] [EyeTracker] İstek başarıyla gönderildi (73 byte)
-[17:29:51] [EyeTracker] Yanıt bekleniyor... (category=calibration, request=start)
-[17:29:51] [EyeTracker] recv() çağrılıyor (kalan timeout: 5.00s)...
-[17:29:51] [EyeTracker] Veri alındı: 62 byte (toplam: 62 byte)
-[17:29:51] [EyeTracker] Veri alındı: 487 byte (toplam: 549 byte)
-[17:29:51] [EyeTracker] Veri alındı: 467 byte (toplam: 1016 byte)
-[17:29:56] [EyeTracker] TIMEOUT: 5.01s geçti, limit: 5.0s
-[17:29:56] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
-[17:29:56] [EyeTracker] Socket timeout eski haline getirildi: 5.0
-Deney sırasında hata oluştu: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:48:52] [EyeTracker] ============================================================
+[17:48:52] [EyeTracker] BAĞLANTI BAŞLATILIYOR
+[17:48:52] [EyeTracker] Hedef: localhost:6555
+[17:48:52] [EyeTracker] Test modu: True
+[17:48:52] [EyeTracker] ============================================================
+[17:48:52] [EyeTracker] Adım 1: Socket oluşturuluyor...
+[17:48:52] [EyeTracker] Socket oluşturuldu: OK
+[17:48:52] [EyeTracker] Adım 2: Socket ayarları yapılıyor...
+[17:48:52] [EyeTracker] SO_REUSEADDR ayarlandı: OK
+[17:48:52] [EyeTracker] TCP_NODELAY ayarlandı: OK
+[17:48:52] [EyeTracker] Adım 3: Socket timeout ayarlanıyor: 5.0s
+[17:48:52] [EyeTracker] Timeout ayarlandı: OK
+[17:48:52] [EyeTracker] Adım 4: Bağlantı deneniyor (localhost:6555)...
+[17:48:52] [EyeTracker] Bağlantı başarılı! (Süre: 0.004s)
+[17:48:52] [EyeTracker] Socket bağlantısı doğrulandı: 127.0.0.1:6555
+[17:48:52] [EyeTracker] Adım 5: Bağlantı durumu güncellendi: connected=True    
+[17:48:52] [EyeTracker] Listener thread başlatılıyor...
+[17:48:52] [EyeTracker] Listener loop başlatıldı
+[17:48:52] [EyeTracker] Listener thread başlatıldı
+[17:48:52] [EyeTracker] Adım 6: Bağlantı testi başlatılıyor...
+[17:48:52] [EyeTracker] Socket durumu kontrol ediliyor...
+[17:48:52] [EyeTracker] Socket bağlı: 127.0.0.1:6555
+[17:48:52] [EyeTracker] Basit test isteği gönderiliyor...
+[17:48:52] [EyeTracker] İstek hazırlanıyor: category=tracker, request=get, values=['version'], timeout=5.0s
+[17:48:52] [EyeTracker] Bağlantı durumu: OK
+[17:48:52] [EyeTracker] Socket timeout ayarlandı: 5.0s (önceki: 1.0)
+[17:48:52] [EyeTracker] JSON isteği oluşturuldu: category=tracker, request=get 
+[17:48:52] [EyeTracker] İstek içeriği: { |   "category": "tracker", |   "request": "get", |   "values": [ |     "version" |   ] | }
+[17:48:52] [EyeTracker] İstek gönderiliyor (61 byte): {"category":"tracker","request":"get","values":["version"]}
+[17:48:52] [EyeTracker] İstek başarıyla gönderildi (61 byte)
+[17:48:52] [EyeTracker] Yanıt bekleniyor... (category=tracker, request=get)    
+[17:48:57] [EyeTracker] TIMEOUT: 5.02s geçti, limit: 5.0s
+[17:48:57] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:48:57] [EyeTracker] Socket timeout eski haline getirildi: 1.0
+[17:48:57] [EyeTracker] UYARI: Bağlantı testi başarısız (ConnectionError): İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:48:57] [EyeTracker] Ancak socket bağlantısı kuruldu, devam ediliyor...     
+[17:48:57] [EyeTracker] ============================================================
+[17:48:57] [EyeTracker] UYARI: Test başarısız ama socket bağlantısı aktif      
+[17:48:57] [EyeTracker] Bağlantı kabul ediliyor, devam ediliyor...
+[17:48:57] [EyeTracker] ============================================================
+[17:48:57] [EyeTracker] Calibration başlatılıyor: point_count=13
+[17:48:57] [EyeTracker] İstek hazırlanıyor: category=calibration, request=start, values={'pointcount': 13}, timeout=10.0s
+[17:48:57] [EyeTracker] Bağlantı durumu: OK
+[17:48:57] [EyeTracker] Socket timeout ayarlandı: 10.0s (önceki: 1.0)
+[17:48:57] [EyeTracker] JSON isteği oluşturuldu: category=calibration, request=start
+[17:48:57] [EyeTracker] İstek içeriği: { |   "category": "calibration", |   "request": "start", |   "values": { |     "pointcount": 13 |   } | }
+[17:48:57] [EyeTracker] İstek gönderiliyor (73 byte): {"category":"calibration","request":"start","values":{"pointcount":13}}
+[17:48:57] [EyeTracker] İstek başarıyla gönderildi (73 byte)
+[17:48:57] [EyeTracker] Yanıt bekleniyor... (category=calibration, request=start)
+[17:49:07] [EyeTracker] TIMEOUT: 10.08s geçti, limit: 10.0s
+[17:49:07] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 10.0s)
+[17:49:07] [EyeTracker] Socket timeout eski haline getirildi: 1.0
+Deney sırasında hata oluştu: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 10.0s)
 Traceback (most recent call last):
-  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 166, in _send_request
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 284, in _send_request
     raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
-ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
+ConnectionError: Sunucu yanıt vermiyor (timeout: 10.0s)
 
 During handling of the above exception, another exception occurred:
 
@@ -89,13 +85,16 @@ Traceback (most recent call last):
     calibration_success = run_calibration(eye_tracker, win)
   File "C:\Users\qawaq\OneDrive\desktop\deney1\main.py", line 824, in run_calibration
     if not tracker.calibration_start(point_count=13):
-  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 635, in calibration_start
-    response = self._send_request('calibration', 'start', {'pointcount': point_count})
-  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 259, in _send_request
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 720, in calibration_start
+    response = self._send_request('calibration', 'start', {'pointcount': point_count}, timeout=10.0)
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 321, in _send_request
     raise ConnectionError("İstek gönderilirken hata: {}".format(e))
-ConnectionError: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
-[17:29:56] [EyeTracker] Takip zaten durdurulmuş
-[17:29:56] [EyeTracker] Bağlantı kesiliyor...
-[17:29:56] [EyeTracker] Socket kapatıldı
-[17:29:56] [EyeTracker] Bağlantı kesildi
-11.8879         WARNING         Monitor specification not found. Creating a temporary one...
+ConnectionError: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 10.0s)
+[17:49:07] [EyeTracker] Takip zaten durdurulmuş
+[17:49:07] [EyeTracker] Bağlantı kesiliyor...
+[17:49:07] [EyeTracker] Listener thread durduruluyor...
+[17:49:07] [EyeTracker] Listener loop sonlandı
+[17:49:07] [EyeTracker] Listener thread durduruldu
+[17:49:07] [EyeTracker] Socket kapatıldı
+[17:49:07] [EyeTracker] Bağlantı kesildi
+10.4827         WARNING         Monitor specification not found. Creating a temporary one...
