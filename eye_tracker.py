@@ -109,9 +109,10 @@ class EyeTracker:
             "category": category
         }
         
-        # request_type'ı ekle (None ise null olarak eklenir - heartbeat için gerekli)
-        # C# örneği: {"category":"heartbeat","request":null}
-        request["request"] = request_type
+        # request_type'ı ekle (None ise ekleme - API guide'a göre heartbeat'te request field'ı yok)
+        # API guide: {"category": "heartbeat"} - request field'ı yok
+        if request_type is not None:
+            request["request"] = request_type
         
         # values varsa ekle (list veya dict olabilir)
         if values is not None:
@@ -198,31 +199,50 @@ class EyeTracker:
                             
                             # Bu mesaj bizim request'imize ait yanıt mı?
                             msg_category = message_json.get('category', '')
-                            msg_request = message_json.get('request', '')
+                            msg_request = message_json.get('request', None)  # None olabilir (frame data'da yok)
+                            
+                            # API guide'a göre:
+                            # - Request yanıtları: category ve request eşleşmeli
+                            # - Frame data: category="tracker", request yok, values içinde "frame" var
+                            # - Heartbeat yanıtı: category="heartbeat", request yok
                             
                             # Request yanıtı kontrolü: category ve request eşleşmeli
-                            if msg_category == category and msg_request == request_type:
-                                # Bu bizim yanıtımız!
-                                self._log("Yanıt bulundu: {} byte, {} recv() çağrısı".format(
-                                    len(message_bytes), recv_count))
-                                response = message_json
-                                
-                                # TheEyeTribe yanıt formatı kontrolü
-                                has_statuscode = 'var' if 'statuscode' in response else 'yok'
-                                has_values = 'var' if 'values' in response else 'yok'
-                                statuscode = response.get('statuscode', 'yok')
-                                self._log("JSON parse başarılı: category={}, request={}, statuscode={}, values={}".format(
-                                    response.get('category', 'yok'), response.get('request', 'yok'), statuscode, has_values))
-                                
-                                return response
+                            if msg_category == category:
+                                # Category eşleşiyor, request kontrolü yap
+                                if request_type is None:
+                                    # Heartbeat gibi request olmayan istekler için
+                                    if msg_request is None:
+                                        # Bu bizim yanıtımız!
+                                        self._log("Yanıt bulundu (request yok): {} byte, {} recv() çağrısı".format(
+                                            len(message_bytes), recv_count))
+                                        response = message_json
+                                        statuscode = response.get('statuscode', 'yok')
+                                        self._log("JSON parse başarılı: category={}, statuscode={}".format(
+                                            msg_category, statuscode))
+                                        return response
+                                elif msg_request == request_type:
+                                    # Request eşleşiyor - bu bizim yanıtımız!
+                                    self._log("Yanıt bulundu: {} byte, {} recv() çağrısı".format(
+                                        len(message_bytes), recv_count))
+                                    response = message_json
+                                    
+                                    # TheEyeTribe yanıt formatı kontrolü
+                                    statuscode = response.get('statuscode', 'yok')
+                                    has_values = 'var' if 'values' in response else 'yok'
+                                    self._log("JSON parse başarılı: category={}, request={}, statuscode={}, values={}".format(
+                                        msg_category, msg_request, statuscode, has_values))
+                                    
+                                    return response
+                            
+                            # Bu bir frame data veya başka bir mesaj, atla
+                            if msg_category == 'tracker' and msg_request is None:
+                                # Frame data - sessizce atla (çok sık geliyor)
+                                # Format: {"category":"tracker","statuscode":200,"values":{"frame":{...}}}
+                                pass
                             else:
-                                # Bu bir frame data veya başka bir mesaj, atla
-                                if msg_category == 'tracker' and 'frame' in str(message_json.get('values', {})):
-                                    # Frame data - sessizce atla (çok sık geliyor)
-                                    pass
-                                else:
-                                    self._log("Farklı mesaj alındı (atlanıyor): category={}, request={}".format(
-                                        msg_category, msg_request))
+                                # Diğer mesajlar - logla ama atla
+                                self._log("Farklı mesaj alındı (atlanıyor): category={}, request={}".format(
+                                    msg_category, msg_request if msg_request is not None else "(yok)"))
                         
                         except (json.JSONDecodeError, UnicodeDecodeError) as e:
                             self._log("UYARI: Mesaj parse edilemedi: {}".format(e))
