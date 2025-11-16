@@ -46,7 +46,13 @@ class EyeTracker:
     def _log(self, message: str):
         """Log mesajı yazdırır (zaman damgası ile)"""
         timestamp = time.strftime("%H:%M:%S.%f")[:-3]  # milisaniye hassasiyeti
-        print(f"[{timestamp}] [EyeTracker] {message}")
+        # Güvenli yazdırma - message içindeki { } karakterleri sorun çıkarmasın diye
+        # % formatını kullanarak güvenli yazdırma
+        try:
+            print("[%s] [EyeTracker] %s" % (timestamp, message))
+        except Exception:
+            # Eğer hata olursa, direkt yazdır
+            print("[{}] [EyeTracker] {}".format(timestamp, str(message).replace('{', '{{').replace('}', '}}')))
     
     def _send_request(self, method: str, params: dict = None, timeout: float = 5.0) -> dict:
         """
@@ -61,7 +67,9 @@ class EyeTracker:
             Sunucudan gelen JSON yanıtı
         """
         params_str = repr(params) if params else "None"
-        self._log(f"İstek hazırlanıyor: method='{method}', params={params_str}, timeout={timeout}s")
+        method_str = str(method)
+        self._log("İstek hazırlanıyor: method={}, params={}, timeout={}s".format(
+            repr(method_str), params_str, timeout))
         
         if not self.connected or not self.socket:
             self._log("HATA: Bağlantı kontrolü başarısız - connected={}, socket={}".format(
@@ -95,7 +103,10 @@ class EyeTracker:
             # JSON isteğini gönder
             message = json.dumps(request) + '\r\n'
             message_bytes = message.encode('utf-8')
-            self._log(f"İstek gönderiliyor ({len(message_bytes)} byte): {message.strip()}")
+            message_display = message.strip().replace('\n', '\\n').replace('\r', '\\r')
+            if len(message_display) > 200:
+                message_display = message_display[:200] + "..."
+            self._log("İstek gönderiliyor ({} byte): {}".format(len(message_bytes), message_display))
             
             self.socket.sendall(message_bytes)
             self._log("İstek başarıyla gönderildi")
@@ -154,17 +165,20 @@ class EyeTracker:
                 self._log("HATA: Boş yanıt alındı")
                 raise ConnectionError("Sunucudan boş yanıt alındı")
             
-            self._log(f"Yanıt parse ediliyor: {len(response_data)} byte")
+            self._log("Yanıt parse ediliyor: {} byte".format(len(response_data)))
             response_str = response_data.split(b'\r\n')[0].decode('utf-8')
-            if len(response_str) > 100:
-                self._log(f"Yanıt string: {response_str[:100]}...")
+            # Güvenli gösterim için özel karakterleri escape et
+            response_display = response_str.replace('\n', '\\n').replace('\r', '\\r')
+            if len(response_display) > 100:
+                self._log("Yanıt string: {}...".format(response_display[:100]))
             else:
-                self._log(f"Yanıt string: {response_str}")
+                self._log("Yanıt string: {}".format(response_display))
             
             response = json.loads(response_str)
             has_result = 'var' if 'result' in response else 'yok'
             has_error = 'var' if 'error' in response else 'yok'
-            self._log(f"JSON parse başarılı: id={response.get('id')}, result={has_result}, error={has_error}")
+            self._log("JSON parse başarılı: id={}, result={}, error={}".format(
+                response.get('id'), has_result, has_error))
             
             return response
             
@@ -172,9 +186,12 @@ class EyeTracker:
             self._log(f"HATA: İstek timeout oldu: {e}")
             raise ConnectionError(f"İstek timeout oldu ({timeout}s)")
         except json.JSONDecodeError as e:
-            self._log(f"HATA: JSON parse hatası: {e}")
+            self._log("HATA: JSON parse hatası: {}".format(e))
             if 'response_str' in locals():
-                self._log(f"Hatalı yanıt: {response_str}")
+                response_display = response_str.replace('\n', '\\n').replace('\r', '\\r')
+                if len(response_display) > 200:
+                    response_display = response_display[:200] + "..."
+                self._log("Hatalı yanıt: {}".format(response_display))
             raise ConnectionError(f"Sunucudan geçersiz JSON yanıtı: {e}")
         except Exception as e:
             self._log(f"HATA: Beklenmeyen hata: {type(e).__name__}: {e}")
@@ -201,8 +218,8 @@ class EyeTracker:
         """
         self._log("=" * 60)
         self._log("BAĞLANTI BAŞLATILIYOR")
-        self._log(f"Hedef: {self.host}:{self.port}")
-        self._log(f"Test modu: {test_connection}")
+        self._log("Hedef: {}:{}".format(self.host, self.port))
+        self._log("Test modu: {}".format(test_connection))
         self._log("=" * 60)
         
         # Önceki bağlantıyı temizle
@@ -237,21 +254,22 @@ class EyeTracker:
             self._log("Timeout ayarlandı: OK")
             
             # Bağlantıyı dene
-            self._log(f"Adım 4: Bağlantı deneniyor ({self.host}:{self.port})...")
+            self._log("Adım 4: Bağlantı deneniyor ({}:{})...".format(self.host, self.port))
             connect_start = time.time()
             try:
                 self.socket.connect((self.host, self.port))
                 connect_elapsed = time.time() - connect_start
-                self._log(f"Bağlantı başarılı! Süre: {connect_elapsed:.3f}s")
+                self._log("Bağlantı başarılı! Süre: {:.3f}s".format(connect_elapsed))
             except socket.timeout:
                 connect_elapsed = time.time() - connect_start
-                self._log(f"HATA: Bağlantı timeout ({connect_elapsed:.3f}s geçti, limit: {connection_timeout}s)")
+                self._log("HATA: Bağlantı timeout ({:.3f}s geçti, limit: {}s)".format(
+                    connect_elapsed, connection_timeout))
                 self.socket.close()
                 self.socket = None
                 return False
             except (socket.error, OSError) as e:
                 connect_elapsed = time.time() - connect_start
-                self._log(f"HATA: Bağlantı hatası ({connect_elapsed:.3f}s): {e}")
+                self._log("HATA: Bağlantı hatası ({:.3f}s): {}".format(connect_elapsed, e))
                 self.socket.close()
                 self.socket = None
                 return False
@@ -263,32 +281,44 @@ class EyeTracker:
             # Bağlantıyı test et (opsiyonel - eğer test_connection=False ise atla)
             if test_connection:
                 self._log("Adım 6: Bağlantı testi başlatılıyor...")
+                test_success = False
                 try:
-                    self._log("Version isteği gönderiliyor...")
+                    self._log("Version isteği gönderiliyor (timeout: 2.0s)...")
+                    # Daha kısa timeout ile test et
                     response = self._send_request('get', {'category': 'tracker', 'request': 'version'}, timeout=2.0)
                     
                     if 'result' in response:
                         version = response.get('result', {}).get('version', 'bilinmiyor')
-                        self._log(f"BAĞLANTI BAŞARILI! Versiyon: {version}")
-                        self._log("=" * 60)
-                        return True
+                        self._log("BAĞLANTI BAŞARILI! Versiyon: {}".format(version))
+                        test_success = True
                     else:
                         # Geçersiz yanıt ama bağlantı var - devam et
-                        self._log("UYARI: Geçersiz yanıt alındı, ancak bağlantı kuruldu")
-                        self._log("=" * 60)
-                        return True
+                        self._log("UYARI: Geçersiz yanıt alındı (result yok), ancak bağlantı kuruldu")
+                        test_success = False
+                        
                 except ConnectionError as e:
                     # Test başarısız ama socket bağlı - bağlantıyı kabul et
-                    self._log(f"UYARI: Bağlantı testi başarısız: {e}")
+                    self._log("UYARI: Bağlantı testi başarısız (ConnectionError): {}".format(e))
                     self._log("Ancak socket bağlantısı kuruldu, devam ediliyor...")
-                    self._log("=" * 60)
-                    return True
+                    test_success = False
+                except socket.timeout as e:
+                    # Timeout - ama socket bağlı
+                    self._log("UYARI: Bağlantı testi timeout oldu: {}".format(e))
+                    self._log("Ancak socket bağlantısı kuruldu, devam ediliyor...")
+                    test_success = False
                 except Exception as e:
                     # Beklenmeyen hata - bağlantıyı kabul et ama uyar
-                    self._log(f"UYARI: Test sırasında beklenmeyen hata: {type(e).__name__}: {e}")
+                    self._log("UYARI: Test sırasında beklenmeyen hata - {}: {}".format(type(e).__name__, e))
                     self._log("Ancak socket bağlantısı kuruldu, devam ediliyor...")
+                    test_success = False
+                
+                # Test sonucu ne olursa olsun, socket bağlantısı kurulduysa devam et
+                if test_success:
                     self._log("=" * 60)
-                    return True
+                else:
+                    self._log("UYARI: Test başarısız ama socket bağlantısı aktif, devam ediliyor...")
+                    self._log("=" * 60)
+                return True
             else:
                 # Test atlandı - sadece socket bağlantısı yeterli
                 self._log("Adım 6: Test atlandı - socket bağlantısı yeterli")
@@ -296,10 +326,44 @@ class EyeTracker:
                 self._log("=" * 60)
                 return True
                 
+        except socket.timeout as e:
+            self._log("HATA: Socket timeout - {}".format(e))
+            self._log("Sunucuya bağlanırken timeout oldu. Sunucunun çalıştığından emin olun.")
+            self._log("=" * 60)
+            self.connected = False
+            if self.socket:
+                try:
+                    self.socket.close()
+                    self._log("Socket kapatıldı")
+                except Exception as close_err:
+                    self._log("UYARI: Socket kapatılırken hata: {}".format(close_err))
+                self.socket = None
+            return False
+        except (socket.error, OSError, ConnectionRefusedError, ConnectionResetError) as e:
+            self._log("HATA: Socket/Network hatası - {}: {}".format(type(e).__name__, e))
+            self._log("Sunucuya bağlanılamadı. Kontrol edin:")
+            self._log("  1. TheEyeTribe sunucusu çalışıyor mu?")
+            self._log("  2. Port {} açık mı?".format(self.port))
+            self._log("  3. Firewall engelliyor mu?")
+            self._log("=" * 60)
+            self.connected = False
+            if self.socket:
+                try:
+                    self.socket.close()
+                    self._log("Socket kapatıldı")
+                except Exception as close_err:
+                    self._log("UYARI: Socket kapatılırken hata: {}".format(close_err))
+                self.socket = None
+            return False
         except Exception as e:
-            self._log(f"HATA: Beklenmeyen hata: {type(e).__name__}: {e}")
+            self._log("HATA: Beklenmeyen hata - {}: {}".format(type(e).__name__, e))
             import traceback
-            self._log(f"Traceback:\n{traceback.format_exc()}")
+            self._log("Detaylı hata bilgisi:")
+            tb_str = traceback.format_exc()
+            # Traceback'i satır satır logla
+            for line in tb_str.split('\n'):
+                if line.strip():
+                    self._log("  {}".format(line))
             self._log("Lütfen TheEyeTribe sunucusunun çalıştığından emin olun.")
             self._log("=" * 60)
             self.connected = False
@@ -307,8 +371,8 @@ class EyeTracker:
                 try:
                     self.socket.close()
                     self._log("Socket kapatıldı")
-                except:
-                    pass
+                except Exception as close_err:
+                    self._log("UYARI: Socket kapatılırken hata: {}".format(close_err))
                 self.socket = None
             return False
     
