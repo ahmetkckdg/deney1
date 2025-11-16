@@ -150,13 +150,15 @@ class EyeTracker:
             self._log("İstek başarıyla gönderildi ({} byte)".format(len(message_bytes)))
             
             # Yanıtı al - timeout ile korumalı
+            # Push mode'da sürekli frame data geliyor, bu yüzden her mesajı ayrı parse etmeliyiz
             response_data = b''
             start_time = time.time()
             recv_count = 0
+            buffer = b''  # Kısmi mesajlar için buffer
             
-            self._log("Yanıt bekleniyor...")
+            self._log("Yanıt bekleniyor... (category={}, request={})".format(category, request_type))
             
-            while b'\r\n' not in response_data:
+            while True:
                 # Timeout kontrolü
                 elapsed = time.time() - start_time
                 if elapsed > timeout:
@@ -174,54 +176,72 @@ class EyeTracker:
                     
                     chunk = self.socket.recv(4096)
                     
-                    if chunk:
-                        total_bytes = len(response_data) + len(chunk)
-                        self._log("Veri alındı: {} byte (toplam: {} byte)".format(len(chunk), total_bytes))
-                    else:
+                    if not chunk:
                         self._log("HATA: Boş chunk alındı (bağlantı kesildi)")
                         raise ConnectionError("Sunucu bağlantısı kesildi")
                     
-                    response_data += chunk
+                    buffer += chunk
+                    total_bytes = len(buffer)
+                    if recv_count <= 3:  # İlk birkaç chunk'ta log
+                        self._log("Veri alındı: {} byte (toplam: {} byte)".format(len(chunk), total_bytes))
                     
-                    if b'\r\n' in response_data:
-                        self._log("Yanıt tamamlandı: {} byte, {} recv() çağrısı".format(len(response_data), recv_count))
+                    # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
+                    while b'\r\n' in buffer:
+                        # İlk tam mesajı al
+                        message_end = buffer.find(b'\r\n')
+                        message_bytes = buffer[:message_end]
+                        buffer = buffer[message_end + 2:]  # \r\n'yi atla
+                        
+                        try:
+                            message_str = message_bytes.decode('utf-8')
+                            message_json = json.loads(message_str)
+                            
+                            # Bu mesaj bizim request'imize ait yanıt mı?
+                            msg_category = message_json.get('category', '')
+                            msg_request = message_json.get('request', '')
+                            
+                            # Request yanıtı kontrolü: category ve request eşleşmeli
+                            if msg_category == category and msg_request == request_type:
+                                # Bu bizim yanıtımız!
+                                self._log("Yanıt bulundu: {} byte, {} recv() çağrısı".format(
+                                    len(message_bytes), recv_count))
+                                response = message_json
+                                
+                                # TheEyeTribe yanıt formatı kontrolü
+                                has_statuscode = 'var' if 'statuscode' in response else 'yok'
+                                has_values = 'var' if 'values' in response else 'yok'
+                                statuscode = response.get('statuscode', 'yok')
+                                self._log("JSON parse başarılı: category={}, request={}, statuscode={}, values={}".format(
+                                    response.get('category', 'yok'), response.get('request', 'yok'), statuscode, has_values))
+                                
+                                return response
+                            else:
+                                # Bu bir frame data veya başka bir mesaj, atla
+                                if msg_category == 'tracker' and 'frame' in str(message_json.get('values', {})):
+                                    # Frame data - sessizce atla (çok sık geliyor)
+                                    pass
+                                else:
+                                    self._log("Farklı mesaj alındı (atlanıyor): category={}, request={}".format(
+                                        msg_category, msg_request))
+                        
+                        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+                            self._log("UYARI: Mesaj parse edilemedi: {}".format(e))
+                            continue
                         
                 except socket.timeout:
                     # Timeout oldu - kontrol et
                     elapsed = time.time() - start_time
-                    self._log("recv() timeout: {:.2f}s geçti (limit: {}s)".format(elapsed, timeout))
                     if elapsed >= timeout:
+                        self._log("TIMEOUT: {:.2f}s geçti, limit: {}s".format(elapsed, timeout))
                         raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
                     # Kısa timeout olabilir, devam et
-                    self._log("Kısa timeout, devam ediliyor...")
                     continue
                 except (socket.error, OSError) as e:
                     self._log("HATA: Socket hatası: {}".format(e))
                     raise ConnectionError("Socket hatası: {}".format(e))
             
-            # JSON yanıtını parse et
-            if not response_data:
-                self._log("HATA: Boş yanıt alındı")
-                raise ConnectionError("Sunucudan boş yanıt alındı")
-            
-            self._log("Yanıt parse ediliyor: {} byte".format(len(response_data)))
-            response_str = response_data.split(b'\r\n')[0].decode('utf-8')
-            # Güvenli gösterim için özel karakterleri escape et
-            response_display = response_str.replace('\n', '\\n').replace('\r', '\\r')
-            if len(response_display) > 100:
-                self._log("Yanıt string: {}...".format(response_display[:100]))
-            else:
-                self._log("Yanıt string: {}".format(response_display))
-            
-            response = json.loads(response_str)
-            # TheEyeTribe yanıt formatı kontrolü
-            has_statuscode = 'var' if 'statuscode' in response else 'yok'
-            has_values = 'var' if 'values' in response else 'yok'
-            statuscode = response.get('statuscode', 'yok')
-            self._log("JSON parse başarılı: category={}, request={}, statuscode={}, values={}".format(
-                response.get('category', 'yok'), response.get('request', 'yok'), statuscode, has_values))
-            
-            return response
+            # Buraya gelmemeli (while True loop)
+            raise ConnectionError("Yanıt alınamadı")
             
         except socket.timeout as e:
             self._log("HATA: İstek timeout oldu: {}".format(e))
