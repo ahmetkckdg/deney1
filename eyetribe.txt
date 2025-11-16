@@ -1,0 +1,18 @@
+
+**************************************
+**   The EYE TRIBE TRACKER Server   **
+**************************************
+Version: 0.9.77
+
+Settings applied:
+TCP port: 6555
+Connections: local only
+Framerate: 30
+
+Initializing the Eye Tribe Server
+The Eye Tribe Tracker firmware revision is 293
+Accessing Tracker device
+
+The Eye Tribe Tracker stands ready!
+
+[16:43:15.483] INF: Default calibration profile loaded!
