@@ -239,27 +239,56 @@ class EyeTracker:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self._log("Socket oluşturuldu: OK")
             
-            # Windows için socket ayarları (Nagle algoritmasını devre dışı bırak - daha hızlı yanıt)
+            # Windows için socket ayarları
             self._log("Adım 2: Socket ayarları yapılıyor...")
             try:
+                # SO_REUSEADDR - Windows'ta bazen gerekli
+                self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                self._log("SO_REUSEADDR ayarlandı: OK")
+            except Exception as e:
+                self._log("UYARI: SO_REUSEADDR ayarlanamadı: {}".format(e))
+            
+            try:
+                # TCP_NODELAY - Nagle algoritmasını devre dışı bırak (daha hızlı yanıt)
                 self.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
                 self._log("TCP_NODELAY ayarlandı: OK")
             except Exception as e:
-                self._log(f"UYARI: TCP_NODELAY ayarlanamadı: {e}")
+                self._log("UYARI: TCP_NODELAY ayarlanamadı: {}".format(e))
             
             # Timeout ayarla (bağlantı ve tüm işlemler için)
             connection_timeout = 5.0
-            self._log(f"Adım 3: Socket timeout ayarlanıyor: {connection_timeout}s")
+            self._log("Adım 3: Socket timeout ayarlanıyor: {}s".format(connection_timeout))
             self.socket.settimeout(connection_timeout)
             self._log("Timeout ayarlandı: OK")
             
             # Bağlantıyı dene
             self._log("Adım 4: Bağlantı deneniyor ({}:{})...".format(self.host, self.port))
             connect_start = time.time()
+            
+            # Önce connect_ex ile test et (non-blocking kontrol)
             try:
-                self.socket.connect((self.host, self.port))
+                result = self.socket.connect_ex((self.host, self.port))
+                if result != 0:
+                    connect_elapsed = time.time() - connect_start
+                    self._log("HATA: connect_ex başarısız (hata kodu: {}, süre: {:.3f}s)".format(
+                        result, connect_elapsed))
+                    self.socket.close()
+                    self.socket = None
+                    return False
+                
+                # connect_ex başarılı, normal connect ile doğrula
                 connect_elapsed = time.time() - connect_start
-                self._log("Bağlantı başarılı! Süre: {:.3f}s".format(connect_elapsed))
+                self._log("connect_ex başarılı! (Süre: {:.3f}s)".format(connect_elapsed))
+                
+                # Socket'in gerçekten bağlı olduğunu kontrol et
+                try:
+                    # getpeername() bağlantı varsa çalışır
+                    peer = self.socket.getpeername()
+                    self._log("Socket bağlantısı doğrulandı: {}".format(peer))
+                except Exception as e:
+                    self._log("UYARI: getpeername() başarısız: {}".format(e))
+                    # Yine de devam et, bağlantı olabilir
+                
             except socket.timeout:
                 connect_elapsed = time.time() - connect_start
                 self._log("HATA: Bağlantı timeout ({:.3f}s geçti, limit: {}s)".format(
@@ -267,9 +296,10 @@ class EyeTracker:
                 self.socket.close()
                 self.socket = None
                 return False
-            except (socket.error, OSError) as e:
+            except (socket.error, OSError, ConnectionRefusedError, ConnectionResetError) as e:
                 connect_elapsed = time.time() - connect_start
-                self._log("HATA: Bağlantı hatası ({:.3f}s): {}".format(connect_elapsed, e))
+                self._log("HATA: Bağlantı hatası ({:.3f}s): {}: {}".format(
+                    connect_elapsed, type(e).__name__, e))
                 self.socket.close()
                 self.socket = None
                 return False
