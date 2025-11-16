@@ -45,14 +45,23 @@ class EyeTracker:
     
     def _log(self, message: str):
         """Log mesajı yazdırır (zaman damgası ile)"""
-        timestamp = time.strftime("%H:%M:%S.%f")[:-3]  # milisaniye hassasiyeti
-        # Güvenli yazdırma - message içindeki { } karakterleri sorun çıkarmasın diye
-        # % formatını kullanarak güvenli yazdırma
         try:
-            print("[%s] [EyeTracker] %s" % (timestamp, message))
+            timestamp = time.strftime("%H:%M:%S.%f")[:-3]  # milisaniye hassasiyeti
         except Exception:
-            # Eğer hata olursa, direkt yazdır
-            print("[{}] [EyeTracker] {}".format(timestamp, str(message).replace('{', '{{').replace('}', '}}')))
+            timestamp = time.strftime("%H:%M:%S")
+        
+        # Güvenli yazdırma - message içindeki özel karakterleri escape et
+        try:
+            # Önce % karakterlerini escape et
+            safe_message = str(message).replace('%', '%%')
+            print("[%s] [EyeTracker] %s" % (timestamp, safe_message))
+        except Exception as e:
+            # Eğer hata olursa, en basit şekilde yazdır
+            try:
+                print("[{}] [EyeTracker] {}".format(timestamp, str(message)))
+            except Exception:
+                # Son çare: direkt print
+                print("[EyeTracker]", message)
     
     def _send_request(self, method: str, params: dict = None, timeout: float = 5.0) -> dict:
         """
@@ -83,9 +92,9 @@ class EyeTracker:
         old_timeout_str = str(old_timeout) if old_timeout is not None else "None"
         try:
             self.socket.settimeout(timeout)
-            self._log(f"Socket timeout ayarlandı: {timeout}s (önceki: {old_timeout_str})")
+            self._log("Socket timeout ayarlandı: {}s (önceki: {})".format(timeout, old_timeout_str))
         except Exception as e:
-            self._log(f"UYARI: Socket timeout ayarlanamadı: {e}")
+            self._log("UYARI: Socket timeout ayarlanamadı: {}".format(e))
             pass
         
         request = {
@@ -97,19 +106,33 @@ class EyeTracker:
         if params:
             request["params"] = params
         
-        self._log(f"JSON isteği oluşturuldu: id={request['id']}")
+        # İstek detaylarını logla
+        self._log("JSON isteği oluşturuldu: id={}".format(request['id']))
+        try:
+            request_preview = json.dumps(request, indent=2, ensure_ascii=False)
+            # İlk 300 karakteri göster
+            if len(request_preview) > 300:
+                request_preview = request_preview[:300] + "..."
+            # \n karakterlerini | ile değiştir (log için güvenli)
+            request_preview_safe = request_preview.replace('\n', ' | ')
+            self._log("İstek içeriği: {}".format(request_preview_safe))
+        except Exception as e:
+            self._log("UYARI: İstek preview oluşturulamadı: {}".format(e))
         
         try:
-            # JSON isteğini gönder
-            message = json.dumps(request) + '\r\n'
+            # JSON isteğini gönder - ensure_ascii=False ile Unicode karakterleri koru
+            message = json.dumps(request, ensure_ascii=False) + '\r\n'
             message_bytes = message.encode('utf-8')
+            
+            # Log için güvenli gösterim
             message_display = message.strip().replace('\n', '\\n').replace('\r', '\\r')
             if len(message_display) > 200:
                 message_display = message_display[:200] + "..."
             self._log("İstek gönderiliyor ({} byte): {}".format(len(message_bytes), message_display))
             
+            # İsteği gönder
             self.socket.sendall(message_bytes)
-            self._log("İstek başarıyla gönderildi")
+            self._log("İstek başarıyla gönderildi ({} byte)".format(len(message_bytes)))
             
             # Yanıtı al - timeout ile korumalı
             response_data = b''
@@ -122,8 +145,8 @@ class EyeTracker:
                 # Timeout kontrolü
                 elapsed = time.time() - start_time
                 if elapsed > timeout:
-                    self._log(f"TIMEOUT: {elapsed:.2f}s geçti, limit: {timeout}s")
-                    raise ConnectionError(f"Sunucu yanıt vermiyor (timeout: {timeout}s)")
+                    self._log("TIMEOUT: {:.2f}s geçti, limit: {}s".format(elapsed, timeout))
+                    raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
                 
                 try:
                     # Kalan timeout süresini hesapla
@@ -132,12 +155,13 @@ class EyeTracker:
                     
                     recv_count += 1
                     if recv_count == 1:
-                        self._log(f"recv() çağrılıyor (kalan timeout: {remaining_timeout:.2f}s)...")
+                        self._log("recv() çağrılıyor (kalan timeout: {:.2f}s)...".format(remaining_timeout))
                     
                     chunk = self.socket.recv(4096)
                     
                     if chunk:
-                        self._log(f"Veri alındı: {len(chunk)} byte (toplam: {len(response_data) + len(chunk)} byte)")
+                        total_bytes = len(response_data) + len(chunk)
+                        self._log("Veri alındı: {} byte (toplam: {} byte)".format(len(chunk), total_bytes))
                     else:
                         self._log("HATA: Boş chunk alındı (bağlantı kesildi)")
                         raise ConnectionError("Sunucu bağlantısı kesildi")
@@ -145,20 +169,20 @@ class EyeTracker:
                     response_data += chunk
                     
                     if b'\r\n' in response_data:
-                        self._log(f"Yanıt tamamlandı: {len(response_data)} byte, {recv_count} recv() çağrısı")
+                        self._log("Yanıt tamamlandı: {} byte, {} recv() çağrısı".format(len(response_data), recv_count))
                         
                 except socket.timeout:
                     # Timeout oldu - kontrol et
                     elapsed = time.time() - start_time
-                    self._log(f"recv() timeout: {elapsed:.2f}s geçti (limit: {timeout}s)")
+                    self._log("recv() timeout: {:.2f}s geçti (limit: {}s)".format(elapsed, timeout))
                     if elapsed >= timeout:
-                        raise ConnectionError(f"Sunucu yanıt vermiyor (timeout: {timeout}s)")
+                        raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
                     # Kısa timeout olabilir, devam et
                     self._log("Kısa timeout, devam ediliyor...")
                     continue
                 except (socket.error, OSError) as e:
-                    self._log(f"HATA: Socket hatası: {e}")
-                    raise ConnectionError(f"Socket hatası: {e}")
+                    self._log("HATA: Socket hatası: {}".format(e))
+                    raise ConnectionError("Socket hatası: {}".format(e))
             
             # JSON yanıtını parse et
             if not response_data:
@@ -183,8 +207,8 @@ class EyeTracker:
             return response
             
         except socket.timeout as e:
-            self._log(f"HATA: İstek timeout oldu: {e}")
-            raise ConnectionError(f"İstek timeout oldu ({timeout}s)")
+            self._log("HATA: İstek timeout oldu: {}".format(e))
+            raise ConnectionError("İstek timeout oldu ({}s)".format(timeout))
         except json.JSONDecodeError as e:
             self._log("HATA: JSON parse hatası: {}".format(e))
             if 'response_str' in locals():
@@ -192,18 +216,18 @@ class EyeTracker:
                 if len(response_display) > 200:
                     response_display = response_display[:200] + "..."
                 self._log("Hatalı yanıt: {}".format(response_display))
-            raise ConnectionError(f"Sunucudan geçersiz JSON yanıtı: {e}")
+            raise ConnectionError("Sunucudan geçersiz JSON yanıtı: {}".format(e))
         except Exception as e:
-            self._log(f"HATA: Beklenmeyen hata: {type(e).__name__}: {e}")
-            raise ConnectionError(f"İstek gönderilirken hata: {e}")
+            self._log("HATA: Beklenmeyen hata: {}: {}".format(type(e).__name__, e))
+            raise ConnectionError("İstek gönderilirken hata: {}".format(e))
         finally:
             # Timeout'u eski haline getir
             try:
                 self.socket.settimeout(old_timeout)
                 old_timeout_display = str(old_timeout) if old_timeout is not None else "None"
-                self._log(f"Socket timeout eski haline getirildi: {old_timeout_display}")
+                self._log("Socket timeout eski haline getirildi: {}".format(old_timeout_display))
             except Exception as e:
-                self._log(f"UYARI: Timeout geri alınamadı: {e}")
+                self._log("UYARI: Timeout geri alınamadı: {}".format(e))
                 pass
     
     def connect(self, test_connection: bool = True) -> bool:
@@ -229,7 +253,7 @@ class EyeTracker:
                 self.socket.close()
                 self._log("Önceki socket kapatıldı")
             except Exception as e:
-                self._log(f"UYARI: Önceki socket kapatılamadı: {e}")
+                self._log("UYARI: Önceki socket kapatılamadı: {}".format(e))
             self.socket = None
         self.connected = False
         
@@ -453,8 +477,8 @@ class EyeTracker:
             try:
                 self.socket.close()
                 self._log("Socket kapatıldı")
-            except Exception as e:
-                self._log(f"UYARI: Socket kapatılırken hata: {e}")
+                except Exception as e:
+                    self._log("UYARI: Socket kapatılırken hata: {}".format(e))
         self.connected = False
         self.socket = None
         self._log("Bağlantı kesildi")
@@ -480,11 +504,11 @@ class EyeTracker:
                 self._log("Göz takibi başlatıldı: OK")
             else:
                 statuscode = response.get('result', {}).get('statuscode', 'bilinmiyor')
-                self._log(f"HATA: Takip başlatılamadı - statuscode: {statuscode}")
+                self._log("HATA: Takip başlatılamadı - statuscode: {}".format(statuscode))
                 raise Exception("Takip başlatılamadı")
                 
         except Exception as e:
-            self._log(f"HATA: Takip başlatma hatası: {type(e).__name__}: {e}")
+            self._log("HATA: Takip başlatma hatası: {}: {}".format(type(e).__name__, e))
             raise
     
     def stop_tracking(self):
@@ -503,7 +527,7 @@ class EyeTracker:
             self.tracking = False
             self._log("Göz takibi durduruldu: OK")
         except Exception as e:
-            self._log(f"HATA: Takip durdurma hatası: {type(e).__name__}: {e}")
+            self._log("HATA: Takip durdurma hatası: {}: {}".format(type(e).__name__, e))
     
     def get_gaze_data(self) -> Optional[Tuple[float, float, float]]:
         """
@@ -546,7 +570,7 @@ class EyeTracker:
             
         except Exception as e:
             # Sadece hata durumunda log (çok sık çağrılıyor olabilir)
-            self._log(f"UYARI: Gaze verisi alma hatası: {type(e).__name__}: {e}")
+            self._log("UYARI: Gaze verisi alma hatası: {}: {}".format(type(e).__name__, e))
             return None
     
     def get_latest_gaze(self) -> Optional[Tuple[float, float, float]]:
