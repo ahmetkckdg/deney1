@@ -184,11 +184,22 @@ class EyeTracker:
                     
                     buffer += chunk
                     total_bytes = len(buffer)
-                    if recv_count <= 3:  # İlk birkaç chunk'ta log
+                    if recv_count <= 5:  # İlk birkaç chunk'ta log
                         self._log("Veri alındı: {} byte (toplam: {} byte)".format(len(chunk), total_bytes))
                     
+                    # Buffer çok büyürse uyarı ver (memory leak önleme)
+                    if total_bytes > 100000:  # 100KB'dan fazla
+                        self._log("UYARI: Buffer çok büyük ({} byte), temizleniyor...".format(total_bytes))
+                        # Son 10KB'ı tut, gerisini at
+                        if b'\r\n' in buffer:
+                            last_newline = buffer.rfind(b'\r\n')
+                            if last_newline > 0:
+                                buffer = buffer[last_newline + 2:]
+                    
                     # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
+                    messages_processed = 0
                     while b'\r\n' in buffer:
+                        messages_processed += 1
                         # İlk tam mesajı al
                         message_end = buffer.find(b'\r\n')
                         message_bytes = buffer[:message_end]
@@ -253,7 +264,13 @@ class EyeTracker:
                         
                         except (json.JSONDecodeError, UnicodeDecodeError) as e:
                             self._log("UYARI: Mesaj parse edilemedi: {}".format(e))
+                            # Hatalı mesajı buffer'dan çıkar (zaten çıkarıldı, sadece log)
                             continue
+                    
+                    # Mesaj işlendi, log
+                    if messages_processed > 0 and recv_count <= 5:
+                        self._log("{} mesaj işlendi, buffer'da kalan: {} byte".format(
+                            messages_processed, len(buffer)))
                         
                 except socket.timeout:
                     # Timeout oldu - kontrol et
@@ -659,8 +676,9 @@ class EyeTracker:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
         # TheEyeTribe API formatı: category="calibration", request="start", values={"pointcount": integer}
+        # Calibration sırasında push mode aktif olabilir, bu yüzden daha uzun timeout kullan
         self._log("Calibration başlatılıyor: point_count={}".format(point_count))
-        response = self._send_request('calibration', 'start', {'pointcount': point_count})
+        response = self._send_request('calibration', 'start', {'pointcount': point_count}, timeout=10.0)
         statuscode = response.get('statuscode', 'yok')
         self._log("Calibration start yanıtı: statuscode={}".format(statuscode))
         return statuscode == 200
