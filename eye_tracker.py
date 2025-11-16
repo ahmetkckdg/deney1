@@ -9,6 +9,7 @@ import json
 import time
 import threading
 from typing import Optional, Tuple
+from queue import Queue
 
 class EyeTracker:
     """
@@ -37,6 +38,13 @@ class EyeTracker:
         self.latest_gaze = None
         self.lock = threading.Lock()
         self.request_id = 0
+        # C# örneğine benzer şekilde: ayrı thread için
+        self.listener_thread = None
+        self.listener_running = False
+        self.response_queue = Queue()  # Gelen mesajlar için queue (thread-safe)
+        self.pending_requests = {}  # Bekleyen request'ler: {(category, request): (event, response_dict)}
+        self.pending_lock = threading.Lock()  # pending_requests için lock
+        self.buffer = b''  # Listener thread için buffer
         
     def _get_request_id(self):
         """Her istek için benzersiz ID oluşturur"""
@@ -62,6 +70,105 @@ class EyeTracker:
             except Exception:
                 # Son çare: direkt print
                 print("[EyeTracker]", message)
+    
+    def _listener_loop(self):
+        """
+        C# örneğindeki ListenerLoop gibi: ayrı thread'de sürekli socket'ten okuyup mesajları parse eder
+        Gelen mesajları queue'ya koyar ve bekleyen request'lere yanıt verir
+        """
+        self._log("Listener loop başlatıldı")
+        buffer = b''
+        
+        while self.listener_running and self.connected and self.socket:
+            try:
+                # Socket'ten oku (C# örneğindeki reader.ReadLine() gibi)
+                # Python'da readline() yok, bu yüzden recv() kullanıyoruz
+                self.socket.settimeout(1.0)  # 1 saniye timeout (non-blocking için)
+                chunk = self.socket.recv(8192)
+                
+                if not chunk:
+                    self._log("Listener: Boş chunk alındı (bağlantı kesildi)")
+                    break
+                
+                buffer += chunk
+                
+                # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
+                while b'\r\n' in buffer:
+                    # İlk tam mesajı al (C# örneğindeki reader.ReadLine() gibi)
+                    message_end = buffer.find(b'\r\n')
+                    message_bytes = buffer[:message_end]
+                    buffer = buffer[message_end + 2:]  # \r\n'yi atla
+                    
+                    try:
+                        message_str = message_bytes.decode('utf-8')
+                        message_json = json.loads(message_str)
+                        
+                        # Mesajı queue'ya koy
+                        self.response_queue.put(message_json)
+                        
+                        # Frame data ise latest_gaze'i güncelle
+                        msg_category = message_json.get('category', '')
+                        msg_request = message_json.get('request', None)
+                        
+                        if msg_category == 'tracker' and msg_request is None:
+                            # Frame data - gaze verisini güncelle
+                            values = message_json.get('values', {})
+                            frame = values.get('frame', {})
+                            if frame:
+                                avg = frame.get('avg', {})
+                                x = avg.get('x', 0)
+                                y = avg.get('y', 0)
+                                time_ms = frame.get('time', int(time.time() * 1000))
+                                timestamp = time_ms / 1000.0
+                                
+                                with self.lock:
+                                    self.latest_gaze = (x, y, timestamp)
+                        
+                        # Bekleyen request'lere yanıt ver
+                        self._check_pending_requests(message_json)
+                        
+                    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+                        self._log("Listener: Mesaj parse edilemedi: {}".format(e))
+                        continue
+                
+            except socket.timeout:
+                # Timeout normal (non-blocking için)
+                continue
+            except (socket.error, OSError, ConnectionResetError) as e:
+                self._log("Listener: Socket hatası: {}".format(e))
+                break
+            except Exception as e:
+                self._log("Listener: Beklenmeyen hata: {}: {}".format(type(e).__name__, e))
+                break
+        
+        self._log("Listener loop sonlandı")
+    
+    def _check_pending_requests(self, message_json: dict):
+        """Gelen mesajın bekleyen bir request'e yanıt olup olmadığını kontrol eder"""
+        msg_category = message_json.get('category', '')
+        msg_request = message_json.get('request', None)
+        
+        with self.pending_lock:
+            # Tüm bekleyen request'leri kontrol et
+            keys_to_remove = []
+            for (cat, req), (event, response_dict) in self.pending_requests.items():
+                if cat == msg_category:
+                    if req is None:
+                        # Heartbeat gibi request olmayan istekler
+                        if msg_request is None:
+                            # Yanıt bulundu!
+                            response_dict['response'] = message_json
+                            event.set()
+                            keys_to_remove.append((cat, req))
+                    elif req == msg_request:
+                        # Request eşleşiyor - yanıt bulundu!
+                        response_dict['response'] = message_json
+                        event.set()
+                        keys_to_remove.append((cat, req))
+            
+            # Eşleşen request'leri temizle
+            for key in keys_to_remove:
+                del self.pending_requests[key]
     
     def _send_request(self, category: str, request_type: str = None, values=None, timeout: float = 5.0) -> dict:
         """
@@ -150,142 +257,53 @@ class EyeTracker:
             self.socket.sendall(message_bytes)
             self._log("İstek başarıyla gönderildi ({} byte)".format(len(message_bytes)))
             
-            # Yanıtı al - timeout ile korumalı
-            # Push mode'da sürekli frame data geliyor, bu yüzden her mesajı ayrı parse etmeliyiz
-            response_data = b''
-            start_time = time.time()
-            recv_count = 0
-            buffer = b''  # Kısmi mesajlar için buffer
-            
+            # C# örneğine benzer: listener thread'den yanıt bekle
             request_type_str = request_type if request_type is not None else "(yok)"
             self._log("Yanıt bekleniyor... (category={}, request={})".format(category, request_type_str))
             
+            # Event ve response dict oluştur
+            response_event = threading.Event()
+            response_dict = {'response': None}
+            
+            # Pending request'e ekle
+            request_key = (category, request_type)
+            with self.pending_lock:
+                self.pending_requests[request_key] = (response_event, response_dict)
+            
+            # Yanıtı bekle (listener thread'den gelecek)
+            start_time = time.time()
             while True:
                 # Timeout kontrolü
                 elapsed = time.time() - start_time
                 if elapsed > timeout:
+                    # Timeout oldu - pending request'i temizle
+                    with self.pending_lock:
+                        if request_key in self.pending_requests:
+                            del self.pending_requests[request_key]
                     self._log("TIMEOUT: {:.2f}s geçti, limit: {}s".format(elapsed, timeout))
                     raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
                 
-                try:
-                    # Kalan timeout süresini hesapla
-                    remaining_timeout = max(0.1, timeout - elapsed)
-                    self.socket.settimeout(remaining_timeout)
-                    
-                    recv_count += 1
-                    if recv_count == 1:
-                        self._log("recv() çağrılıyor (kalan timeout: {:.2f}s)...".format(remaining_timeout))
-                    
-                    chunk = self.socket.recv(4096)
-                    
-                    if not chunk:
-                        self._log("HATA: Boş chunk alındı (bağlantı kesildi)")
-                        raise ConnectionError("Sunucu bağlantısı kesildi")
-                    
-                    buffer += chunk
-                    total_bytes = len(buffer)
-                    if recv_count <= 5:  # İlk birkaç chunk'ta log
-                        self._log("Veri alındı: {} byte (toplam: {} byte)".format(len(chunk), total_bytes))
-                    
-                    # Buffer çok büyürse uyarı ver (memory leak önleme)
-                    if total_bytes > 100000:  # 100KB'dan fazla
-                        self._log("UYARI: Buffer çok büyük ({} byte), temizleniyor...".format(total_bytes))
-                        # Son 10KB'ı tut, gerisini at
-                        if b'\r\n' in buffer:
-                            last_newline = buffer.rfind(b'\r\n')
-                            if last_newline > 0:
-                                buffer = buffer[last_newline + 2:]
-                    
-                    # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
-                    messages_processed = 0
-                    while b'\r\n' in buffer:
-                        messages_processed += 1
-                        # İlk tam mesajı al
-                        message_end = buffer.find(b'\r\n')
-                        message_bytes = buffer[:message_end]
-                        buffer = buffer[message_end + 2:]  # \r\n'yi atla
+                # Event'in set edilip edilmediğini kontrol et (non-blocking)
+                if response_event.wait(timeout=0.1):  # 100ms timeout
+                    # Yanıt geldi!
+                    response = response_dict['response']
+                    if response:
+                        # Pending request'i temizle
+                        with self.pending_lock:
+                            if request_key in self.pending_requests:
+                                del self.pending_requests[request_key]
                         
-                        try:
-                            message_str = message_bytes.decode('utf-8')
-                            message_json = json.loads(message_str)
-                            
-                            # Bu mesaj bizim request'imize ait yanıt mı?
-                            msg_category = message_json.get('category', '')
-                            msg_request = message_json.get('request', None)  # None olabilir (frame data'da yok)
-                            
-                            # API guide'a göre:
-                            # - Request yanıtları: category ve request eşleşmeli
-                            # - Frame data: category="tracker", request yok, values içinde "frame" var
-                            # - Heartbeat yanıtı: category="heartbeat", request yok
-                            
-                            # Request yanıtı kontrolü: category ve request eşleşmeli
-                            if msg_category == category:
-                                # Category eşleşiyor, request kontrolü yap
-                                if request_type is None:
-                                    # Heartbeat gibi request olmayan istekler için
-                                    if msg_request is None:
-                                        # Bu bizim yanıtımız!
-                                        self._log("Yanıt bulundu (request yok): {} byte, {} recv() çağrısı".format(
-                                            len(message_bytes), recv_count))
-                                        response = message_json
-                                        statuscode = response.get('statuscode', 'yok')
-                                        self._log("JSON parse başarılı: category={}, statuscode={}".format(
-                                            msg_category, statuscode))
-                                        return response
-                                elif msg_request == request_type:
-                                    # Request eşleşiyor - bu bizim yanıtımız!
-                                    self._log("Yanıt bulundu: {} byte, {} recv() çağrısı".format(
-                                        len(message_bytes), recv_count))
-                                    response = message_json
-                                    
-                                    # TheEyeTribe yanıt formatı kontrolü
-                                    statuscode = response.get('statuscode', 'yok')
-                                    has_values = 'var' if 'values' in response else 'yok'
-                                    self._log("JSON parse başarılı: category={}, request={}, statuscode={}, values={}".format(
-                                        msg_category, msg_request, statuscode, has_values))
-                                    
-                                    return response
-                            
-                            # Bu bir frame data veya başka bir mesaj, atla
-                            if msg_category == 'tracker' and msg_request is None:
-                                # Frame data - sessizce atla (çok sık geliyor)
-                                # Format: {"category":"tracker","statuscode":200,"values":{"frame":{...}}}
-                                pass
-                            else:
-                                # Diğer mesajlar - logla ama atla (debug için)
-                                # Calibration yanıtları için daha detaylı log
-                                if msg_category == 'calibration':
-                                    self._log("Calibration mesajı alındı (beklenen: category={}, request={}): category={}, request={}, statuscode={}".format(
-                                        category, request_type, msg_category, msg_request if msg_request is not None else "(yok)",
-                                        message_json.get('statuscode', 'yok')))
-                                else:
-                                    self._log("Farklı mesaj alındı (atlanıyor): category={}, request={}".format(
-                                        msg_category, msg_request if msg_request is not None else "(yok)"))
-                        
-                        except (json.JSONDecodeError, UnicodeDecodeError) as e:
-                            self._log("UYARI: Mesaj parse edilemedi: {}".format(e))
-                            # Hatalı mesajı buffer'dan çıkar (zaten çıkarıldı, sadece log)
-                            continue
-                    
-                    # Mesaj işlendi, log
-                    if messages_processed > 0 and recv_count <= 5:
-                        self._log("{} mesaj işlendi, buffer'da kalan: {} byte".format(
-                            messages_processed, len(buffer)))
-                        
-                except socket.timeout:
-                    # Timeout oldu - kontrol et
-                    elapsed = time.time() - start_time
-                    if elapsed >= timeout:
-                        self._log("TIMEOUT: {:.2f}s geçti, limit: {}s".format(elapsed, timeout))
-                        raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
-                    # Kısa timeout olabilir, devam et
-                    continue
-                except (socket.error, OSError) as e:
-                    self._log("HATA: Socket hatası: {}".format(e))
-                    raise ConnectionError("Socket hatası: {}".format(e))
-            
-            # Buraya gelmemeli (while True loop)
-            raise ConnectionError("Yanıt alınamadı")
+                        statuscode = response.get('statuscode', 'yok')
+                        has_values = 'var' if 'values' in response else 'yok'
+                        self._log("Yanıt alındı: category={}, request={}, statuscode={}, values={}".format(
+                            category, request_type_str, statuscode, has_values))
+                        return response
+                    else:
+                        # Event set edildi ama response yok - hata
+                        self._log("UYARI: Event set edildi ama response yok")
+                        continue
+                
+                # Event henüz set edilmedi, devam et
             
         except socket.timeout as e:
             self._log("HATA: İstek timeout oldu: {}".format(e))
@@ -430,6 +448,14 @@ class EyeTracker:
             self.connected = True
             self._log("Adım 5: Bağlantı durumu güncellendi: connected=True")
             
+            # C# örneğine benzer: ayrı thread'de sürekli okuma başlat
+            self._log("Listener thread başlatılıyor...")
+            self.listener_running = True
+            self.buffer = b''  # Buffer'ı temizle
+            self.listener_thread = threading.Thread(target=self._listener_loop, daemon=True)
+            self.listener_thread.start()
+            self._log("Listener thread başlatıldı")
+            
             # Bağlantıyı test et (opsiyonel - eğer test_connection=False ise atla)
             if test_connection:
                 self._log("Adım 6: Bağlantı testi başlatılıyor...")
@@ -563,6 +589,18 @@ class EyeTracker:
             self._log("Takip durduruluyor...")
             self.stop_tracking()
         
+        # Listener thread'i durdur
+        if self.listener_running:
+            self._log("Listener thread durduruluyor...")
+            self.listener_running = False
+            if self.listener_thread and self.listener_thread.is_alive():
+                # Thread'in bitmesini bekle (max 2 saniye)
+                self.listener_thread.join(timeout=2.0)
+                if self.listener_thread.is_alive():
+                    self._log("UYARI: Listener thread zamanında bitmedi")
+                else:
+                    self._log("Listener thread durduruldu")
+        
         if self.socket:
             try:
                 self.socket.close()
@@ -571,6 +609,7 @@ class EyeTracker:
                 self._log("UYARI: Socket kapatılırken hata: {}".format(e))
         self.connected = False
         self.socket = None
+        self.buffer = b''  # Buffer'ı temizle
         self._log("Bağlantı kesildi")
     
     def start_tracking(self):
