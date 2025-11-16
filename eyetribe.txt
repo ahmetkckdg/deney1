@@ -16,3 +16,35 @@ Accessing Tracker device
 The Eye Tribe Tracker stands ready!
 
 [16:43:15.483] INF: Default calibration profile loaded!
+
+
+
+[17:26:59] [EyeTracker] Veri alındı: 467 byte (toplam: 69162 byte)
+[17:26:59] [EyeTracker] Veri alındı: 467 byte (toplam: 69629 byte)
+[17:26:59] [EyeTracker] Veri alındı: 467 byte (toplam: 70096 byte)
+[17:26:59] [EyeTracker] TIMEOUT: 5.03s geçti, limit: 5.0s
+[17:26:59] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:26:59] [EyeTracker] Socket timeout eski haline getirildi: 5.0
+Deney sırasında hata oluştu: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
+Traceback (most recent call last):
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 164, in _send_request
+    raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
+ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\main.py", line 1132, in main    
+    calibration_success = run_calibration(eye_tracker, win)
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\main.py", line 824, in run_calibration
+    if not tracker.calibration_start(point_count=13):
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 615, in calibration_start
+    response = self._send_request('calibration', 'start', {'pointcount': point_count})
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 239, in _send_request
+    raise ConnectionError("İstek gönderilirken hata: {}".format(e))
+ConnectionError: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:26:59] [EyeTracker] Takip zaten durdurulmuş
+[17:26:59] [EyeTracker] Bağlantı kesiliyor...
+[17:26:59] [EyeTracker] Socket kapatıldı
+[17:26:59] [EyeTracker] Bağlantı kesildi
+12.6371         WARNING         Monitor specification not found. Creating a temporary one...
