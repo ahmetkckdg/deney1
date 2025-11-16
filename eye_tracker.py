@@ -6,7 +6,7 @@ Kullanım için TheEyeTribe sunucusunun çalışıyor olması gerekir.
 
 import socket
 import json
-import time
+import time as time_module
 import threading
 from typing import Optional, Tuple
 from queue import Queue
@@ -54,9 +54,9 @@ class EyeTracker:
     def _log(self, message: str):
         """Log mesajı yazdırır (zaman damgası ile)"""
         try:
-            timestamp = time.strftime("%H:%M:%S.%f")[:-3]  # milisaniye hassasiyeti
+            timestamp = time_module.strftime("%H:%M:%S.%f")[:-3]  # milisaniye hassasiyeti
         except Exception:
-            timestamp = time.strftime("%H:%M:%S")
+            timestamp = time_module.strftime("%H:%M:%S")
         
         # Güvenli yazdırma - message içindeki özel karakterleri escape et
         try:
@@ -102,17 +102,30 @@ class EyeTracker:
                 if len(buffer) > 100000:
                     self._log("Listener: UYARI: Buffer çok büyük ({} byte)".format(len(buffer)))
                     # Son 10KB'ı tut
+                    trim_delimiter = None
                     if b'\r\n' in buffer:
-                        last_newline = buffer.rfind(b'\r\n')
+                        trim_delimiter = b'\r\n'
+                    elif b'\n' in buffer:
+                        trim_delimiter = b'\n'
+                    if trim_delimiter:
+                        last_newline = buffer.rfind(trim_delimiter)
                         if last_newline > 0:
-                            buffer = buffer[last_newline + 2:]
+                            buffer = buffer[last_newline + len(trim_delimiter):]
                 
                 # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
-                while b'\r\n' in buffer:
+                while True:
+                    delimiter = None
+                    if b'\r\n' in buffer:
+                        delimiter = b'\r\n'
+                    elif b'\n' in buffer:
+                        delimiter = b'\n'
+                    else:
+                        break
+
                     # İlk tam mesajı al (C# örneğindeki reader.ReadLine() gibi)
-                    message_end = buffer.find(b'\r\n')
+                    message_end = buffer.find(delimiter)
                     message_bytes = buffer[:message_end]
-                    buffer = buffer[message_end + 2:]  # \r\n'yi atla
+                    buffer = buffer[message_end + len(delimiter):]  # satır sonunu atla
                     
                     message_count += 1
                     if message_count <= 5 or message_count % 50 == 0:
@@ -141,7 +154,7 @@ class EyeTracker:
                                 avg = frame.get('avg', {})
                                 x = avg.get('x', 0)
                                 y = avg.get('y', 0)
-                                time_ms = frame.get('time', int(time.time() * 1000))
+                                time_ms = frame.get('time', int(time_module.time() * 1000))
                                 timestamp = time_ms / 1000.0
                                 
                                 with self.lock:
@@ -316,11 +329,11 @@ class EyeTracker:
                 raise ConnectionError("İstek gönderilemedi: {}".format(send_error))
             
             # Yanıtı bekle (listener thread'den gelecek)
-            start_time = time.time()
+            start_time = time_module.time()
             wait_count = 0
             while True:
                 # Timeout kontrolü
-                elapsed = time.time() - start_time
+                elapsed = time_module.time() - start_time
                 if elapsed > timeout:
                     # Timeout oldu - pending request'i temizle
                     with self.pending_lock:
@@ -436,12 +449,12 @@ class EyeTracker:
             
             # Bağlantıyı dene
             self._log("Adım 4: Bağlantı deneniyor ({}:{})...".format(self.host, self.port))
-            connect_start = time.time()
+            connect_start = time_module.time()
             
             try:
                 # Normal connect kullan (timeout zaten ayarlı)
                 self.socket.connect((self.host, self.port))
-                connect_elapsed = time.time() - connect_start
+                connect_elapsed = time_module.time() - connect_start
                 self._log("Bağlantı başarılı! (Süre: {:.3f}s)".format(connect_elapsed))
                 
                 # Socket'in gerçekten bağlı olduğunu kontrol et
@@ -454,7 +467,7 @@ class EyeTracker:
                     # Yine de devam et, bağlantı olabilir
                 
             except socket.timeout:
-                connect_elapsed = time.time() - connect_start
+                connect_elapsed = time_module.time() - connect_start
                 self._log("HATA: Bağlantı timeout ({:.3f}s geçti, limit: {}s)".format(
                     connect_elapsed, connection_timeout))
                 self._log("Sunucu yanıt vermiyor. Kontrol edin:")
@@ -469,7 +482,7 @@ class EyeTracker:
                 self.socket = None
                 return False
             except ConnectionRefusedError as e:
-                connect_elapsed = time.time() - connect_start
+                connect_elapsed = time_module.time() - connect_start
                 self._log("HATA: Bağlantı reddedildi ({:.3f}s): {}".format(connect_elapsed, e))
                 self._log("Sunucu bağlantıyı reddetti. Muhtemelen:")
                 self._log("  - Sunucu çalışmıyor")
@@ -483,7 +496,7 @@ class EyeTracker:
                 self.socket = None
                 return False
             except (socket.error, OSError, ConnectionResetError) as e:
-                connect_elapsed = time.time() - connect_start
+                connect_elapsed = time_module.time() - connect_start
                 self._log("HATA: Bağlantı hatası ({:.3f}s): {}: {}".format(
                     connect_elapsed, type(e).__name__, e))
                 if self.socket:
@@ -514,7 +527,7 @@ class EyeTracker:
             self._log("Listener thread başlatıldı")
             
             # Thread'in başlamasını bekle (kısa bir süre)
-            time.sleep(0.1)
+            time_module.sleep(0.1)
             if self.listener_thread.is_alive():
                 self._log("Listener thread çalışıyor")
             else:
@@ -749,7 +762,7 @@ class EyeTracker:
                     x = avg.get('x', 0)
                     y = avg.get('y', 0)
                     # time milliseconds cinsinden, saniyeye çevir
-                    time_ms = frame.get('time', int(time.time() * 1000))
+                    time_ms = frame.get('time', int(time_module.time() * 1000))
                     timestamp = time_ms / 1000.0
                     
                     with self.lock:
