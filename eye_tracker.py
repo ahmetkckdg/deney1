@@ -78,6 +78,8 @@ class EyeTracker:
         """
         self._log("Listener loop başlatıldı")
         buffer = b''
+        recv_count = 0
+        message_count = 0
         
         while self.listener_running and self.connected and self.socket:
             try:
@@ -90,7 +92,20 @@ class EyeTracker:
                     self._log("Listener: Boş chunk alındı (bağlantı kesildi)")
                     break
                 
+                recv_count += 1
+                if recv_count <= 5 or recv_count % 50 == 0:
+                    self._log("Listener: Veri alındı ({} byte, {} çağrı)".format(len(chunk), recv_count))
+                
                 buffer += chunk
+                
+                # Buffer çok büyürse uyarı ver
+                if len(buffer) > 100000:
+                    self._log("Listener: UYARI: Buffer çok büyük ({} byte)".format(len(buffer)))
+                    # Son 10KB'ı tut
+                    if b'\r\n' in buffer:
+                        last_newline = buffer.rfind(b'\r\n')
+                        if last_newline > 0:
+                            buffer = buffer[last_newline + 2:]
                 
                 # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
                 while b'\r\n' in buffer:
@@ -99,17 +114,25 @@ class EyeTracker:
                     message_bytes = buffer[:message_end]
                     buffer = buffer[message_end + 2:]  # \r\n'yi atla
                     
+                    message_count += 1
+                    if message_count <= 5 or message_count % 50 == 0:
+                        self._log("Listener: Mesaj işleniyor ({} mesaj, {} byte)".format(message_count, len(message_bytes)))
+                    
                     try:
                         message_str = message_bytes.decode('utf-8')
                         message_json = json.loads(message_str)
+                        
+                        msg_category = message_json.get('category', '')
+                        msg_request = message_json.get('request', None)
+                        
+                        if message_count <= 10:
+                            self._log("Listener: Mesaj parse edildi: category={}, request={}".format(
+                                msg_category, msg_request if msg_request is not None else "(yok)"))
                         
                         # Mesajı queue'ya koy
                         self.response_queue.put(message_json)
                         
                         # Frame data ise latest_gaze'i güncelle
-                        msg_category = message_json.get('category', '')
-                        msg_request = message_json.get('request', None)
-                        
                         if msg_category == 'tracker' and msg_request is None:
                             # Frame data - gaze verisini güncelle
                             values = message_json.get('values', {})
@@ -128,20 +151,24 @@ class EyeTracker:
                         self._check_pending_requests(message_json)
                         
                     except (json.JSONDecodeError, UnicodeDecodeError) as e:
-                        self._log("Listener: Mesaj parse edilemedi: {}".format(e))
+                        self._log("Listener: Mesaj parse edilemedi: {} - Mesaj: {}".format(e, message_bytes[:100]))
                         continue
                 
             except socket.timeout:
                 # Timeout normal (non-blocking için)
+                if recv_count == 0:
+                    self._log("Listener: İlk timeout (henüz veri yok)")
                 continue
             except (socket.error, OSError, ConnectionResetError) as e:
                 self._log("Listener: Socket hatası: {}".format(e))
                 break
             except Exception as e:
                 self._log("Listener: Beklenmeyen hata: {}: {}".format(type(e).__name__, e))
+                import traceback
+                self._log("Listener: Traceback: {}".format(traceback.format_exc()))
                 break
         
-        self._log("Listener loop sonlandı")
+        self._log("Listener loop sonlandı (toplam {} mesaj, {} recv çağrısı)".format(message_count, recv_count))
     
     def _check_pending_requests(self, message_json: dict):
         """Gelen mesajın bekleyen bir request'e yanıt olup olmadığını kontrol eder"""
@@ -149,6 +176,11 @@ class EyeTracker:
         msg_request = message_json.get('request', None)
         
         with self.pending_lock:
+            pending_count = len(self.pending_requests)
+            if pending_count > 0:
+                self._log("Listener: Bekleyen request kontrol ediliyor: {} request, gelen: category={}, request={}".format(
+                    pending_count, msg_category, msg_request if msg_request is not None else "(yok)"))
+            
             # Tüm bekleyen request'leri kontrol et
             keys_to_remove = []
             for (cat, req), (event, response_dict) in self.pending_requests.items():
@@ -157,18 +189,26 @@ class EyeTracker:
                         # Heartbeat gibi request olmayan istekler
                         if msg_request is None:
                             # Yanıt bulundu!
+                            self._log("Listener: Yanıt eşleşti! category={}, request=(yok)".format(cat))
                             response_dict['response'] = message_json
                             event.set()
                             keys_to_remove.append((cat, req))
                     elif req == msg_request:
                         # Request eşleşiyor - yanıt bulundu!
+                        self._log("Listener: Yanıt eşleşti! category={}, request={}".format(cat, req))
                         response_dict['response'] = message_json
                         event.set()
                         keys_to_remove.append((cat, req))
+                    else:
+                        # Category eşleşiyor ama request eşleşmiyor
+                        if pending_count > 0:
+                            self._log("Listener: Category eşleşiyor ama request farklı: beklenen={}, gelen={}".format(
+                                req, msg_request))
             
             # Eşleşen request'leri temizle
             for key in keys_to_remove:
                 del self.pending_requests[key]
+                self._log("Listener: Pending request temizlendi: {}".format(key))
     
     def _send_request(self, category: str, request_type: str = None, values=None, timeout: float = 5.0) -> dict:
         """
@@ -201,15 +241,9 @@ class EyeTracker:
         
         self._log("Bağlantı durumu: OK")
         
-        # Socket timeout'unu ayarla (her istek için)
-        old_timeout = self.socket.gettimeout()
-        old_timeout_str = str(old_timeout) if old_timeout is not None else "None"
-        try:
-            self.socket.settimeout(timeout)
-            self._log("Socket timeout ayarlandı: {}s (önceki: {})".format(timeout, old_timeout_str))
-        except Exception as e:
-            self._log("UYARI: Socket timeout ayarlanamadı: {}".format(e))
-            pass
+        # Socket timeout'unu ayarlama - listener thread kullanıyoruz, timeout listener thread'de ayarlı
+        # _send_request'te socket timeout'u değiştirmemeliyiz çünkü listener thread'i etkiler
+        # Listener thread zaten 1.0s timeout kullanıyor
         
         # TheEyeTribe API formatı (JSON-RPC değil!)
         request = {
@@ -272,16 +306,26 @@ class EyeTracker:
             
             # Yanıtı bekle (listener thread'den gelecek)
             start_time = time.time()
+            wait_count = 0
             while True:
                 # Timeout kontrolü
                 elapsed = time.time() - start_time
                 if elapsed > timeout:
                     # Timeout oldu - pending request'i temizle
                     with self.pending_lock:
+                        pending_info = "{} pending request".format(len(self.pending_requests))
                         if request_key in self.pending_requests:
                             del self.pending_requests[request_key]
-                    self._log("TIMEOUT: {:.2f}s geçti, limit: {}s".format(elapsed, timeout))
+                    self._log("TIMEOUT: {:.2f}s geçti, limit: {}s, {} bekleme döngüsü, {}".format(
+                        elapsed, timeout, wait_count, pending_info))
                     raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
+                
+                wait_count += 1
+                if wait_count % 10 == 0:
+                    with self.pending_lock:
+                        pending_count = len(self.pending_requests)
+                    self._log("Yanıt bekleniyor... ({} döngü, {:.2f}s geçti, {} pending request)".format(
+                        wait_count, elapsed, pending_count))
                 
                 # Event'in set edilip edilmediğini kontrol et (non-blocking)
                 if response_event.wait(timeout=0.1):  # 100ms timeout
@@ -295,8 +339,8 @@ class EyeTracker:
                         
                         statuscode = response.get('statuscode', 'yok')
                         has_values = 'var' if 'values' in response else 'yok'
-                        self._log("Yanıt alındı: category={}, request={}, statuscode={}, values={}".format(
-                            category, request_type_str, statuscode, has_values))
+                        self._log("Yanıt alındı: category={}, request={}, statuscode={}, values={} ({} döngü, {:.2f}s)".format(
+                            category, request_type_str, statuscode, has_values, wait_count, elapsed))
                         return response
                     else:
                         # Event set edildi ama response yok - hata
@@ -452,9 +496,24 @@ class EyeTracker:
             self._log("Listener thread başlatılıyor...")
             self.listener_running = True
             self.buffer = b''  # Buffer'ı temizle
+            # Socket timeout'unu listener thread için ayarla (1.0s)
+            try:
+                self.socket.settimeout(1.0)
+                self._log("Socket timeout listener thread için ayarlandı: 1.0s")
+            except Exception as e:
+                self._log("UYARI: Socket timeout ayarlanamadı: {}".format(e))
+            
             self.listener_thread = threading.Thread(target=self._listener_loop, daemon=True)
             self.listener_thread.start()
             self._log("Listener thread başlatıldı")
+            
+            # Thread'in başlamasını bekle (kısa bir süre)
+            import time
+            time.sleep(0.1)
+            if self.listener_thread.is_alive():
+                self._log("Listener thread çalışıyor")
+            else:
+                self._log("UYARI: Listener thread başlamadı!")
             
             # Bağlantıyı test et (opsiyonel - eğer test_connection=False ise atla)
             if test_connection:
