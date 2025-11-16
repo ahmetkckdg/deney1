@@ -287,10 +287,6 @@ class EyeTracker:
                 message_display = message_display[:200] + "..."
             self._log("İstek gönderiliyor ({} byte): {}".format(len(message_bytes), message_display))
             
-            # İsteği gönder - sendall tüm byte'ları gönderir
-            self.socket.sendall(message_bytes)
-            self._log("İstek başarıyla gönderildi ({} byte)".format(len(message_bytes)))
-            
             # C# örneğine benzer: listener thread'den yanıt bekle
             request_type_str = request_type if request_type is not None else "(yok)"
             self._log("Yanıt bekleniyor... (category={}, request={})".format(category, request_type_str))
@@ -299,10 +295,25 @@ class EyeTracker:
             response_event = threading.Event()
             response_dict = {'response': None}
             
-            # Pending request'e ekle
+            # Pending request'e ekle - SENDALL'DAN ÖNCE! (race condition önleme)
+            # Eğer sunucu çok hızlı yanıt verirse, listener thread yanıtı görmeden önce
+            # request'in pending listesine eklenmesi gerekir
             request_key = (category, request_type)
             with self.pending_lock:
                 self.pending_requests[request_key] = (response_event, response_dict)
+            self._log("Pending request eklendi: {}".format(request_key))
+            
+            try:
+                # İsteği gönder - sendall tüm byte'ları gönderir
+                self.socket.sendall(message_bytes)
+                self._log("İstek başarıyla gönderildi ({} byte)".format(len(message_bytes)))
+            except Exception as send_error:
+                # Gönderme başarısız oldu - pending request'i temizle
+                with self.pending_lock:
+                    if request_key in self.pending_requests:
+                        del self.pending_requests[request_key]
+                self._log("HATA: İstek gönderilemedi: {}".format(send_error))
+                raise ConnectionError("İstek gönderilemedi: {}".format(send_error))
             
             # Yanıtı bekle (listener thread'den gelecek)
             start_time = time.time()
@@ -361,17 +372,12 @@ class EyeTracker:
                 self._log("Hatalı yanıt: {}".format(response_display))
             raise ConnectionError("Sunucudan geçersiz JSON yanıtı: {}".format(e))
         except Exception as e:
+            # Hata durumunda pending request'i temizle
+            with self.pending_lock:
+                if 'request_key' in locals() and request_key in self.pending_requests:
+                    del self.pending_requests[request_key]
             self._log("HATA: Beklenmeyen hata: {}: {}".format(type(e).__name__, e))
             raise ConnectionError("İstek gönderilirken hata: {}".format(e))
-        finally:
-            # Timeout'u eski haline getir
-            try:
-                self.socket.settimeout(old_timeout)
-                old_timeout_display = str(old_timeout) if old_timeout is not None else "None"
-                self._log("Socket timeout eski haline getirildi: {}".format(old_timeout_display))
-            except Exception as e:
-                self._log("UYARI: Timeout geri alınamadı: {}".format(e))
-                pass
     
     def connect(self, test_connection: bool = True) -> bool:
         """
@@ -508,7 +514,6 @@ class EyeTracker:
             self._log("Listener thread başlatıldı")
             
             # Thread'in başlamasını bekle (kısa bir süre)
-            import time
             time.sleep(0.1)
             if self.listener_thread.is_alive():
                 self._log("Listener thread çalışıyor")
