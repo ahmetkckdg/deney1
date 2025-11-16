@@ -60,7 +60,8 @@ class EyeTracker:
         Returns:
             Sunucudan gelen JSON yanıtı
         """
-        self._log(f"İstek hazırlanıyor: method='{method}', params={params}, timeout={timeout}s")
+        params_str = repr(params) if params else "None"
+        self._log(f"İstek hazırlanıyor: method='{method}', params={params_str}, timeout={timeout}s")
         
         if not self.connected or not self.socket:
             self._log("HATA: Bağlantı kontrolü başarısız - connected={}, socket={}".format(
@@ -71,9 +72,10 @@ class EyeTracker:
         
         # Socket timeout'unu ayarla (her istek için)
         old_timeout = self.socket.gettimeout()
+        old_timeout_str = str(old_timeout) if old_timeout is not None else "None"
         try:
             self.socket.settimeout(timeout)
-            self._log(f"Socket timeout ayarlandı: {timeout}s (önceki: {old_timeout})")
+            self._log(f"Socket timeout ayarlandı: {timeout}s (önceki: {old_timeout_str})")
         except Exception as e:
             self._log(f"UYARI: Socket timeout ayarlanamadı: {e}")
             pass
@@ -154,10 +156,15 @@ class EyeTracker:
             
             self._log(f"Yanıt parse ediliyor: {len(response_data)} byte")
             response_str = response_data.split(b'\r\n')[0].decode('utf-8')
-            self._log(f"Yanıt string: {response_str[:100]}..." if len(response_str) > 100 else f"Yanıt string: {response_str}")
+            if len(response_str) > 100:
+                self._log(f"Yanıt string: {response_str[:100]}...")
+            else:
+                self._log(f"Yanıt string: {response_str}")
             
             response = json.loads(response_str)
-            self._log(f"JSON parse başarılı: id={response.get('id')}, result={'var' if 'result' in response else 'yok'}, error={'var' if 'error' in response else 'yok'}")
+            has_result = 'var' if 'result' in response else 'yok'
+            has_error = 'var' if 'error' in response else 'yok'
+            self._log(f"JSON parse başarılı: id={response.get('id')}, result={has_result}, error={has_error}")
             
             return response
             
@@ -176,7 +183,8 @@ class EyeTracker:
             # Timeout'u eski haline getir
             try:
                 self.socket.settimeout(old_timeout)
-                self._log(f"Socket timeout eski haline getirildi: {old_timeout}")
+                old_timeout_display = str(old_timeout) if old_timeout is not None else "None"
+                self._log(f"Socket timeout eski haline getirildi: {old_timeout_display}")
             except Exception as e:
                 self._log(f"UYARI: Timeout geri alınamadı: {e}")
                 pass
