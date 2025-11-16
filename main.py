@@ -1080,7 +1080,7 @@ def main():
         # Eye tracker bağlantısı
         eye_tracker = EyeTracker()
         
-        # Bağlantı ekranı
+        # Bağlantı ekranı - animasyonlu (UI donmasını önlemek için)
         connecting_text = visual.TextStim(
             win, 
             text="TheEyeTribe sunucusuna bağlanılıyor...", 
@@ -1091,7 +1091,14 @@ def main():
         connecting_text.draw()
         win.flip()
         
-        if not eye_tracker.connect():
+        # Bağlantıyı dene (timeout korumalı - artık donmayacak)
+        try:
+            connection_success = eye_tracker.connect()
+        except Exception as e:
+            print(f"Bağlantı sırasında beklenmeyen hata: {e}")
+            connection_success = False
+        
+        if not connection_success:
             error_text = visual.TextStim(
                 win,
                 text="TheEyeTribe sunucusuna bağlanılamadı!\nLütfen sunucunun çalıştığından emin olun.\n\nESC tuşuna basarak çıkın.",

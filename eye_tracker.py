@@ -43,19 +43,27 @@ class EyeTracker:
         self.request_id += 1
         return self.request_id
     
-    def _send_request(self, method: str, params: dict = None) -> dict:
+    def _send_request(self, method: str, params: dict = None, timeout: float = 5.0) -> dict:
         """
         TheEyeTribe sunucusuna JSON isteği gönderir ve yanıtı alır.
         
         Args:
             method: API metod adı (örn: 'get', 'set', 'calibration.start')
             params: İsteğe eklenecek parametreler
+            timeout: İstek için timeout süresi (saniye)
             
         Returns:
             Sunucudan gelen JSON yanıtı
         """
-        if not self.connected:
+        if not self.connected or not self.socket:
             raise ConnectionError("TheEyeTribe sunucusuna bağlı değil!")
+        
+        # Socket timeout'unu ayarla (her istek için)
+        old_timeout = self.socket.gettimeout()
+        try:
+            self.socket.settimeout(timeout)
+        except:
+            pass
         
         request = {
             "jsonrpc": "2.0",
@@ -71,13 +79,29 @@ class EyeTracker:
             message = json.dumps(request) + '\r\n'
             self.socket.sendall(message.encode('utf-8'))
             
-            # Yanıtı al
+            # Yanıtı al - timeout ile
             response_data = b''
+            max_attempts = 100  # Maksimum deneme sayısı (timeout koruması)
+            attempts = 0
+            
             while b'\r\n' not in response_data:
-                chunk = self.socket.recv(4096)
-                if not chunk:
-                    raise ConnectionError("Sunucu bağlantısı kesildi")
-                response_data += chunk
+                if attempts >= max_attempts:
+                    raise ConnectionError("Sunucu yanıt vermiyor (timeout)")
+                
+                try:
+                    chunk = self.socket.recv(4096)
+                    if not chunk:
+                        raise ConnectionError("Sunucu bağlantısı kesildi")
+                    response_data += chunk
+                    attempts = 0  # Veri geldiğinde sayacı sıfırla
+                except socket.timeout:
+                    raise ConnectionError(f"Sunucu yanıt vermiyor (timeout: {timeout}s)")
+                except socket.error as e:
+                    raise ConnectionError(f"Socket hatası: {e}")
+                
+                attempts += 1
+                # Kısa bir bekleme (CPU kullanımını azaltmak için)
+                time.sleep(0.001)
             
             # JSON yanıtını parse et
             response_str = response_data.split(b'\r\n')[0].decode('utf-8')
@@ -85,8 +109,18 @@ class EyeTracker:
             
             return response
             
+        except socket.timeout:
+            raise ConnectionError(f"İstek timeout oldu ({timeout}s)")
+        except json.JSONDecodeError as e:
+            raise ConnectionError(f"Sunucudan geçersiz JSON yanıtı: {e}")
         except Exception as e:
             raise ConnectionError(f"İstek gönderilirken hata: {e}")
+        finally:
+            # Timeout'u eski haline getir
+            try:
+                self.socket.settimeout(old_timeout)
+            except:
+                pass
     
     def connect(self) -> bool:
         """
@@ -95,25 +129,77 @@ class EyeTracker:
         Returns:
             Bağlantı başarılı ise True
         """
+        # Önceki bağlantıyı temizle
+        if self.socket:
+            try:
+                self.socket.close()
+            except:
+                pass
+            self.socket = None
+        self.connected = False
+        
         try:
+            # Socket oluştur
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.settimeout(5.0)
-            self.socket.connect((self.host, self.port))
+            
+            # Windows için socket ayarları (Nagle algoritmasını devre dışı bırak - daha hızlı yanıt)
+            try:
+                self.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            except:
+                pass  # Bazı sistemlerde desteklenmeyebilir
+            
+            # Timeout ayarla (bağlantı ve tüm işlemler için)
+            connection_timeout = 5.0
+            self.socket.settimeout(connection_timeout)
+            
+            # Bağlantıyı dene
+            try:
+                self.socket.connect((self.host, self.port))
+            except socket.timeout:
+                print(f"TheEyeTribe sunucusuna bağlanılamadı: Timeout ({connection_timeout}s)")
+                self.socket.close()
+                self.socket = None
+                return False
+            except socket.error as e:
+                print(f"TheEyeTribe sunucusuna bağlanılamadı: {e}")
+                self.socket.close()
+                self.socket = None
+                return False
+            
+            # Bağlantı başarılı
             self.connected = True
             
-            # Bağlantıyı test et
-            response = self._send_request('get', {'category': 'tracker', 'request': 'version'})
-            if 'result' in response:
-                print(f"TheEyeTribe bağlantısı başarılı! Versiyon: {response.get('result', {}).get('version', 'bilinmiyor')}")
-                return True
-            else:
+            # Bağlantıyı test et (daha kısa timeout ile)
+            try:
+                response = self._send_request('get', {'category': 'tracker', 'request': 'version'}, timeout=3.0)
+                if 'result' in response:
+                    version = response.get('result', {}).get('version', 'bilinmiyor')
+                    print(f"TheEyeTribe bağlantısı başarılı! Versiyon: {version}")
+                    return True
+                else:
+                    print("TheEyeTribe sunucusu geçersiz yanıt döndürdü")
+                    self.connected = False
+                    self.socket.close()
+                    self.socket = None
+                    return False
+            except ConnectionError as e:
+                print(f"TheEyeTribe bağlantı testi başarısız: {e}")
                 self.connected = False
+                if self.socket:
+                    self.socket.close()
+                    self.socket = None
                 return False
                 
         except Exception as e:
             print(f"TheEyeTribe bağlantı hatası: {e}")
             print("Lütfen TheEyeTribe sunucusunun çalıştığından emin olun.")
             self.connected = False
+            if self.socket:
+                try:
+                    self.socket.close()
+                except:
+                    pass
+                self.socket = None
             return False
     
     def disconnect(self):
