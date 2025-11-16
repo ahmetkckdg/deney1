@@ -503,8 +503,8 @@ class EyeTracker:
             try:
                 self.socket.close()
                 self._log("Socket kapatıldı")
-                except Exception as e:
-                    self._log("UYARI: Socket kapatılırken hata: {}".format(e))
+            except Exception as e:
+                self._log("UYARI: Socket kapatılırken hata: {}".format(e))
         self.connected = False
         self.socket = None
         self._log("Bağlantı kesildi")
