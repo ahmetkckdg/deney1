@@ -1092,11 +1092,18 @@ def main():
         win.flip()
         
         # Bağlantıyı dene (timeout korumalı - artık donmayacak)
+        # İlk denemede test ile, eğer takılırsa test olmadan dene
         try:
-            connection_success = eye_tracker.connect()
+            connection_success = eye_tracker.connect(test_connection=True)
         except Exception as e:
             print(f"Bağlantı sırasında beklenmeyen hata: {e}")
-            connection_success = False
+            # Test olmadan tekrar dene
+            try:
+                print("Test olmadan tekrar deneniyor...")
+                connection_success = eye_tracker.connect(test_connection=False)
+            except Exception as e2:
+                print(f"İkinci deneme de başarısız: {e2}")
+                connection_success = False
         
         if not connection_success:
             error_text = visual.TextStim(
