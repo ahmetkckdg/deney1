@@ -157,7 +157,8 @@ class EyeTracker:
             recv_count = 0
             buffer = b''  # Kısmi mesajlar için buffer
             
-            self._log("Yanıt bekleniyor... (category={}, request={})".format(category, request_type))
+            request_type_str = request_type if request_type is not None else "(yok)"
+            self._log("Yanıt bekleniyor... (category={}, request={})".format(category, request_type_str))
             
             while True:
                 # Timeout kontrolü
@@ -240,9 +241,15 @@ class EyeTracker:
                                 # Format: {"category":"tracker","statuscode":200,"values":{"frame":{...}}}
                                 pass
                             else:
-                                # Diğer mesajlar - logla ama atla
-                                self._log("Farklı mesaj alındı (atlanıyor): category={}, request={}".format(
-                                    msg_category, msg_request if msg_request is not None else "(yok)"))
+                                # Diğer mesajlar - logla ama atla (debug için)
+                                # Calibration yanıtları için daha detaylı log
+                                if msg_category == 'calibration':
+                                    self._log("Calibration mesajı alındı (beklenen: category={}, request={}): category={}, request={}, statuscode={}".format(
+                                        category, request_type, msg_category, msg_request if msg_request is not None else "(yok)",
+                                        message_json.get('statuscode', 'yok')))
+                                else:
+                                    self._log("Farklı mesaj alındı (atlanıyor): category={}, request={}".format(
+                                        msg_category, msg_request if msg_request is not None else "(yok)"))
                         
                         except (json.JSONDecodeError, UnicodeDecodeError) as e:
                             self._log("UYARI: Mesaj parse edilemedi: {}".format(e))
@@ -652,8 +659,11 @@ class EyeTracker:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
         # TheEyeTribe API formatı: category="calibration", request="start", values={"pointcount": integer}
+        self._log("Calibration başlatılıyor: point_count={}".format(point_count))
         response = self._send_request('calibration', 'start', {'pointcount': point_count})
-        return response.get('statuscode') == 200
+        statuscode = response.get('statuscode', 'yok')
+        self._log("Calibration start yanıtı: statuscode={}".format(statuscode))
+        return statuscode == 200
     
     def calibration_pointstart(self, x: float, y: float):
         """Belirli bir nokta için kalibrasyonu başlatır"""
