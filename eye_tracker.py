@@ -63,22 +63,29 @@ class EyeTracker:
                 # Son çare: direkt print
                 print("[EyeTracker]", message)
     
-    def _send_request(self, method: str, params: dict = None, timeout: float = 5.0) -> dict:
+    def _send_request(self, category: str, request_type: str = None, values=None, timeout: float = 5.0) -> dict:
         """
         TheEyeTribe sunucusuna JSON isteği gönderir ve yanıtı alır.
         
+        TheEyeTribe API formatı (JSON-RPC değil, özel format):
+        {
+            "category": "tracker",
+            "request": "get",
+            "values": [...] veya {...}
+        }
+        
         Args:
-            method: API metod adı (örn: 'get', 'set', 'calibration.start')
-            params: İsteğe eklenecek parametreler
+            category: İstek kategorisi ('tracker', 'calibration', 'heartbeat')
+            request_type: İstek tipi ('get', 'set', 'start', 'pointstart', 'pointend', vb.)
+            values: İstek değerleri (list, dict veya None)
             timeout: İstek için timeout süresi (saniye)
             
         Returns:
             Sunucudan gelen JSON yanıtı
         """
-        params_str = repr(params) if params else "None"
-        method_str = str(method)
-        self._log("İstek hazırlanıyor: method={}, params={}, timeout={}s".format(
-            repr(method_str), params_str, timeout))
+        values_str = repr(values) if values else "None"
+        self._log("İstek hazırlanıyor: category={}, request={}, values={}, timeout={}s".format(
+            category, request_type, values_str, timeout))
         
         if not self.connected or not self.socket:
             self._log("HATA: Bağlantı kontrolü başarısız - connected={}, socket={}".format(
@@ -97,17 +104,22 @@ class EyeTracker:
             self._log("UYARI: Socket timeout ayarlanamadı: {}".format(e))
             pass
         
+        # TheEyeTribe API formatı (JSON-RPC değil!)
         request = {
-            "jsonrpc": "2.0",
-            "id": self._get_request_id(),
-            "method": method
+            "category": category
         }
         
-        if params:
-            request["params"] = params
+        # request_type'ı ekle (None ise null olarak eklenir - heartbeat için gerekli)
+        # C# örneği: {"category":"heartbeat","request":null}
+        request["request"] = request_type
+        
+        # values varsa ekle (list veya dict olabilir)
+        if values is not None:
+            request["values"] = values
         
         # İstek detaylarını logla
-        self._log("JSON isteği oluşturuldu: id={}".format(request['id']))
+        request_type_str = request_type if request_type else "(yok)"
+        self._log("JSON isteği oluşturuldu: category={}, request={}".format(category, request_type_str))
         try:
             request_preview = json.dumps(request, indent=2, ensure_ascii=False)
             # İlk 300 karakteri göster
@@ -120,8 +132,11 @@ class EyeTracker:
             self._log("UYARI: İstek preview oluşturulamadı: {}".format(e))
         
         try:
-            # JSON isteğini gönder - ensure_ascii=False ile Unicode karakterleri koru
-            message = json.dumps(request, ensure_ascii=False) + '\r\n'
+            # JSON isteğini gönder - TheEyeTribe API formatı:
+            # - Compact JSON (indent yok)
+            # - ensure_ascii=False (Unicode karakterleri koru)
+            # - \r\n ile bitir (TheEyeTribe protokolü gereksinimi)
+            message = json.dumps(request, ensure_ascii=False, separators=(',', ':')) + '\r\n'
             message_bytes = message.encode('utf-8')
             
             # Log için güvenli gösterim
@@ -130,7 +145,7 @@ class EyeTracker:
                 message_display = message_display[:200] + "..."
             self._log("İstek gönderiliyor ({} byte): {}".format(len(message_bytes), message_display))
             
-            # İsteği gönder
+            # İsteği gönder - sendall tüm byte'ları gönderir
             self.socket.sendall(message_bytes)
             self._log("İstek başarıyla gönderildi ({} byte)".format(len(message_bytes)))
             
@@ -199,10 +214,12 @@ class EyeTracker:
                 self._log("Yanıt string: {}".format(response_display))
             
             response = json.loads(response_str)
-            has_result = 'var' if 'result' in response else 'yok'
-            has_error = 'var' if 'error' in response else 'yok'
-            self._log("JSON parse başarılı: id={}, result={}, error={}".format(
-                response.get('id'), has_result, has_error))
+            # TheEyeTribe yanıt formatı kontrolü
+            has_statuscode = 'var' if 'statuscode' in response else 'yok'
+            has_values = 'var' if 'values' in response else 'yok'
+            statuscode = response.get('statuscode', 'yok')
+            self._log("JSON parse başarılı: category={}, request={}, statuscode={}, values={}".format(
+                response.get('category', 'yok'), response.get('request', 'yok'), statuscode, has_values))
             
             return response
             
@@ -361,18 +378,27 @@ class EyeTracker:
                     peer = self.socket.getpeername()
                     self._log("Socket bağlı: {}:{}".format(peer[0], peer[1]))
                     
-                    # Şimdi basit bir istek gönder
+                    # Şimdi basit bir istek gönder - TheEyeTribe API formatına göre
                     self._log("Basit test isteği gönderiliyor...")
-                    # Daha uzun timeout ile dene (sunucu yavaş yanıt verebilir)
-                    response = self._send_request('get', {'category': 'tracker', 'request': 'version'}, timeout=5.0)
+                    # TheEyeTribe API formatı: category="tracker", request="get", values=["version"]
+                    response = self._send_request('tracker', 'get', ['version'], timeout=5.0)
                     
-                    if 'result' in response:
-                        version = response.get('result', {}).get('version', 'bilinmiyor')
-                        self._log("BAĞLANTI BAŞARILI! Versiyon: {}".format(version))
-                        test_success = True
-                    elif 'error' in response:
-                        error = response.get('error', {})
-                        self._log("UYARI: Sunucu hata döndürdü: {}".format(error))
+                    # TheEyeTribe yanıt formatı kontrolü
+                    if 'statuscode' in response and response.get('statuscode') == 200:
+                        values = response.get('values', {})
+                        if 'version' in values:
+                            version = values.get('version', 'bilinmiyor')
+                            self._log("BAĞLANTI BAŞARILI! Versiyon: {}".format(version))
+                            test_success = True
+                        else:
+                            self._log("UYARI: Yanıtta 'version' yok, ancak statuscode=200")
+                            self._log("Yanıt values: {}".format(values))
+                            test_success = False
+                    elif 'statuscode' in response:
+                        statuscode = response.get('statuscode')
+                        statusmessage = response.get('values', {}).get('statusmessage', 'bilinmiyor')
+                        self._log("UYARI: Sunucu hata döndürdü: statuscode={}, message={}".format(
+                            statuscode, statusmessage))
                         self._log("Ancak bağlantı kuruldu, devam ediliyor...")
                         test_success = False
                     else:
@@ -492,19 +518,21 @@ class EyeTracker:
         
         try:
             # Push modunu etkinleştir (sürekli veri almak için)
+            # TheEyeTribe API formatı: category="tracker", request="set", values={"push": true, "version": 1}
             self._log("Push modu etkinleştiriliyor...")
-            response = self._send_request('set', {
-                'category': 'tracker',
-                'request': 'push',
-                'values': [True]
+            response = self._send_request('tracker', 'set', {
+                'push': True,
+                'version': 1
             })
             
-            if 'result' in response and response['result'].get('statuscode') == 200:
+            if 'statuscode' in response and response.get('statuscode') == 200:
                 self.tracking = True
                 self._log("Göz takibi başlatıldı: OK")
             else:
-                statuscode = response.get('result', {}).get('statuscode', 'bilinmiyor')
-                self._log("HATA: Takip başlatılamadı - statuscode: {}".format(statuscode))
+                statuscode = response.get('statuscode', 'bilinmiyor')
+                statusmessage = response.get('values', {}).get('statusmessage', 'bilinmiyor')
+                self._log("HATA: Takip başlatılamadı - statuscode: {}, message: {}".format(
+                    statuscode, statusmessage))
                 raise Exception("Takip başlatılamadı")
                 
         except Exception as e:
@@ -519,10 +547,9 @@ class EyeTracker:
         
         self._log("Göz takibi durduruluyor...")
         try:
-            response = self._send_request('set', {
-                'category': 'tracker',
-                'request': 'push',
-                'values': [False]
+            # TheEyeTribe API formatı: category="tracker", request="set", values={"push": false}
+            response = self._send_request('tracker', 'set', {
+                'push': False
             })
             self.tracking = False
             self._log("Göz takibi durduruldu: OK")
@@ -542,20 +569,21 @@ class EyeTracker:
             return None
         
         try:
-            # Frame verisini al (log sadece hata durumunda)
-            response = self._send_request('get', {
-                'category': 'tracker',
-                'request': 'frame'
-            }, timeout=1.0)  # Gaze verisi için daha kısa timeout
+            # Frame verisini al - TheEyeTribe API formatı: category="tracker", request="get", values=["frame"]
+            response = self._send_request('tracker', 'get', ['frame'], timeout=1.0)
             
-            if 'result' in response:
-                frame = response['result'].get('frame', {})
+            # TheEyeTribe yanıt formatı: {"category": "tracker", "request": "get", "statuscode": 200, "values": {"frame": {...}}}
+            if 'statuscode' in response and response.get('statuscode') == 200:
+                values = response.get('values', {})
+                frame = values.get('frame', {})
                 if frame:
                     # Gaze verilerini çıkar
                     avg = frame.get('avg', {})
                     x = avg.get('x', 0)
                     y = avg.get('y', 0)
-                    timestamp = frame.get('time', time.time())
+                    # time milliseconds cinsinden, saniyeye çevir
+                    time_ms = frame.get('time', int(time.time() * 1000))
+                    timestamp = time_ms / 1000.0
                     
                     with self.lock:
                         self.latest_gaze = (x, y, timestamp)
@@ -565,7 +593,7 @@ class EyeTracker:
                     # Frame boş - sessizce None döndür (çok sık çağrılıyor)
                     return None
             else:
-                # Result yok - sessizce None döndür
+                # Statuscode 200 değil veya yanıt formatı beklenmeyen - sessizce None döndür
                 return None
             
         except Exception as e:
@@ -583,41 +611,47 @@ class EyeTracker:
         if not self.connected:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
-        response = self._send_request('calibration.start', {'pointcount': point_count})
-        return response.get('result', {}).get('statuscode') == 200
+        # TheEyeTribe API formatı: category="calibration", request="start", values={"pointcount": integer}
+        response = self._send_request('calibration', 'start', {'pointcount': point_count})
+        return response.get('statuscode') == 200
     
     def calibration_pointstart(self, x: float, y: float):
         """Belirli bir nokta için kalibrasyonu başlatır"""
         if not self.connected:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
-        response = self._send_request('calibration.pointstart', {'x': x, 'y': y})
-        return response.get('result', {}).get('statuscode') == 200
+        # TheEyeTribe API formatı: category="calibration", request="pointstart", values={"x": integer, "y": integer}
+        # x ve y integer olmalı (pixel koordinatları)
+        response = self._send_request('calibration', 'pointstart', {'x': int(x), 'y': int(y)})
+        return response.get('statuscode') == 200
     
-    def calibration_pointend(self, x: float, y: float):
+    def calibration_pointend(self, x: float = None, y: float = None):
         """Belirli bir nokta için kalibrasyonu bitirir"""
         if not self.connected:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
-        response = self._send_request('calibration.pointend', {'x': x, 'y': y})
-        return response.get('result', {}).get('statuscode') == 200
+        # TheEyeTribe API formatı: category="calibration", request="pointend" (values yok)
+        response = self._send_request('calibration', 'pointend', None)
+        return response.get('statuscode') == 200
     
     def calibration_abort(self):
         """Kalibrasyonu iptal eder"""
         if not self.connected:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
-        response = self._send_request('calibration.abort')
-        return response.get('result', {}).get('statuscode') == 200
+        # TheEyeTribe API formatı: category="calibration", request="abort" (values yok)
+        response = self._send_request('calibration', 'abort', None)
+        return response.get('statuscode') == 200
     
     def calibration_result(self) -> dict:
         """Kalibrasyon sonucunu döndürür"""
         if not self.connected:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
-        response = self._send_request('calibration.result')
-        if 'result' in response:
-            return response['result']
+        # Not: TheEyeTribe API'sinde ayrı bir "result" request'i yok
+        # Calibration result genellikle son pointend yanıtında gelir
+        # Bu metod sadece son pointend yanıtını saklamak için kullanılabilir
+        # Şimdilik boş dict döndürüyoruz, çünkü result pointend'den geliyor
         return {}
     
     def calibration_clear(self):
@@ -625,8 +659,23 @@ class EyeTracker:
         if not self.connected:
             raise ConnectionError("Önce bağlantı kurulmalı!")
         
-        response = self._send_request('calibration.clear')
-        return response.get('result', {}).get('statuscode') == 200
+        # TheEyeTribe API formatı: category="calibration", request="clear" (values yok)
+        response = self._send_request('calibration', 'clear', None)
+        return response.get('statuscode') == 200
+    
+    def send_heartbeat(self):
+        """Sunucuya heartbeat gönderir (bağlantıyı canlı tutmak için)"""
+        if not self.connected:
+            return False
+        
+        try:
+            # TheEyeTribe API formatı: category="heartbeat", request=null (C# örneğine göre)
+            # C# örneği: {"category":"heartbeat","request":null}
+            response = self._send_request('heartbeat', None, None, timeout=1.0)
+            return response.get('statuscode') == 200
+        except Exception as e:
+            self._log("UYARI: Heartbeat gönderilemedi: {}".format(e))
+            return False
     
     def is_connected(self) -> bool:
         """Bağlantı durumunu kontrol eder"""

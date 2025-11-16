@@ -868,40 +868,52 @@ def run_calibration(tracker, win):
             win.flip()
         
         # Kalibrasyon noktasını bitir
-        tracker.calibration_pointend(x, y)
+        tracker.calibration_pointend()
         
         # Noktalar arası bekleme
         core.wait(0.5)
     
-    # Kalibrasyon sonucunu kontrol et
-    result = tracker.calibration_result()
+    # Kalibrasyon sonucunu kontrol et - get request ile al
+    # TheEyeTribe API: category="tracker", request="get", values=["calibresult"]
+    avg_error = float('inf')
+    success = False
+    try:
+        calib_result_response = tracker._send_request('tracker', 'get', ['calibresult'])
+        if calib_result_response.get('statuscode') == 200:
+            values = calib_result_response.get('values', {})
+            calibresult = values.get('calibresult', {})
+            
+            if calibresult:
+                # calibresult bir array olabilir veya object olabilir
+                if isinstance(calibresult, list) and len(calibresult) > 0:
+                    calibresult = calibresult[0]
+                
+                avg_error = calibresult.get('deg', float('inf'))
+                # Yüksek doğruluk için 0.5 dereceden küçük hata gerekli
+                success = avg_error < 0.5
+    except Exception as e:
+        print("Kalibrasyon sonucu alınamadı: {}".format(e))
+        success = False
     
-    if result:
-        avg_error = result.get('calibresult', {}).get('avgdeg', float('inf'))
-        # Yüksek doğruluk için 0.5 dereceden küçük hata gerekli
-        success = avg_error < 0.5
-        
-        if success:
-            message = f"Kalibrasyon başarılı!\nOrtalama hata: {avg_error:.2f} derece\n\nSPACE tuşuna basın."
-        else:
-            message = f"Kalibrasyon doğruluğu yetersiz.\nOrtalama hata: {avg_error:.2f} derece (hedef: <0.5°)\n\nTekrar denemek için SPACE, devam etmek için ENTER tuşuna basın."
-        
-        result_text = visual.TextStim(win, text=message, pos=(0, 0), height=SCREEN_HEIGHT * 0.03, color='white', wrapWidth=SCREEN_WIDTH * 0.8)
-        result_text.draw()
-        win.flip()
-        
-        keys = event.waitKeys(keyList=['space', 'return', 'escape'])
-        
-        if 'escape' in keys:
-            return False
-        elif 'space' in keys and not success:
-            # Tekrar dene
-            tracker.calibration_clear()
-            return run_calibration(tracker, win)
-        else:
-            return success
+    if success:
+        message = f"Kalibrasyon başarılı!\nOrtalama hata: {avg_error:.2f} derece\n\nSPACE tuşuna basın."
+    else:
+        message = f"Kalibrasyon doğruluğu yetersiz.\nOrtalama hata: {avg_error:.2f} derece (hedef: <0.5°)\n\nTekrar denemek için SPACE, devam etmek için ENTER tuşuna basın."
     
-    return False
+    result_text = visual.TextStim(win, text=message, pos=(0, 0), height=SCREEN_HEIGHT * 0.03, color='white', wrapWidth=SCREEN_WIDTH * 0.8)
+    result_text.draw()
+    win.flip()
+    
+    keys = event.waitKeys(keyList=['space', 'return', 'escape'])
+    
+    if 'escape' in keys:
+        return False
+    elif 'space' in keys and not success:
+        # Tekrar dene
+        tracker.calibration_clear()
+        return run_calibration(tracker, win)
+    else:
+        return success
 
 def show_consent_form():
     """Bilgilendirilmiş gönüllü onam formunu gösterir ve kullanıcının onayını alır"""
