@@ -19,15 +19,20 @@ FACE_REGIONS = [
     "left_cheek", "right_cheek", "forehead", "chin"
 ]
 
-def is_point_in_region(gaze_x, gaze_y, region_data):
+def is_point_in_region(gaze_x, gaze_y, frame_data, region_name, tolerance=0.0):
     """Gaze noktasının belirli bir yüz bölgesi içinde olup olmadığını kontrol eder"""
-    if pd.isna(region_data.get("min_x")) or pd.isna(region_data.get("max_x")):
+    min_x = frame_data.get(f"{region_name}_min_x")
+    max_x = frame_data.get(f"{region_name}_max_x")
+    min_y = frame_data.get(f"{region_name}_min_y")
+    max_y = frame_data.get(f"{region_name}_max_y")
+
+    if any(pd.isna(val) for val in (min_x, max_x, min_y, max_y)):
         return False
     
-    min_x = region_data["min_x"]
-    max_x = region_data["max_x"]
-    min_y = region_data["min_y"]
-    max_y = region_data["max_y"]
+    min_x -= tolerance
+    min_y -= tolerance
+    max_x += tolerance
+    max_y += tolerance
     
     return (min_x <= gaze_x <= max_x) and (min_y <= gaze_y <= max_y)
 
@@ -136,7 +141,7 @@ def analyze_gaze_data():
             
             # Önce bölge içinde mi kontrol et
             for region in FACE_REGIONS:
-                if is_point_in_region(gaze_x, gaze_y, frame_data):
+                if is_point_in_region(gaze_x, gaze_y, frame_data, region, tolerance=6.0):
                     gaze_region = region
                     region_center_x = frame_data.get(f"{region}_center_x")
                     region_center_y = frame_data.get(f"{region}_center_y")

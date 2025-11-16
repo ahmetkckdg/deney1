@@ -20,6 +20,10 @@ mp_face_mesh = mp.solutions.face_mesh
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
+# Yüz bölgeleri bounding box'larını biraz genişletmek için padding oranı
+REGION_PADDING_RATIO = 0.12  # Her bir kenara %12 padding ekle
+MIN_REGION_PADDING = 6       # Piksel cinsinden minimum padding
+
 # Yüz bölgeleri tanımlamaları (MediaPipe Face Mesh landmark indeksleri - 468 landmark)
 # MediaPipe Face Mesh: https://github.com/google/mediapipe/blob/master/mediapipe/modules/face_geometry/data/canonical_face_model_uv_visualization.png
 FACE_REGIONS = {
@@ -38,8 +42,22 @@ FACE_REGIONS = {
     # Alın (forehead)
     "forehead": [10, 151, 9, 107, 55, 65, 52, 53, 46, 124, 35, 31, 228, 229, 230, 231, 232, 233, 244, 245],
     # Çene (chin)
-    "chin": [18, 200, 199, 175, 169, 170, 140, 136, 150, 176, 148, 152, 377, 400, 378, 379, 365, 397, 288, 361, 323]
+    "chin": [18, 200, 199, 175, 169, 170, 140, 136, 150, 176, 148, 152, 377, 400, 378, 379, 365, 397, 288, 361, 323],
+    # Sol kulak (katılımcının solu - ekranın sağ tarafı)
+    "left_ear": [234, 93, 132, 58, 172, 136, 150, 176, 377, 379, 397, 400, 356],
+    # Sağ kulak (katılımcının sağı - ekranın sol tarafı)
+    "right_ear": [454, 323, 361, 288, 397, 365, 379, 378, 400, 352, 330, 332, 284, 251, 389],
+    # Tüm yüz ovali - genel referans için
+    "face_outline": [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400,
+                     377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
 }
+
+def _apply_padding(min_val, max_val, length, max_limit):
+    """Belirli bir eksende padding uygular ve sınırlar dahilinde kalır"""
+    padding = max(MIN_REGION_PADDING, int(length * REGION_PADDING_RATIO))
+    padded_min = max(0, min_val - padding)
+    padded_max = min(max_limit, max_val + padding)
+    return padded_min, padded_max
 
 def get_region_bounds(landmarks, region_indices, img_width, img_height):
     """Belirli bir yüz bölgesinin bounding box'ını hesaplar"""
@@ -60,15 +78,29 @@ def get_region_bounds(landmarks, region_indices, img_width, img_height):
     if not x_coords or not y_coords:
         return None
     
+    min_x = min(x_coords)
+    max_x = max(x_coords)
+    min_y = min(y_coords)
+    max_y = max(y_coords)
+    width = max_x - min_x
+    height = max_y - min_y
+
+    # Padding uygula ve sınırları koru
+    padded_min_x, padded_max_x = _apply_padding(min_x, max_x, width, img_width - 1)
+    padded_min_y, padded_max_y = _apply_padding(min_y, max_y, height, img_height - 1)
+
+    padded_width = padded_max_x - padded_min_x
+    padded_height = padded_max_y - padded_min_y
+
     return {
-        "min_x": min(x_coords),
-        "max_x": max(x_coords),
-        "min_y": min(y_coords),
-        "max_y": max(y_coords),
-        "center_x": (min(x_coords) + max(x_coords)) / 2,
-        "center_y": (min(y_coords) + max(y_coords)) / 2,
-        "width": max(x_coords) - min(x_coords),
-        "height": max(y_coords) - min(y_coords)
+        "min_x": padded_min_x,
+        "max_x": padded_max_x,
+        "min_y": padded_min_y,
+        "max_y": padded_max_y,
+        "center_x": (padded_min_x + padded_max_x) / 2,
+        "center_y": (padded_min_y + padded_max_y) / 2,
+        "width": padded_width,
+        "height": padded_height
     }
 
 def get_region_center(landmarks, region_indices, img_width, img_height):

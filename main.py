@@ -340,15 +340,18 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                 gaze_data = eye_tracker.get_gaze_data()
                 if gaze_data and participant_id and video_id:
                     x, y, timestamp = gaze_data
-                    # Gaze koordinatlarını video ekran boyutuna göre normalize et
-                    # TheEyeTribe koordinatları tam ekran olabilir, video ekranına göre ayarla
-                    # Video ekranı: 0,0 (sol üst) - SCREEN_WIDTH,SCREEN_HEIGHT (sağ alt)
-                    # Gaze verileri zaten video ekran koordinatlarında olmalı (kalibrasyon video ekranına göre yapıldı)
-                    # Ancak emin olmak için sınırları kontrol et
-                    x_normalized = max(0, min(SCREEN_WIDTH, x))
-                    y_normalized = max(0, min(SCREEN_HEIGHT, y))
+
+                    # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor.
+                    # Eğer gelen değerler bu aralıktaysa ekran pikseline ölçekle.
+                    if -0.5 <= x <= 1.5 and -0.5 <= y <= 1.5:
+                        x *= SCREEN_WIDTH
+                        y *= SCREEN_HEIGHT
+
+                    # Ekran sınırlarını aşmasını engelle
+                    x_clamped = max(0, min(SCREEN_WIDTH, x))
+                    y_clamped = max(0, min(SCREEN_HEIGHT, y))
                     video_time = current_time
-                    save_gaze_data(participant_id, video_id, x_normalized, y_normalized, timestamp, video_time, flush=False)
+                    save_gaze_data(participant_id, video_id, x_clamped, y_clamped, timestamp, video_time, flush=False)
     
     # Video bittiğinde kalan gaze verilerini kaydet
     global gaze_buffer
