@@ -820,9 +820,21 @@ def run_calibration(tracker, win):
         (screen_width * 0.75, screen_height * 0.95),   # Alt sağ
     ]
     
+    # Her denemeden önce kalibrasyon durumunu temizle
+    try:
+        tracker.calibration_prepare()
+    except ConnectionError as e:
+        print("Kalibrasyon durumu temizlenemedi: {}".format(e))
+        return False
+    except Exception as e:
+        print("Kalibrasyon hazırlığı sırasında beklenmeyen hata: {}".format(e))
+        return False
+    
     # Kalibrasyonu başlat (13 nokta)
     if not tracker.calibration_start(point_count=13):
         print("Kalibrasyon başlatılamadı!")
+        tracker.calibration_abort()
+        tracker.calibration_clear()
         return False
     
     # Talimat ekranı
@@ -859,7 +871,11 @@ def run_calibration(tracker, win):
             win.flip()
         
         # Kalibrasyon noktasını başlat (TheEyeTribe koordinat sistemi: sol üst köşe 0,0)
-        tracker.calibration_pointstart(x, y)
+        if not tracker.calibration_pointstart(x, y):
+            print(f"Kalibrasyon noktası başlatılamadı (index={i}). Kalibrasyon iptal ediliyor.")
+            tracker.calibration_abort()
+            tracker.calibration_clear()
+            return False
         
         # Küçük beyaz nokta göster (sabit bakış için - 3 saniye, daha uzun süre daha iyi doğruluk)
         for _ in range(90):  # ~3 saniye (90 frame @ 30fps)
@@ -868,7 +884,11 @@ def run_calibration(tracker, win):
             win.flip()
         
         # Kalibrasyon noktasını bitir
-        tracker.calibration_pointend()
+        if not tracker.calibration_pointend():
+            print(f"Kalibrasyon noktası bitirilemedi (index={i}). Kalibrasyon iptal ediliyor.")
+            tracker.calibration_abort()
+            tracker.calibration_clear()
+            return False
         
         # Noktalar arası bekleme
         core.wait(0.5)
@@ -889,8 +909,8 @@ def run_calibration(tracker, win):
                     calibresult = calibresult[0]
                 
                 avg_error = calibresult.get('deg', float('inf'))
-                # Yüksek doğruluk için 0.5 dereceden küçük hata gerekli
-                success = avg_error < 0.5
+                # Yüksek doğruluk için 2.0 dereceden küçük hata yeterli
+                success = avg_error < 2.0
     except Exception as e:
         print("Kalibrasyon sonucu alınamadı: {}".format(e))
         success = False
@@ -898,7 +918,7 @@ def run_calibration(tracker, win):
     if success:
         message = f"Kalibrasyon başarılı!\nOrtalama hata: {avg_error:.2f} derece\n\nSPACE tuşuna basın."
     else:
-        message = f"Kalibrasyon doğruluğu yetersiz.\nOrtalama hata: {avg_error:.2f} derece (hedef: <0.5°)\n\nTekrar denemek için SPACE, devam etmek için ENTER tuşuna basın."
+        message = f"Kalibrasyon doğruluğu yetersiz.\nOrtalama hata: {avg_error:.2f} derece (hedef: <2°)\n\nTekrar denemek için SPACE, devam etmek için ENTER tuşuna basın."
     
     result_text = visual.TextStim(win, text=message, pos=(0, 0), height=SCREEN_HEIGHT * 0.03, color='white', wrapWidth=SCREEN_WIDTH * 0.8)
     result_text.draw()

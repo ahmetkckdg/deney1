@@ -80,6 +80,56 @@ class EyeTracker:
         buffer = b''
         recv_count = 0
         message_count = 0
+        decoder = json.JSONDecoder()
+
+        def handle_message(message_bytes: bytes):
+            nonlocal message_count
+            if not message_bytes:
+                return
+
+            trimmed = message_bytes.strip()
+            if not trimmed:
+                return
+
+            message_count += 1
+            if message_count <= 5 or message_count % 50 == 0:
+                self._log("Listener: Mesaj işleniyor ({} mesaj, {} byte)".format(
+                    message_count, len(message_bytes)))
+
+            try:
+                message_str = message_bytes.decode('utf-8')
+                message_json = json.loads(message_str)
+            except (json.JSONDecodeError, UnicodeDecodeError) as e:
+                preview = message_bytes[:120]
+                self._log("Listener: Mesaj parse edilemedi: {} - Mesaj: {}".format(e, preview))
+                return
+
+            msg_category = message_json.get('category', '')
+            msg_request = message_json.get('request', None)
+
+            if message_count <= 10:
+                self._log("Listener: Mesaj parse edildi: category={}, request={}".format(
+                    msg_category, msg_request if msg_request is not None else "(yok)"))
+
+            # Mesajı queue'ya koy
+            self.response_queue.put(message_json)
+
+            # Frame data ise latest_gaze'i güncelle
+            if msg_category == 'tracker' and msg_request is None:
+                values = message_json.get('values', {})
+                frame = values.get('frame', {})
+                if frame:
+                    avg = frame.get('avg', {})
+                    x = avg.get('x', 0)
+                    y = avg.get('y', 0)
+                    time_ms = frame.get('time', int(time_module.time() * 1000))
+                    timestamp = time_ms / 1000.0
+
+                    with self.lock:
+                        self.latest_gaze = (x, y, timestamp)
+
+            # Bekleyen request'lere yanıt ver
+            self._check_pending_requests(message_json)
         
         while self.listener_running and self.connected and self.socket:
             try:
@@ -112,7 +162,9 @@ class EyeTracker:
                         if last_newline > 0:
                             buffer = buffer[last_newline + len(trim_delimiter):]
                 
-                # Buffer'daki tüm tam mesajları işle (\r\n ile biten)
+                processed_message = False
+
+                # Buffer'daki tüm tam mesajları işle (satır sonu ile biten)
                 while True:
                     delimiter = None
                     if b'\r\n' in buffer:
@@ -122,50 +174,40 @@ class EyeTracker:
                     else:
                         break
 
-                    # İlk tam mesajı al (C# örneğindeki reader.ReadLine() gibi)
                     message_end = buffer.find(delimiter)
                     message_bytes = buffer[:message_end]
-                    buffer = buffer[message_end + len(delimiter):]  # satır sonunu atla
-                    
-                    message_count += 1
-                    if message_count <= 5 or message_count % 50 == 0:
-                        self._log("Listener: Mesaj işleniyor ({} mesaj, {} byte)".format(message_count, len(message_bytes)))
-                    
+                    buffer = buffer[message_end + len(delimiter):]
+                    handle_message(message_bytes)
+                    processed_message = True
+
+                # Eğer satır sonu bulunamadıysa, JSONDecoder ile tam nesne arayın
+                if not processed_message and buffer:
                     try:
-                        message_str = message_bytes.decode('utf-8')
-                        message_json = json.loads(message_str)
-                        
-                        msg_category = message_json.get('category', '')
-                        msg_request = message_json.get('request', None)
-                        
-                        if message_count <= 10:
-                            self._log("Listener: Mesaj parse edildi: category={}, request={}".format(
-                                msg_category, msg_request if msg_request is not None else "(yok)"))
-                        
-                        # Mesajı queue'ya koy
-                        self.response_queue.put(message_json)
-                        
-                        # Frame data ise latest_gaze'i güncelle
-                        if msg_category == 'tracker' and msg_request is None:
-                            # Frame data - gaze verisini güncelle
-                            values = message_json.get('values', {})
-                            frame = values.get('frame', {})
-                            if frame:
-                                avg = frame.get('avg', {})
-                                x = avg.get('x', 0)
-                                y = avg.get('y', 0)
-                                time_ms = frame.get('time', int(time_module.time() * 1000))
-                                timestamp = time_ms / 1000.0
-                                
-                                with self.lock:
-                                    self.latest_gaze = (x, y, timestamp)
-                        
-                        # Bekleyen request'lere yanıt ver
-                        self._check_pending_requests(message_json)
-                        
-                    except (json.JSONDecodeError, UnicodeDecodeError) as e:
-                        self._log("Listener: Mesaj parse edilemedi: {} - Mesaj: {}".format(e, message_bytes[:100]))
+                        buffer_str = buffer.decode('utf-8')
+                    except UnicodeDecodeError as e:
+                        self._log("Listener: Buffer decode edilemedi ({}). Buffer temizleniyor.".format(e))
+                        buffer = b''
                         continue
+
+                    idx = 0
+                    str_len = len(buffer_str)
+                    while idx < str_len:
+                        try:
+                            _, parsed_len = decoder.raw_decode(buffer_str[idx:])
+                        except json.JSONDecodeError:
+                            break
+
+                        message_text = buffer_str[idx: idx + parsed_len]
+                        handle_message(message_text.encode('utf-8'))
+                        idx += parsed_len
+
+                        while idx < str_len and buffer_str[idx] in '\r\n \t':
+                            idx += 1
+
+                        processed_message = True
+
+                    if idx > 0:
+                        buffer = buffer_str[idx:].encode('utf-8')
                 
             except socket.timeout:
                 # Timeout normal (non-blocking için)
@@ -786,6 +828,34 @@ class EyeTracker:
         with self.lock:
             return self.latest_gaze
     
+    def calibration_prepare(self):
+        """Yeni bir kalibrasyona başlamadan önce sunucuyu temiz duruma getirir."""
+        if not self.connected:
+            raise ConnectionError("Önce bağlantı kurulmalı!")
+
+        self._log("Calibration durumu temizleniyor (abort + clear)...")
+        for request_type in ('abort', 'clear'):
+            try:
+                response = self._send_request('calibration', request_type, None, timeout=3.0)
+            except ConnectionError as e:
+                self._log("UYARI: Calibration {} isteği başarısız: {}".format(request_type, e))
+                continue
+
+            statuscode = response.get('statuscode', 'yok')
+            statusmessage = response.get('values', {}).get('statusmessage', '')
+
+            if statuscode == 200:
+                self._log("Calibration {} tamamlandı.".format(request_type))
+            elif isinstance(statuscode, int) and 800 <= statuscode <= 804:
+                self._log("Calibration {} gerekli değil (statuscode={}, message={}).".format(
+                    request_type, statuscode, statusmessage))
+            else:
+                self._log("UYARI: Calibration {} beklenmeyen yanıt: statuscode={}, message={}".format(
+                    request_type, statuscode, statusmessage))
+
+        # Sunucuya durum güncellemesi için kısa süre tanı
+        time_module.sleep(0.1)
+
     def calibration_start(self, point_count: int = 9):
         """Kalibrasyonu başlatır"""
         if not self.connected:
@@ -796,7 +866,17 @@ class EyeTracker:
         self._log("Calibration başlatılıyor: point_count={}".format(point_count))
         response = self._send_request('calibration', 'start', {'pointcount': point_count}, timeout=10.0)
         statuscode = response.get('statuscode', 'yok')
-        self._log("Calibration start yanıtı: statuscode={}".format(statuscode))
+        statusmessage = response.get('values', {}).get('statusmessage', '')
+
+        if isinstance(statuscode, int) and statuscode in (800, 801, 802):
+            self._log("Calibration start yanıtı statuscode={} ({}). Durum sıfırlanıyor ve tekrar deneniyor...".format(
+                statuscode, statusmessage))
+            self.calibration_prepare()
+            response = self._send_request('calibration', 'start', {'pointcount': point_count}, timeout=10.0)
+            statuscode = response.get('statuscode', 'yok')
+            statusmessage = response.get('values', {}).get('statusmessage', '')
+
+        self._log("Calibration start yanıtı: statuscode={}, statusmessage={}".format(statuscode, statusmessage))
         return statuscode == 200
     
     def calibration_pointstart(self, x: float, y: float):
@@ -807,7 +887,12 @@ class EyeTracker:
         # TheEyeTribe API formatı: category="calibration", request="pointstart", values={"x": integer, "y": integer}
         # x ve y integer olmalı (pixel koordinatları)
         response = self._send_request('calibration', 'pointstart', {'x': int(x), 'y': int(y)})
-        return response.get('statuscode') == 200
+        statuscode = response.get('statuscode', 'yok')
+        if statuscode != 200:
+            statusmessage = response.get('values', {}).get('statusmessage', '')
+            self._log("UYARI: calibration_pointstart başarısız (x={}, y={}): statuscode={}, message={}".format(
+                int(x), int(y), statuscode, statusmessage))
+        return statuscode == 200
     
     def calibration_pointend(self, x: float = None, y: float = None):
         """Belirli bir nokta için kalibrasyonu bitirir"""
@@ -816,7 +901,12 @@ class EyeTracker:
         
         # TheEyeTribe API formatı: category="calibration", request="pointend" (values yok)
         response = self._send_request('calibration', 'pointend', None)
-        return response.get('statuscode') == 200
+        statuscode = response.get('statuscode', 'yok')
+        if statuscode != 200:
+            statusmessage = response.get('values', {}).get('statusmessage', '')
+            self._log("UYARI: calibration_pointend başarısız: statuscode={}, message={}".format(
+                statuscode, statusmessage))
+        return statuscode == 200
     
     def calibration_abort(self):
         """Kalibrasyonu iptal eder"""
@@ -825,7 +915,12 @@ class EyeTracker:
         
         # TheEyeTribe API formatı: category="calibration", request="abort" (values yok)
         response = self._send_request('calibration', 'abort', None)
-        return response.get('statuscode') == 200
+        statuscode = response.get('statuscode', 'yok')
+        if statuscode != 200:
+            statusmessage = response.get('values', {}).get('statusmessage', '')
+            self._log("UYARI: calibration_abort yanıtı: statuscode={}, message={}".format(
+                statuscode, statusmessage))
+        return statuscode == 200
     
     def calibration_result(self) -> dict:
         """Kalibrasyon sonucunu döndürür"""
@@ -845,7 +940,12 @@ class EyeTracker:
         
         # TheEyeTribe API formatı: category="calibration", request="clear" (values yok)
         response = self._send_request('calibration', 'clear', None)
-        return response.get('statuscode') == 200
+        statuscode = response.get('statuscode', 'yok')
+        if statuscode != 200:
+            statusmessage = response.get('values', {}).get('statusmessage', '')
+            self._log("UYARI: calibration_clear yanıtı: statuscode={}, message={}".format(
+                statuscode, statusmessage))
+        return statuscode == 200
     
     def send_heartbeat(self):
         """Sunucuya heartbeat gönderir (bağlantıyı canlı tutmak için)"""
