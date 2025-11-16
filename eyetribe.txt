@@ -19,8 +19,296 @@ The Eye Tribe Tracker stands ready!
 
 
 
-[17:54:55] [EyeTracker] Detaylı hata bilgisi:
-[17:54:55] [EyeTracker]   Traceback (most recent call last):
-[17:54:55] [EyeTracker]     File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 433, in connect
-[17:54:55] [EyeTracker]       connect_start = time.time()
-[17:54:55] [EyeTracker]   UnboundLocalError: local variable 'time' referenced before assignment
+Bağlantı deneniyor (test modu: True)...
+[17:58:22] [EyeTracker] ============================================================
+[17:58:22] [EyeTracker] BAĞLANTI BAŞLATILIYOR
+[17:58:22] [EyeTracker] Hedef: localhost:6555
+[17:58:22] [EyeTracker] Test modu: True
+[17:58:22] [EyeTracker] ============================================================
+[17:58:22] [EyeTracker] Adım 1: Socket oluşturuluyor...
+[17:58:22] [EyeTracker] Socket oluşturuldu: OK
+[17:58:22] [EyeTracker] Adım 2: Socket ayarları yapılıyor...
+[17:58:22] [EyeTracker] SO_REUSEADDR ayarlandı: OK
+[17:58:22] [EyeTracker] TCP_NODELAY ayarlandı: OK
+[17:58:22] [EyeTracker] Adım 3: Socket timeout ayarlanıyor: 5.0s
+[17:58:22] [EyeTracker] Timeout ayarlandı: OK
+[17:58:22] [EyeTracker] Adım 4: Bağlantı deneniyor (localhost:6555)...
+[17:58:22] [EyeTracker] Bağlantı başarılı! (Süre: 0.004s)
+[17:58:22] [EyeTracker] Socket bağlantısı doğrulandı: 127.0.0.1:6555
+[17:58:22] [EyeTracker] Adım 5: Bağlantı durumu güncellendi: connected=True    
+[17:58:22] [EyeTracker] Listener thread başlatılıyor...
+[17:58:22] [EyeTracker] Socket timeout listener thread için ayarlandı: 1.0s    
+[17:58:22] [EyeTracker] Listener loop başlatıldı
+[17:58:22] [EyeTracker] Listener thread başlatıldı
+[17:58:22] [EyeTracker] Listener thread çalışıyor
+[17:58:22] [EyeTracker] Adım 6: Bağlantı testi başlatılıyor...
+[17:58:22] [EyeTracker] Socket durumu kontrol ediliyor...
+[17:58:22] [EyeTracker] Socket bağlı: 127.0.0.1:6555
+[17:58:22] [EyeTracker] Basit test isteği gönderiliyor...
+[17:58:22] [EyeTracker] İstek hazırlanıyor: category=tracker, request=get, values=['version'], timeout=5.0s
+[17:58:22] [EyeTracker] Bağlantı durumu: OK
+[17:58:22] [EyeTracker] JSON isteği oluşturuldu: category=tracker, request=get 
+[17:58:22] [EyeTracker] İstek içeriği: { |   "category": "tracker", |   "request": "get", |   "values": [ |     "version" |   ] | }
+[17:58:22] [EyeTracker] İstek gönderiliyor (61 byte): {"category":"tracker","request":"get","values":["version"]}
+[17:58:22] [EyeTracker] Yanıt bekleniyor... (category=tracker, request=get)    
+[17:58:22] [EyeTracker] Pending request eklendi: ('tracker', 'get')
+[17:58:22] [EyeTracker] İstek başarıyla gönderildi (61 byte)
+[17:58:22] [EyeTracker] Listener: Veri alındı (79 byte, 1 çağrı)
+[17:58:22] [EyeTracker] Listener: Veri alındı (403 byte, 2 çağrı)
+[17:58:22] [EyeTracker] Listener: Veri alındı (403 byte, 3 çağrı)
+[17:58:22] [EyeTracker] Listener: Veri alındı (403 byte, 4 çağrı)
+[17:58:22] [EyeTracker] Listener: Veri alındı (485 byte, 5 çağrı)
+[17:58:23] [EyeTracker] Yanıt bekleniyor... (10 döngü, 0.91s geçti, 1 pending request)
+[17:58:24] [EyeTracker] Yanıt bekleniyor... (20 döngü, 1.91s geçti, 1 pending request)
+[17:58:24] [EyeTracker] Listener: Veri alındı (471 byte, 50 çağrı)
+[17:58:25] [EyeTracker] Yanıt bekleniyor... (30 döngü, 2.91s geçti, 1 pending request)
+[17:58:26] [EyeTracker] Yanıt bekleniyor... (40 döngü, 3.92s geçti, 1 pending request)
+[17:58:26] [EyeTracker] Listener: Veri alındı (471 byte, 100 çağrı)
+[17:58:27] [EyeTracker] Yanıt bekleniyor... (50 döngü, 4.93s geçti, 1 pending request)
+[17:58:27] [EyeTracker] TIMEOUT: 5.03s geçti, limit: 5.0s, 50 bekleme döngüsü, 1 pending request
+[17:58:27] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:58:27] [EyeTracker] UYARI: Bağlantı testi başarısız (ConnectionError): İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 5.0s)
+[17:58:27] [EyeTracker] Ancak socket bağlantısı kuruldu, devam ediliyor...     
+[17:58:27] [EyeTracker] ============================================================
+[17:58:27] [EyeTracker] UYARI: Test başarısız ama socket bağlantısı aktif      
+[17:58:27] [EyeTracker] Bağlantı kabul ediliyor, devam ediliyor...
+[17:58:27] [EyeTracker] ============================================================
+[17:58:27] [EyeTracker] Calibration başlatılıyor: point_count=13
+[17:58:27] [EyeTracker] İstek hazırlanıyor: category=calibration, request=start, values={'pointcount': 13}, timeout=10.0s
+[17:58:27] [EyeTracker] Bağlantı durumu: OK
+[17:58:27] [EyeTracker] JSON isteği oluşturuldu: category=calibration, request=start
+[17:58:27] [EyeTracker] İstek içeriği: { |   "category": "calibration", |   "request": "start", |   "values": { |     "pointcount": 13 |   } | }
+[17:58:27] [EyeTracker] İstek gönderiliyor (73 byte): {"category":"calibration","request":"start","values":{"pointcount":13}}
+[17:58:27] [EyeTracker] Yanıt bekleniyor... (category=calibration, request=start)
+[17:58:27] [EyeTracker] Pending request eklendi: ('calibration', 'start')      
+[17:58:27] [EyeTracker] İstek başarıyla gönderildi (73 byte)
+[17:58:28] [EyeTracker] Listener: Veri alındı (466 byte, 150 çağrı)
+[17:58:28] [EyeTracker] Yanıt bekleniyor... (10 döngü, 0.91s geçti, 1 pending request)
+[17:58:29] [EyeTracker] Yanıt bekleniyor... (20 döngü, 1.91s geçti, 1 pending request)
+[17:58:30] [EyeTracker] Listener: Veri alındı (466 byte, 200 çağrı)
+[17:58:30] [EyeTracker] Yanıt bekleniyor... (30 döngü, 2.92s geçti, 1 pending request)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (100449 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (100872 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (101338 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (101804 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (102270 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (102738 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (103204 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (103670 byte)
+[17:58:30] [EyeTracker] Listener: UYARI: Buffer çok büyük (104136 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (104604 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (105070 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (105525 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (105981 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (106437 byte)
+[17:58:31] [EyeTracker] Yanıt bekleniyor... (40 döngü, 3.92s geçti, 1 pending request)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (106893 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (107349 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (107805 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (108717 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (109183 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (109649 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (110115 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (110581 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (111037 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (111493 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (111949 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (112405 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (113221 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (113624 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (114027 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (114430 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (114833 byte)
+[17:58:31] [EyeTracker] Listener: UYARI: Buffer çok büyük (115236 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (115692 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (116158 byte)
+[17:58:32] [EyeTracker] Listener: Veri alındı (466 byte, 250 çağrı)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (116624 byte)        
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (117090 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (117556 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (118021 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (118487 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (118953 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (119419 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (119885 byte)
+[17:58:32] [EyeTracker] Yanıt bekleniyor... (50 döngü, 4.92s geçti, 1 pending request)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (120351 byte)        
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (120817 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (121283 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (122215 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (122681 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (123147 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (123613 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (124079 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (124545 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (125011 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (125476 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (125941 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (126407 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (126873 byte)        
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (127339 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (127805 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (128271 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (128739 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (129210 byte)
+[17:58:32] [EyeTracker] Listener: UYARI: Buffer çok büyük (129681 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (130152 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (130621 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (131092 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (131563 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (132034 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (132505 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (132975 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (133446 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (133917 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (134388 byte)
+[17:58:33] [EyeTracker] Yanıt bekleniyor... (60 döngü, 5.93s geçti, 1 pending request)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (134858 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (135328 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (135798 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (136268 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (136738 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (137208 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (137678 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (138148 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (138618 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (139088 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (139558 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (140028 byte)
+[17:58:33] [EyeTracker] Listener: Veri alındı (468 byte, 300 çağrı)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (140496 byte)        
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (140963 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (141430 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (141897 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (142364 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (142831 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (143298 byte)
+[17:58:33] [EyeTracker] Listener: UYARI: Buffer çok büyük (143765 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (144231 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (144697 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (145120 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (145586 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (146052 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (146518 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (146984 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (147450 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (147916 byte)
+[17:58:34] [EyeTracker] Yanıt bekleniyor... (70 döngü, 6.93s geçti, 1 pending request)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (148382 byte)        
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (148848 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (149314 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (150234 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (150690 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (151146 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (151602 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (152058 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (152514 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (152980 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (153436 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (153849 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (154262 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (154675 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (155088 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (155501 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (155914 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (156327 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (156740 byte)
+[17:58:34] [EyeTracker] Listener: UYARI: Buffer çok büyük (157153 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (157566 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (157979 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (158392 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (158805 byte)        
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (159261 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (159727 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (160193 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (160659 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (161125 byte)        
+[17:58:35] [EyeTracker] Yanıt bekleniyor... (80 döngü, 7.94s geçti, 1 pending request)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (161547 byte)        
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (162016 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (162483 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (162906 byte)
+[17:58:35] [EyeTracker] Listener: Veri alındı (467 byte, 350 çağrı)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (163373 byte)        
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (163830 byte)        
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (164287 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (164746 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (165205 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (165664 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (166123 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (166582 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (167043 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (167504 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (167972 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (168442 byte)
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (168912 byte)        
+[17:58:35] [EyeTracker] Listener: UYARI: Buffer çok büyük (169380 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (169849 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (170319 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (170789 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (171259 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (171729 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (172152 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (172622 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (173092 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (173561 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (174031 byte)
+[17:58:36] [EyeTracker] Yanıt bekleniyor... (90 döngü, 8.94s geçti, 1 pending request)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (174501 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (174971 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (175441 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (175911 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (176381 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (176849 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (177319 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (177789 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (178259 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (178729 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (179199 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (179669 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (180139 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (180609 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (181032 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (181455 byte)
+[17:58:36] [EyeTracker] Listener: UYARI: Buffer çok büyük (181878 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (182301 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (182724 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (183147 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (183570 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (183993 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (184416 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (184839 byte)
+[17:58:37] [EyeTracker] Yanıt bekleniyor... (100 döngü, 9.95s geçti, 1 pending request)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (185262 byte)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (185685 byte)
+[17:58:37] [EyeTracker] Listener: Veri alındı (467 byte, 400 çağrı)
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (186152 byte)        
+[17:58:37] [EyeTracker] TIMEOUT: 10.05s geçti, limit: 10.0s, 100 bekleme döngüsü, 1 pending request
+[17:58:37] [EyeTracker] HATA: Beklenmeyen hata: ConnectionError: Sunucu yanıt vermiyor (timeout: 10.0s)
+Deney sırasında hata oluştu: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 10.0s)
+Traceback (most recent call last):
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 332, in _send_request
+    raise ConnectionError("Sunucu yanıt vermiyor (timeout: {}s)".format(timeout))
+ConnectionError: Sunucu yanıt vermiyor (timeout: 10.0s)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\main.py", line 1132, in main    
+    calibration_success = run_calibration(eye_tracker, win)
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\main.py", line 824, in run_calibration
+    if not tracker.calibration_start(point_count=13):
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 784, in calibration_start
+    response = self._send_request('calibration', 'start', {'pointcount': point_count}, timeout=10.0)
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\eye_tracker.py", line 380, in _send_request
+    raise ConnectionError("İstek gönderilirken hata: {}".format(e))
+ConnectionError: İstek gönderilirken hata: Sunucu yanıt vermiyor (timeout: 10.0s)
+[17:58:37] [EyeTracker] Takip zaten durdurulmuş
+[17:58:37] [EyeTracker] Bağlantı kesiliyor...
+[17:58:37] [EyeTracker] Listener thread durduruluyor...
+[17:58:37] [EyeTracker] Listener: UYARI: Buffer çok büyük (186620 byte)
+[17:58:37] [EyeTracker] Listener loop sonlandı (toplam 0 mesaj, 401 recv çağrısı)
+[17:58:37] [EyeTracker] Listener thread durduruldu
+[17:58:37] [EyeTracker] Socket kapatıldı
+[17:58:37] [EyeTracker] Bağlantı kesildi
+10.0084         WARNING         Monitor specification not found. Creating a temporary one...
