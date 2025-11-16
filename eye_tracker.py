@@ -265,26 +265,17 @@ class EyeTracker:
             self._log("Adım 4: Bağlantı deneniyor ({}:{})...".format(self.host, self.port))
             connect_start = time.time()
             
-            # Önce connect_ex ile test et (non-blocking kontrol)
             try:
-                result = self.socket.connect_ex((self.host, self.port))
-                if result != 0:
-                    connect_elapsed = time.time() - connect_start
-                    self._log("HATA: connect_ex başarısız (hata kodu: {}, süre: {:.3f}s)".format(
-                        result, connect_elapsed))
-                    self.socket.close()
-                    self.socket = None
-                    return False
-                
-                # connect_ex başarılı, normal connect ile doğrula
+                # Normal connect kullan (timeout zaten ayarlı)
+                self.socket.connect((self.host, self.port))
                 connect_elapsed = time.time() - connect_start
-                self._log("connect_ex başarılı! (Süre: {:.3f}s)".format(connect_elapsed))
+                self._log("Bağlantı başarılı! (Süre: {:.3f}s)".format(connect_elapsed))
                 
                 # Socket'in gerçekten bağlı olduğunu kontrol et
                 try:
                     # getpeername() bağlantı varsa çalışır
                     peer = self.socket.getpeername()
-                    self._log("Socket bağlantısı doğrulandı: {}".format(peer))
+                    self._log("Socket bağlantısı doğrulandı: {}:{}".format(peer[0], peer[1]))
                 except Exception as e:
                     self._log("UYARI: getpeername() başarısız: {}".format(e))
                     # Yine de devam et, bağlantı olabilir
@@ -293,14 +284,40 @@ class EyeTracker:
                 connect_elapsed = time.time() - connect_start
                 self._log("HATA: Bağlantı timeout ({:.3f}s geçti, limit: {}s)".format(
                     connect_elapsed, connection_timeout))
-                self.socket.close()
+                self._log("Sunucu yanıt vermiyor. Kontrol edin:")
+                self._log("  1. TheEyeTribe sunucusu çalışıyor mu?")
+                self._log("  2. Port {} açık mı?".format(self.port))
+                self._log("  3. Firewall engelliyor mu?")
+                if self.socket:
+                    try:
+                        self.socket.close()
+                    except:
+                        pass
                 self.socket = None
                 return False
-            except (socket.error, OSError, ConnectionRefusedError, ConnectionResetError) as e:
+            except ConnectionRefusedError as e:
+                connect_elapsed = time.time() - connect_start
+                self._log("HATA: Bağlantı reddedildi ({:.3f}s): {}".format(connect_elapsed, e))
+                self._log("Sunucu bağlantıyı reddetti. Muhtemelen:")
+                self._log("  - Sunucu çalışmıyor")
+                self._log("  - Port {} yanlış".format(self.port))
+                self._log("  - Sunucu 'local only' modunda ve başka bir IP'den bağlanıyorsunuz")
+                if self.socket:
+                    try:
+                        self.socket.close()
+                    except:
+                        pass
+                self.socket = None
+                return False
+            except (socket.error, OSError, ConnectionResetError) as e:
                 connect_elapsed = time.time() - connect_start
                 self._log("HATA: Bağlantı hatası ({:.3f}s): {}: {}".format(
                     connect_elapsed, type(e).__name__, e))
-                self.socket.close()
+                if self.socket:
+                    try:
+                        self.socket.close()
+                    except:
+                        pass
                 self.socket = None
                 return False
             
