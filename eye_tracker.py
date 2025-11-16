@@ -329,18 +329,32 @@ class EyeTracker:
             if test_connection:
                 self._log("Adım 6: Bağlantı testi başlatılıyor...")
                 test_success = False
+                
+                # Önce basit bir test - sadece socket'in çalışıp çalışmadığını kontrol et
                 try:
-                    self._log("Version isteği gönderiliyor (timeout: 2.0s)...")
-                    # Daha kısa timeout ile test et
-                    response = self._send_request('get', {'category': 'tracker', 'request': 'version'}, timeout=2.0)
+                    # Socket'in durumunu kontrol et
+                    self._log("Socket durumu kontrol ediliyor...")
+                    peer = self.socket.getpeername()
+                    self._log("Socket bağlı: {}:{}".format(peer[0], peer[1]))
+                    
+                    # Şimdi basit bir istek gönder
+                    self._log("Basit test isteği gönderiliyor...")
+                    # Daha uzun timeout ile dene (sunucu yavaş yanıt verebilir)
+                    response = self._send_request('get', {'category': 'tracker', 'request': 'version'}, timeout=5.0)
                     
                     if 'result' in response:
                         version = response.get('result', {}).get('version', 'bilinmiyor')
                         self._log("BAĞLANTI BAŞARILI! Versiyon: {}".format(version))
                         test_success = True
+                    elif 'error' in response:
+                        error = response.get('error', {})
+                        self._log("UYARI: Sunucu hata döndürdü: {}".format(error))
+                        self._log("Ancak bağlantı kuruldu, devam ediliyor...")
+                        test_success = False
                     else:
                         # Geçersiz yanıt ama bağlantı var - devam et
-                        self._log("UYARI: Geçersiz yanıt alındı (result yok), ancak bağlantı kuruldu")
+                        self._log("UYARI: Beklenmeyen yanıt formatı: {}".format(response))
+                        self._log("Ancak bağlantı kuruldu, devam ediliyor...")
                         test_success = False
                         
                 except ConnectionError as e:
@@ -351,20 +365,25 @@ class EyeTracker:
                 except socket.timeout as e:
                     # Timeout - ama socket bağlı
                     self._log("UYARI: Bağlantı testi timeout oldu: {}".format(e))
-                    self._log("Ancak socket bağlantısı kuruldu, devam ediliyor...")
+                    self._log("Sunucu yanıt vermiyor ama socket bağlı, devam ediliyor...")
                     test_success = False
                 except Exception as e:
                     # Beklenmeyen hata - bağlantıyı kabul et ama uyar
                     self._log("UYARI: Test sırasında beklenmeyen hata - {}: {}".format(type(e).__name__, e))
+                    import traceback
+                    self._log("Detay: {}".format(str(e)))
                     self._log("Ancak socket bağlantısı kuruldu, devam ediliyor...")
                     test_success = False
                 
                 # Test sonucu ne olursa olsun, socket bağlantısı kurulduysa devam et
                 if test_success:
                     self._log("=" * 60)
+                    self._log("BAĞLANTI VE TEST BAŞARILI!")
                 else:
-                    self._log("UYARI: Test başarısız ama socket bağlantısı aktif, devam ediliyor...")
                     self._log("=" * 60)
+                    self._log("UYARI: Test başarısız ama socket bağlantısı aktif")
+                    self._log("Bağlantı kabul ediliyor, devam ediliyor...")
+                self._log("=" * 60)
                 return True
             else:
                 # Test atlandı - sadece socket bağlantısı yeterli
