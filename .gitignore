@@ -25,9 +25,6 @@ __pycache__/
 *.mo
 
 # Göz izleme veya deney datası
-gaze_data/
-results/
-*.csv
 
 # Geçici dosyalar ve backuplar
 *.bak
