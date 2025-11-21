@@ -455,26 +455,31 @@ def load_questions(video_id):
     return questions[:2]  # always return first two questions
 
 def ask_question(q_data, video_id, index, participant_id):
+    global SCREEN_WIDTH, SCREEN_HEIGHT
     question = q_data["question"]
     options = q_data["options"]
 
     # Soru ve seçenekleri ekran boyutuna göre ayarla
-    question_height = SCREEN_HEIGHT * 0.25
-    button_height = SCREEN_HEIGHT * 0.08
-    option_spacing = SCREEN_HEIGHT * 0.10  # Butonlar arası sabit boşluk
+    # Ekran boyutlarını güvenli şekilde al
+    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
+    
+    question_height = screen_h * 0.25
+    button_height = screen_h * 0.08
+    option_spacing = screen_h * 0.10  # Butonlar arası sabit boşluk
     num_options = len(options)
     
     # Soru ile butonlar arasında boşluk bırak
-    question_bottom = question_height - SCREEN_HEIGHT * 0.08  # Soru metninin alt kenarı
+    question_bottom = question_height - screen_h * 0.08  # Soru metninin alt kenarı
     # İlk butonun pozisyonunu hesapla (sorunun altından başla, daha yukarı)
-    start_y = question_bottom - SCREEN_HEIGHT * 0.05  # Sorunun altından 5% boşluk (daha az boşluk = daha yukarı)
+    start_y = question_bottom - screen_h * 0.05  # Sorunun altından 5% boşluk (daha az boşluk = daha yukarı)
     
     question_text = visual.TextStim(
         win, 
         text=question, 
         pos=(0, question_height), 
-        height=SCREEN_HEIGHT * 0.04, 
-        wrapWidth=SCREEN_WIDTH * 0.8,
+        height=screen_h * 0.04, 
+        wrapWidth=screen_w * 0.8,
         color='white'
     )
     
@@ -490,7 +495,7 @@ def ask_question(q_data, video_id, index, participant_id):
         key_label = chr(65 + i)  # A, B, C, D, E, F...
         
         # Buton boyutları - metni kapsayacak şekilde
-        button_width = SCREEN_WIDTH * 0.6
+        button_width = screen_w * 0.6
         
         # Buton oluştur (beyaz arka plan, siyah kenarlık)
         # Butonun merkez noktası y_pos'ta olacak
@@ -511,7 +516,7 @@ def ask_question(q_data, video_id, index, participant_id):
             win, 
             text=opt,  # Sadece seçenek metni, harf etiketi yok
             pos=(0, y_pos),  # Buton ile tam aynı pozisyon (merkez noktası)
-            height=SCREEN_HEIGHT * 0.03,
+            height=screen_h * 0.03,
             color='black',
             wrapWidth=button_width * 0.85,  # Biraz daha dar wrapWidth
             alignText='center',  # Metni ortala
@@ -1197,6 +1202,7 @@ def main():
         )
         
         # Ekran boyutlarını global değişkenlere kaydet
+        global SCREEN_WIDTH, SCREEN_HEIGHT
         SCREEN_WIDTH = win.size[0]
         SCREEN_HEIGHT = win.size[1]
         print(f"Ekran boyutu: {SCREEN_WIDTH}x{SCREEN_HEIGHT}")
@@ -1222,11 +1228,13 @@ def main():
         eye_tracker = EyeTracker()
         
         # Bağlantı ekranı - animasyonlu (UI donmasını önlemek için)
+        # Ekran boyutlarını güvenli şekilde al
+        screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
         connecting_text = visual.TextStim(
             win, 
             text="TheEyeTribe sunucusuna bağlanılıyor...", 
             pos=(0, 0), 
-            height=SCREEN_HEIGHT * 0.04, 
+            height=screen_h * 0.04, 
             color='white'
         )
         connecting_text.draw()
@@ -1243,13 +1251,16 @@ def main():
             connection_success = eye_tracker.connect(test_connection=False)
         
         if not connection_success:
+            # Ekran boyutlarını güvenli şekilde al
+            screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+            screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
             error_text = visual.TextStim(
                 win,
                 text="TheEyeTribe sunucusuna bağlanılamadı!\nLütfen sunucunun çalıştığından emin olun.\n\nESC tuşuna basarak çıkın.",
                 pos=(0, 0),
-                height=SCREEN_HEIGHT * 0.03,
+                height=screen_h * 0.03,
                 color='red',
-                wrapWidth=SCREEN_WIDTH * 0.8
+                wrapWidth=screen_w * 0.8
             )
             error_text.draw()
             win.flip()
@@ -1261,13 +1272,16 @@ def main():
         calibration_success = run_calibration(eye_tracker, win)
         
         if not calibration_success:
+            # Ekran boyutlarını güvenli şekilde al
+            screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+            screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
             error_text = visual.TextStim(
                 win,
                 text="Kalibrasyon başarısız oldu.\nDeney devam edemez.\n\nESC tuşuna basarak çıkın.",
                 pos=(0, 0),
-                height=SCREEN_HEIGHT * 0.03,
+                height=screen_h * 0.03,
                 color='red',
-                wrapWidth=SCREEN_WIDTH * 0.8
+                wrapWidth=screen_w * 0.8
             )
             error_text.draw()
             win.flip()
