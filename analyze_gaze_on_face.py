@@ -10,7 +10,7 @@ import csv
 from pathlib import Path
 
 # Dosya yolları
-GAZE_DATA_FILE = os.environ.get("GAZE_DATA_FILE", "results/gaze_data.csv")
+GAZE_DATA_FILE = os.environ.get("GAZE_DATA_FILE", "gaze_data/gaze_data.csv")
 LANDMARKS_DIR = "results/face_landmarks"
 OUTPUT_FILE = "results/gaze_on_face_regions.csv"
 
