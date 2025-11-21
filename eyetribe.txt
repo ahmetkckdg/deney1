@@ -1,6 +1,8 @@
+.py", line 1639, in units
+    self._units = value or self.win.units
+AttributeError: 'NoneType' object has no attribute 'units'
+Exception ignored in: <function TextStim.__del__ at 0x000001F3A79C1F30>
 Traceback (most recent call last):
-  File "C:\Users\qawaq\OneDrive\desktop\deney1\venv\lib\site-packages\psychopy\visual\window.py", line 670, in __del__
-    self.close()
-  File "C:\Users\qawaq\OneDrive\desktop\deney1\venv\lib\site-packages\psychopy\visual\window.py", line 2792, in close
-    self.backend.close()  # moved here, dereferencing the window prevents
-AttributeError: 'NoneType' object has no attribute 'close'
+  File "C:\Users\qawaq\OneDrive\desktop\deney1\venv\lib\site-packages\psychopy\visual\text.py", line 244, in __del__
+    GL.glDeleteLists(self._listID, 1)
+AttributeError: 'TextStim' object has no attribute '_listID'
