@@ -213,7 +213,8 @@ def save_gaze_data(participant_id, video_id, x, y, timestamp, video_time, flush=
             gaze_buffer = []  # Buffer'ı temizle
         return
     
-    # Normal durumda veriyi buffer'a ekle
+    # Normal durumda veriyi buffer'a ekle (sadece geçerli veriler)
+    # 0,0 değerleri de geçerli olabilir (ekranın sol üst köşesi), bu yüzden hepsini kaydet
     gaze_buffer.append([
         participant_id,
         video_id,
@@ -223,8 +224,23 @@ def save_gaze_data(participant_id, video_id, x, y, timestamp, video_time, flush=
         round(video_time, 3)
     ])
     
-    # Buffer dolduğunda dosyaya yaz
+    # Buffer dolduğunda dosyaya yaz (videolar oynatılırken otomatik yazılır)
     if len(gaze_buffer) >= GAZE_BUFFER_SIZE:
+        os.makedirs(os.path.dirname(GAZE_DATA_FILE), exist_ok=True)
+        file_exists = os.path.isfile(GAZE_DATA_FILE)
+        
+        with open(GAZE_DATA_FILE, 'a', newline='', encoding="utf-8") as f:
+            writer = csv.writer(f)
+            if not file_exists:
+                writer.writerow(["participant_id", "video_id", "gaze_x", "gaze_y", "timestamp", "video_time"])
+            writer.writerows(gaze_buffer)
+        
+        gaze_buffer = []  # Buffer'ı temizle
+
+def flush_gaze_buffer():
+    """Buffer'daki kalan gaze verilerini CSV'ye yazar (video bitince kullanılır)"""
+    global gaze_buffer
+    if len(gaze_buffer) > 0:
         os.makedirs(os.path.dirname(GAZE_DATA_FILE), exist_ok=True)
         file_exists = os.path.isfile(GAZE_DATA_FILE)
         
@@ -344,20 +360,20 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
             
             if eye_tracker and eye_tracker.is_tracking():
                 gaze_data = None
-                x, y, timestamp = 0, 0, 0
                 
                 # Önce get_latest_gaze() ile listener thread'den veri al (daha hızlı)
                 gaze_data = eye_tracker.get_latest_gaze()
                 
-                # Eğer veri yoksa veya 0,0 ise, get_gaze_data() ile manuel istek yap (fallback)
-                if not gaze_data or (gaze_data[0] == 0 and gaze_data[1] == 0):
+                # Eğer veri yoksa (None), get_gaze_data() ile manuel istek yap (fallback)
+                # Not: 0,0 geçerli bir değer olabilir (ekranın sol üst köşesi), bu yüzden sadece None kontrolü yap
+                if not gaze_data:
                     try:
                         # Manuel istek yap - bazen listener thread gecikebilir
                         gaze_data = eye_tracker.get_gaze_data()
                     except:
                         gaze_data = None
                 
-                # Veri varsa işle
+                # Veri varsa işle ve kaydet
                 if gaze_data and participant_id and video_id:
                     x, y, timestamp = gaze_data
                     
@@ -378,14 +394,13 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                     y_clamped = max(0, min(SCREEN_HEIGHT, y))
                     video_time = current_time
                     
-                    # Sadece geçerli veriyi kaydet (0,0 değilse veya geçerli bir değerse)
-                    # Not: 0,0 geçerli bir değer olabilir (ekranın sol üst köşesi), bu yüzden her zaman kaydet
+                    # Tüm gaze verilerini kaydet (0,0 dahil - ekranın sol üst köşesi geçerli bir değer)
+                    # Buffer otomatik olarak 50 veri toplandığında CSV'ye yazacak
                     save_gaze_data(participant_id, video_id, x_clamped, y_clamped, timestamp, video_time, flush=False)
     
-    # Video bittiğinde kalan gaze verilerini kaydet
-    global gaze_buffer
-    if gaze_buffer:
-        save_gaze_data(participant_id, video_id, 0, 0, 0, 0, flush=True)
+    # Video bittiğinde kalan gaze verilerini kaydet (buffer'da kalan veriler)
+    # Not: Bu sadece buffer'daki kalan verileri yazar, yeni veri eklemez
+    flush_gaze_buffer()
     
     video.stop()
     # Mouse'u tekrar göster (video bittiğinde)
@@ -1075,6 +1090,9 @@ def safe_exit():
     global eye_tracker, win
     
     try:
+        # Önce kalan gaze verilerini kaydet (veri kaybını önlemek için)
+        flush_gaze_buffer()
+        
         # Eye tracker temizliği
         if eye_tracker:
             try:
@@ -1274,6 +1292,10 @@ def main():
 
         # Anketi çalıştır
         run_survey(participant_id)
+
+        # Deney bitmeden önce kalan gaze verilerini kaydet
+        flush_gaze_buffer()
+        print("Deney tamamlandı - kalan gaze verileri kaydedildi")
 
         # Deney tamamlandı
         completion_text = visual.TextStim(
