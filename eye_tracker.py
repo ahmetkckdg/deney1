@@ -120,13 +120,25 @@ class EyeTracker:
                 frame = values.get('frame', {})
                 if frame:
                     avg = frame.get('avg', {})
-                    x = avg.get('x', 0)
-                    y = avg.get('y', 0)
-                    time_ms = frame.get('time', int(time_module.time() * 1000))
-                    timestamp = time_ms / 1000.0
+                    if avg:  # avg boş olabilir, kontrol et
+                        x = avg.get('x', 0)
+                        y = avg.get('y', 0)
+                        time_ms = frame.get('time', int(time_module.time() * 1000))
+                        timestamp = time_ms / 1000.0
+                        
+                        # Geçersiz değerleri filtrele
+                        if not (isinstance(x, (int, float)) and isinstance(y, (int, float))):
+                            x, y = 0, 0
+                        if abs(x) > 100000 or abs(y) > 100000 or (x != x) or (y != y):  # NaN kontrolü
+                            x, y = 0, 0
 
-                    with self.lock:
-                        self.latest_gaze = (x, y, timestamp)
+                        with self.lock:
+                            self.latest_gaze = (x, y, timestamp)
+                        
+                        # İlk birkaç frame'i logla (debug için)
+                        if message_count <= 5:
+                            self._log("Listener: Frame verisi alındı: x={:.2f}, y={:.2f}, time={:.3f}".format(
+                                x, y, timestamp))
 
             # Bekleyen request'lere yanıt ver
             self._check_pending_requests(message_json)
@@ -750,6 +762,10 @@ class EyeTracker:
             if 'statuscode' in response and response.get('statuscode') == 200:
                 self.tracking = True
                 self._log("Göz takibi başlatıldı: OK")
+                # Push mode aktif, listener thread frame verilerini almaya başlayacak
+                # Kısa bir bekleme ekle ki listener thread frame almaya başlasın
+                time_module.sleep(0.2)  # 200ms bekle
+                self._log("Push mode aktif, frame verileri bekleniyor...")
             else:
                 statuscode = response.get('statuscode', 'bilinmiyor')
                 statusmessage = response.get('values', {}).get('statusmessage', 'bilinmiyor')
@@ -824,7 +840,13 @@ class EyeTracker:
             return None
     
     def get_latest_gaze(self) -> Optional[Tuple[float, float, float]]:
-        """Thread-safe olarak en son gaze verisini döndürür"""
+        """
+        Thread-safe olarak en son gaze verisini döndürür.
+        Listener thread'den gelen push mode verilerini kullanır.
+        """
+        if not self.connected or not self.tracking:
+            return None
+        
         with self.lock:
             return self.latest_gaze
     

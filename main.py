@@ -314,6 +314,8 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
     # Gaze verisi kaydetme optimizasyonu - zaman bazlı örnekleme
     last_gaze_time = 0
     gaze_sample_rate = 1.0 / 30.0  # 30Hz (her 33ms'de bir)
+    # Floating point precision için küçük bir tolerans ekle
+    min_sample_interval = gaze_sample_rate - 0.001  # 1ms tolerans
     
     # Video oynatma loop'u - optimize edilmiş
     # Video oynatma için PsychoPy'nin kendi timing'ini kullan
@@ -334,12 +336,36 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
         
         # Eye tracking verilerini kaydet (optimize edilmiş - zaman bazlı)
         # Gaze verileri video ekran koordinatlarına göre normalize edilir
-        if current_time - last_gaze_time >= gaze_sample_rate:
+        # Daha sıkı zamanlama kontrolü: >= yerine > kullan ve tolerans ekle
+        time_since_last_gaze = current_time - last_gaze_time
+        if time_since_last_gaze >= min_sample_interval:
+            # last_gaze_time'i güncelle (örnekleme yapılsa da yapılmasa da)
             last_gaze_time = current_time
+            
             if eye_tracker and eye_tracker.is_tracking():
-                gaze_data = eye_tracker.get_gaze_data()
+                gaze_data = None
+                x, y, timestamp = 0, 0, 0
+                
+                # Önce get_latest_gaze() ile listener thread'den veri al (daha hızlı)
+                gaze_data = eye_tracker.get_latest_gaze()
+                
+                # Eğer veri yoksa veya 0,0 ise, get_gaze_data() ile manuel istek yap (fallback)
+                if not gaze_data or (gaze_data[0] == 0 and gaze_data[1] == 0):
+                    try:
+                        # Manuel istek yap - bazen listener thread gecikebilir
+                        gaze_data = eye_tracker.get_gaze_data()
+                    except:
+                        gaze_data = None
+                
+                # Veri varsa işle
                 if gaze_data and participant_id and video_id:
                     x, y, timestamp = gaze_data
+                    
+                    # Geçersiz değerleri filtrele (çok büyük veya NaN değerler)
+                    if not (isinstance(x, (int, float)) and isinstance(y, (int, float))):
+                        x, y = 0, 0
+                    if abs(x) > 100000 or abs(y) > 100000 or (x != x) or (y != y):  # NaN kontrolü
+                        x, y = 0, 0
 
                     # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor.
                     # Eğer gelen değerler bu aralıktaysa ekran pikseline ölçekle.
@@ -351,6 +377,9 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                     x_clamped = max(0, min(SCREEN_WIDTH, x))
                     y_clamped = max(0, min(SCREEN_HEIGHT, y))
                     video_time = current_time
+                    
+                    # Sadece geçerli veriyi kaydet (0,0 değilse veya geçerli bir değerse)
+                    # Not: 0,0 geçerli bir değer olabilir (ekranın sol üst köşesi), bu yüzden her zaman kaydet
                     save_gaze_data(participant_id, video_id, x_clamped, y_clamped, timestamp, video_time, flush=False)
     
     # Video bittiğinde kalan gaze verilerini kaydet
@@ -1172,6 +1201,37 @@ def main():
         # Göz takibini başlat
         try:
             eye_tracker.start_tracking()
+            
+            # Gaze verisi gelip gelmediğini test et
+            print("Gaze verisi test ediliyor...")
+            test_success = False
+            for i in range(10):  # 10 deneme yap
+                core.wait(0.1)  # Her denemede 100ms bekle
+                gaze_test = eye_tracker.get_latest_gaze()
+                if gaze_test:
+                    x, y, timestamp = gaze_test
+                    # Eğer x ve y 0 değilse veya geçerli bir değerse, veri geliyor demektir
+                    if (x != 0 or y != 0) or (abs(x) < 10000 and abs(y) < 10000):  # Geçerli aralıkta
+                        print(f"✓ Gaze verisi alındı: x={x:.2f}, y={y:.2f}")
+                        test_success = True
+                        break
+                # Alternatif: get_gaze_data() ile manuel istek yap
+                if not test_success:
+                    try:
+                        gaze_test = eye_tracker.get_gaze_data()
+                        if gaze_test:
+                            x, y, timestamp = gaze_test
+                            if (x != 0 or y != 0) or (abs(x) < 10000 and abs(y) < 10000):
+                                print(f"✓ Gaze verisi alındı (manuel): x={x:.2f}, y={y:.2f}")
+                                test_success = True
+                                break
+                    except:
+                        pass
+            
+            if not test_success:
+                print("⚠️  UYARI: Gaze verisi alınamadı! Eye tracker çalışıyor olabilir ama veri gelmiyor.")
+                print("   Kalibrasyonu kontrol edin veya eye tracker cihazını kontrol edin.")
+                # Yine de devam et, belki video oynatılırken veri gelir
         except Exception as e:
             print(f"Göz takibi başlatılamadı: {e}")
         

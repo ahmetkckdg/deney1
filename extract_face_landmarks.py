@@ -3,10 +3,12 @@ Video karelerindeki yüz landmark'larını tespit edip kaydeder.
 Her kare için yüz bölgelerinin (gözler, burun, ağız, vb.) piksel koordinatlarını çıkarır.
 """
 
+import argparse
 import math
 import os
 import csv
 from pathlib import Path
+from typing import Iterable, List, Optional
 
 # Mediapipe GPU kullanımı macOS sandbox'larında sorun çıkarabildiği için devre dışı bırak
 os.environ.setdefault("MEDIAPIPE_DISABLE_GPU", "1")
@@ -20,9 +22,9 @@ from mediapipe.tasks.python import vision as mp_vision
 # Video dizini
 VIDEO_DIR = "videos"
 OUTPUT_DIR = "results/face_landmarks"
-FPS = 30  # Video FPS (30fps)
+FPS = 30  # Yedek FPS
 LANDMARKER_MODEL_PATH = Path("models/face_landmarker.task")
-
+SUPPORTED_VIDEO_EXTS = [".mp4", ".mov", ".m4v", ".avi", ".mkv"]
 
 # Yüz bölgeleri bounding box'larını biraz genişletmek için padding oranı
 REGION_PADDING_RATIO = 0.12  # Her bir kenara %12 padding ekle
@@ -147,7 +149,29 @@ def get_region_center(landmarks, region_indices, img_width, img_height):
         "center_y": y_sum / count
     }
 
-def process_video(video_path, output_file, landmarker):
+def collect_video_files(video_dir: Path, recursive: bool = True, video_ids: Optional[Iterable[str]] = None) -> List[Path]:
+    """Verilen dizindeki video dosyalarını toplar"""
+    if not video_dir.exists():
+        return []
+    
+    allowed_exts = {ext.lower() for ext in SUPPORTED_VIDEO_EXTS}
+    video_ids = {vid.strip() for vid in video_ids} if video_ids else None
+    
+    iterator = video_dir.rglob("*") if recursive else video_dir.glob("*")
+    files = []
+    for path in iterator:
+        if not path.is_file():
+            continue
+        if path.suffix.lower() not in allowed_exts:
+            continue
+        if video_ids and path.stem not in video_ids:
+            continue
+        files.append(path)
+    
+    files.sort()
+    return files
+
+def process_video(video_path, output_file, landmarker, default_fps=FPS):
     """Videoyu kare kare işleyip yüz landmark'larını çıkarır"""
     video_name = os.path.basename(video_path)
     video_id = os.path.splitext(video_name)[0]
@@ -166,8 +190,8 @@ def process_video(video_path, output_file, landmarker):
         except Exception:
             meta = {}
         
-        fps = meta.get("fps") or FPS
-        fps = fps if fps and fps > 0 else FPS
+        fps = meta.get("fps") or default_fps
+        fps = fps if fps and fps > 0 else default_fps
         
         size = meta.get("size")
         if size and isinstance(size, (tuple, list)) and len(size) == 2:
@@ -283,25 +307,41 @@ def process_video(video_path, output_file, landmarker):
     else:
         print(f"  ⚠ Hiç veri bulunamadı!")
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Video karelerinden yüz landmark verisi çıkarır.")
+    parser.add_argument("--video-dir", default=VIDEO_DIR, help="Video dosyalarının bulunduğu dizin")
+    parser.add_argument("--output-dir", default=OUTPUT_DIR, help="Çıktı CSV dosyaları için dizin")
+    parser.add_argument("--model-path", default=str(LANDMARKER_MODEL_PATH), help="MediaPipe face landmarker .task dosyası")
+    parser.add_argument("--videos", nargs="+", help="Yalnızca belirtilen video ID'lerini işle (dosya adı uzantısız)")
+    parser.add_argument("--recursive", action="store_true", help="Video dizinini alt dizinlerle birlikte tara")
+    parser.add_argument("--overwrite", action="store_true", help="Mevcut CSV dosyalarını yeniden oluştur")
+    parser.add_argument("--limit", type=int, help="En fazla N video işle")
+    parser.add_argument("--default-fps", type=float, default=FPS, help="Meta veride FPS yoksa kullanılacak varsayılan FPS")
+    return parser.parse_args()
+
 def main():
     """Tüm videoları işle"""
-    video_dir = Path(VIDEO_DIR)
-    output_dir = Path(OUTPUT_DIR)
+    args = parse_args()
+    video_dir = Path(args.video_dir)
+    output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Tüm video dosyalarını bul
-    video_files = sorted(video_dir.glob("*.mp4"))
+    video_files = collect_video_files(video_dir, recursive=args.recursive, video_ids=args.videos)
+    if args.limit:
+        video_files = video_files[:args.limit]
     
     if not video_files:
-        print(f"Videolar bulunamadı: {VIDEO_DIR}")
+        target = ", ".join(args.videos) if args.videos else str(video_dir)
+        print(f"Videolar bulunamadı: {target}")
         return
     
-    if not LANDMARKER_MODEL_PATH.exists():
-        print(f"Model dosyası bulunamadı: {LANDMARKER_MODEL_PATH}. Lütfen modeli indirip tekrar deneyin.")
+    model_path = Path(args.model_path)
+    if not model_path.exists():
+        print(f"Model dosyası bulunamadı: {model_path}. Lütfen modeli indirip tekrar deneyin.")
         return
     
     base_options = mp_tasks.BaseOptions(
-        model_asset_path=str(LANDMARKER_MODEL_PATH),
+        model_asset_path=str(model_path),
         delegate=mp_tasks.BaseOptions.Delegate.CPU
     )
     landmarker_options = mp_vision.FaceLandmarkerOptions(
@@ -320,12 +360,11 @@ def main():
             video_id = video_path.stem
             output_file = output_dir / f"{video_id}_landmarks.csv"
             
-            # Eğer dosya zaten varsa atla (yeniden işlemek için silin)
-            if output_file.exists():
+            if output_file.exists() and not args.overwrite:
                 print(f"Atlanıyor (zaten var): {video_id}")
                 continue
             
-            process_video(str(video_path), str(output_file), landmarker)
+            process_video(str(video_path), str(output_file), landmarker, default_fps=args.default_fps)
             print()
     
     print("Tüm videolar işlendi!")
