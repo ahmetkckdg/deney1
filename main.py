@@ -15,15 +15,16 @@ SURVEY_FILE = "results/survey_answers.csv"
 DEMOGRAPHIC_FILE = "results/demographic_data.csv"
 
 # Video boyutları: 720p (1280x720) 30fps
-# Uygulama sabit boyutlu window olacak (fullscreen değil)
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
+# Uygulama fullscreen olacak, video kalitesi korunacak
+# Ekran boyutları window oluşturulduğunda alınacak
+SCREEN_WIDTH = None  # Fullscreen'de otomatik alınacak
+SCREEN_HEIGHT = None  # Fullscreen'de otomatik alınacak
 
 # Monitor tanımlaması
 def setup_monitor():
     """Monitor spesifikasyonunu oluşturur"""
     monitor = monitors.Monitor('default')
-    monitor.setSizePix([SCREEN_WIDTH, SCREEN_HEIGHT])
+    # Fullscreen için monitor boyutlarını otomatik al
     monitor.setWidth(30)
     monitor.setDistance(57)
     return monitor
@@ -253,12 +254,42 @@ def flush_gaze_buffer():
         gaze_buffer = []  # Buffer'ı temizle
 
 def play_video_with_controls(video_path, video_index=None, participant_id=None, video_id=None):
-    # Video boyutunu window boyutuna göre ayarla (1280x720 tam ekran)
+    """
+    Videoyu fullscreen'de kaliteyi koruyarak oynatır.
+    Video aspect ratio'su korunur, ekrana sığdırılır (letterbox/pillarbox).
+    """
+    global SCREEN_WIDTH, SCREEN_HEIGHT
+    
+    # Ekran boyutlarını al (fullscreen window'dan)
+    screen_width = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+    screen_height = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
+    
+    # Video aspect ratio'sunu koruyarak ekrana sığdır
+    # Video genellikle 1280x720 (16:9) olduğu için bunu varsayıyoruz
+    # Gerçek video boyutunu almak için video dosyasını açıp kontrol edebiliriz
+    # Ancak performans için varsayılan 16:9 kullanıyoruz
+    video_aspect = 16.0 / 9.0  # 1280x720 için aspect ratio
+    screen_aspect = screen_width / screen_height
+    
+    # Aspect ratio'yu koruyarak video boyutunu hesapla
+    if screen_aspect > video_aspect:
+        # Ekran daha geniş (widescreen), yüksekliği kullan (letterbox)
+        video_height = screen_height
+        video_width = video_height * video_aspect
+    else:
+        # Ekran daha yüksek veya eşit, genişliği kullan (pillarbox)
+        video_width = screen_width
+        video_height = video_width / video_aspect
+    
+    # Video boyutunu hesapla (kaliteyi korumak için tam piksel değerleri)
+    video_size = (int(video_width), int(video_height))
+    
     # Video yükleme optimizasyonu: noAudio=True (ses kapalı), loop=False
+    # size parametresi ile aspect ratio korunur ve kalite bozulmaz
     video = visual.MovieStim(
         win, 
         filename=video_path, 
-        size=(SCREEN_WIDTH, SCREEN_HEIGHT), 
+        size=video_size,  # Aspect ratio korunarak ekrana sığdırılmış boyut
         flipVert=False,
         noAudio=True,  # Ses kapalı (performans için ve kullanıcı isteği)
         loop=False,  # Tekrar oynatma
@@ -268,19 +299,23 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
     )
     
     # Ön-video ekranı - TextStim'leri önceden oluştur (her frame'de yeniden oluşturma)
+    # Ekran boyutlarını güvenli şekilde al
+    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
+    
     instruction_text = f"{video_index or ''} Videoyu oynatmak için aşağıdaki 'Oynat' butonuna tıklayın"
     instruction = visual.TextStim(
         win, 
         text=instruction_text.strip(), 
-        pos=(0, SCREEN_HEIGHT * 0.15), 
-        height=SCREEN_HEIGHT * 0.04, 
+        pos=(0, screen_h * 0.15), 
+        height=screen_h * 0.04, 
         color='white', 
-        wrapWidth=SCREEN_WIDTH * 0.8
+        wrapWidth=screen_w * 0.8
     )
     play_rect = visual.Rect(
         win, 
-        width=SCREEN_WIDTH * 0.15, 
-        height=SCREEN_HEIGHT * 0.07, 
+        width=screen_w * 0.15, 
+        height=screen_h * 0.07, 
         fillColor='white', 
         pos=(0, 0)
     )
@@ -288,7 +323,7 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
         win, 
         text="Oynat", 
         pos=(0, 0), 
-        height=SCREEN_HEIGHT * 0.035, 
+        height=screen_h * 0.035, 
         color='black'
     )
     mouse = event.Mouse(win=win, visible=True)
@@ -385,13 +420,17 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
 
                     # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor.
                     # Eğer gelen değerler bu aralıktaysa ekran pikseline ölçekle.
+                    # Ekran boyutlarını güvenli şekilde al
+                    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+                    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
+                    
                     if -0.5 <= x <= 1.5 and -0.5 <= y <= 1.5:
-                        x *= SCREEN_WIDTH
-                        y *= SCREEN_HEIGHT
+                        x *= screen_w
+                        y *= screen_h
 
                     # Ekran sınırlarını aşmasını engelle
-                    x_clamped = max(0, min(SCREEN_WIDTH, x))
-                    y_clamped = max(0, min(SCREEN_HEIGHT, y))
+                    x_clamped = max(0, min(screen_w, x))
+                    y_clamped = max(0, min(screen_h, y))
                     video_time = current_time
                     
                     # Tüm gaze verilerini kaydet (0,0 dahil - ekranın sol üst köşesi geçerli bir değer)
@@ -1125,16 +1164,16 @@ def main():
         # Monitor setup
         monitor = setup_monitor()
         
-        # Sabit boyutlu window oluştur (1280x720, fullscreen değil)
+        # Fullscreen window oluştur (video kalitesi korunacak)
         win = visual.Window(
-            fullscr=False, 
-            size=(SCREEN_WIDTH, SCREEN_HEIGHT), 
+            fullscr=True,  # Fullscreen aktif
+            size=None,  # Fullscreen'de otomatik alınır
             units='pix', 
             color=(0, 0, 0), 
             screen=0,
             monitor=monitor,
             waitBlanking=True,
-            allowGUI=True,
+            allowGUI=False,  # Fullscreen'de GUI kapalı
             useFBO=True,
             multiSample=False,
             allowStencil=False,
@@ -1142,6 +1181,12 @@ def main():
             checkTiming=False,
             autoLog=False
         )
+        
+        # Ekran boyutlarını global değişkenlere kaydet
+        SCREEN_WIDTH = win.size[0]
+        SCREEN_HEIGHT = win.size[1]
+        print(f"Ekran boyutu: {SCREEN_WIDTH}x{SCREEN_HEIGHT}")
+        
         win.setMouseVisible(True)
         win.setRecordFrameIntervals(False)
         

@@ -1,0 +1,24 @@
+participant_id,region,region_tr,gaze_count,total_duration,percentage,inside_count,avg_distance,rank
+jhjh,chin,Çene,384,12.67,38.59,384,0.0,1
+jhjh,left_cheek,Sol Yanak,167,5.51,16.78,167,0.0,2
+jhjh,nose,Burun,97,3.2,9.75,97,0.0,3
+jhjh,right_cheek,Sağ Yanak,63,2.08,6.33,63,0.0,4
+jhjh,unknown,Bilinmeyen,22,0.73,2.21,0,0.0,5
+k,chin,Çene,1272,41.98,32.02,1272,0.0,1
+k,mouth,Ağız,462,15.25,11.63,462,0.0,2
+k,right_cheek,Sağ Yanak,194,6.4,4.88,194,0.0,3
+k,left_cheek,Sol Yanak,99,3.27,2.49,99,0.0,4
+k,unknown,Bilinmeyen,33,1.09,0.83,0,0.0,5
+k,nose,Burun,16,0.53,0.4,16,0.0,6
+kl,left_cheek,Sol Yanak,64,2.11,39.75,64,0.0,1
+kl,nose,Burun,35,1.16,21.74,35,0.0,2
+kl,right_cheek,Sağ Yanak,32,1.06,19.88,32,0.0,3
+zeynep,nose,Burun,995,32.84,34.09,991,0.1,1
+zeynep,right_cheek,Sağ Yanak,442,14.59,15.14,442,0.0,2
+zeynep,left_cheek,Sol Yanak,333,10.99,11.41,333,0.0,3
+zeynep,right_eye,Sağ Göz,269,8.88,9.22,269,0.0,4
+zeynep,left_eye,Sol Göz,171,5.64,5.86,171,0.0,5
+zeynep,mouth,Ağız,77,2.54,2.64,77,0.0,6
+zeynep,forehead,Alın,41,1.35,1.4,41,0.0,7
+zeynep,chin,Çene,29,0.96,0.99,29,0.0,8
+zeynep,unknown,Bilinmeyen,25,0.83,0.86,0,0.0,9

@@ -10,7 +10,7 @@ import csv
 from pathlib import Path
 
 # Dosya yolları
-GAZE_DATA_FILE = os.environ.get("GAZE_DATA_FILE", "gaze_data/gaze_data.csv")
+GAZE_DATA_FILE = os.environ.get("GAZE_DATA_FILE", "results/gaze_data.csv")
 LANDMARKS_DIR = "results/face_landmarks"
 OUTPUT_FILE = "results/gaze_on_face_regions.csv"
 
@@ -121,11 +121,91 @@ def analyze_gaze_data():
         landmarks_df = pd.read_csv(landmark_file)
         print(f"  İşleniyor: {video_id} ({len(video_gaze)} gaze, {len(landmarks_df)} kare)")
         
+        # Video'nun orijinal boyutunu landmark dosyasından al
+        if len(landmarks_df) > 0:
+            video_width = landmarks_df.iloc[0]['video_width']
+            video_height = landmarks_df.iloc[0]['video_height']
+        else:
+            # Varsayılan değerler (1280x720)
+            video_width = 1280
+            video_height = 720
+            print(f"  Uyarı: Video boyutu bulunamadı, varsayılan {video_width}x{video_height} kullanılıyor")
+        
+        print(f"  Video orijinal boyutu: {video_width}x{video_height}")
+        
+        # Gaze verilerinin ekran boyutunu tahmin et (gaze verilerinden)
+        # Gaze verilerinin maksimum değerlerini kullan
+        max_gaze_x = video_gaze['gaze_x'].max()
+        max_gaze_y = video_gaze['gaze_y'].max()
+        screen_width = max_gaze_x if max_gaze_x > 0 else 1920  # Varsayılan
+        screen_height = max_gaze_y if max_gaze_y > 0 else 1080  # Varsayılan
+        
+        print(f"  Ekran boyutu (gaze verilerinden): {screen_width:.0f}x{screen_height:.0f}")
+        
+        # Video'nun ekranda gösterilen boyutunu hesapla (aspect ratio korunarak)
+        video_aspect = video_width / video_height
+        screen_aspect = screen_width / screen_height
+        
+        if screen_aspect > video_aspect:
+            # Ekran daha geniş, yüksekliği kullan (letterbox)
+            display_video_height = screen_height
+            display_video_width = display_video_height * video_aspect
+            offset_x = (screen_width - display_video_width) / 2
+            offset_y = 0
+        else:
+            # Ekran daha yüksek, genişliği kullan (pillarbox)
+            display_video_width = screen_width
+            display_video_height = display_video_width / video_aspect
+            offset_x = 0
+            offset_y = (screen_height - display_video_height) / 2
+        
+        print(f"  Video ekranda gösterilen boyutu: {display_video_width:.0f}x{display_video_height:.0f}")
+        print(f"  Video offset: ({offset_x:.0f}, {offset_y:.0f})")
+        
         # Her gaze noktası için
         for idx, gaze_row in video_gaze.iterrows():
             gaze_x = gaze_row['gaze_x']
             gaze_y = gaze_row['gaze_y']
             video_time = gaze_row['video_time']
+            
+            # Gaze koordinatlarını video'nun orijinal boyutuna göre normalize et
+            # 1. Gaze koordinatından video offset'ini çıkar
+            gaze_x_in_video = gaze_x - offset_x
+            gaze_y_in_video = gaze_y - offset_y
+            
+            # 2. Video koordinat sistemine ölçekle (orijinal video boyutuna)
+            if display_video_width > 0 and display_video_height > 0:
+                gaze_x_normalized = (gaze_x_in_video / display_video_width) * video_width
+                gaze_y_normalized = (gaze_y_in_video / display_video_height) * video_height
+            else:
+                # Hata durumunda orijinal değerleri kullan
+                gaze_x_normalized = gaze_x
+                gaze_y_normalized = gaze_y
+            
+            # Video sınırları içinde mi kontrol et
+            if gaze_x_normalized < 0 or gaze_x_normalized > video_width or \
+               gaze_y_normalized < 0 or gaze_y_normalized > video_height:
+                # Gaze noktası video alanının dışında (letterbox/pillarbox bölgesi)
+                # Bu durumda 'unknown' olarak işaretle
+                results.append({
+                    'participant_id': gaze_row['participant_id'],
+                    'video_id': video_id,
+                    'gaze_x': gaze_x,
+                    'gaze_y': gaze_y,
+                    'gaze_x_normalized': gaze_x_normalized,
+                    'gaze_y_normalized': gaze_y_normalized,
+                    'video_time': video_time,
+                    'frame_number': None,
+                    'gaze_region': 'outside_video',
+                    'region_center_x': None,
+                    'region_center_y': None,
+                    'distance_to_region': None
+                })
+                continue
+            
+            # Normalize edilmiş koordinatları kullan
+            gaze_x = gaze_x_normalized
+            gaze_y = gaze_y_normalized
             
             # Video zamanına göre frame numarasını bul
             # FPS'yi landmark dosyasından al (varsayılan 30fps)
@@ -150,8 +230,10 @@ def analyze_gaze_data():
                 results.append({
                     'participant_id': gaze_row['participant_id'],
                     'video_id': video_id,
-                    'gaze_x': gaze_x,
-                    'gaze_y': gaze_y,
+                    'gaze_x': gaze_row['gaze_x'],  # Orijinal ekran koordinatı
+                    'gaze_y': gaze_row['gaze_y'],  # Orijinal ekran koordinatı
+                    'gaze_x_normalized': gaze_x,  # Video koordinat sistemine normalize edilmiş
+                    'gaze_y_normalized': gaze_y,  # Video koordinat sistemine normalize edilmiş
                     'video_time': video_time,
                     'frame_number': None,
                     'gaze_region': 'unknown',
@@ -190,8 +272,10 @@ def analyze_gaze_data():
             results.append({
                 'participant_id': gaze_row['participant_id'],
                 'video_id': video_id,
-                'gaze_x': gaze_x,
-                'gaze_y': gaze_y,
+                'gaze_x': gaze_row['gaze_x'],  # Orijinal ekran koordinatı
+                'gaze_y': gaze_row['gaze_y'],  # Orijinal ekran koordinatı
+                'gaze_x_normalized': gaze_x,  # Video koordinat sistemine normalize edilmiş
+                'gaze_y_normalized': gaze_y,  # Video koordinat sistemine normalize edilmiş
                 'video_time': video_time,
                 'frame_number': frame_data.get('frame_number'),
                 'gaze_region': gaze_region if gaze_region else 'unknown',
