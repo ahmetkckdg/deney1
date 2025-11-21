@@ -1,4 +1,6 @@
 psychopy==2025.1.1
-mediapipe>=0.10.0
+mediapipe==0.10.14
 opencv-python>=4.8.0
 pandas>=2.0.0
+imageio>=2.37.0
+imageio-ffmpeg>=0.6.0

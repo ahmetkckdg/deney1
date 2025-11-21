@@ -3,31 +3,31 @@ Eye tracking verilerini yüz landmark'larıyla eşleştirir.
 Her gaze noktasının hangi yüz bölgesine denk geldiğini belirler.
 """
 
+import math
 import pandas as pd
 import os
 import csv
 from pathlib import Path
 
 # Dosya yolları
-GAZE_DATA_FILE = "results/gaze_data.csv"
+GAZE_DATA_FILE = os.environ.get("GAZE_DATA_FILE", "gaze_data/gaze_data.csv")
 LANDMARKS_DIR = "results/face_landmarks"
 OUTPUT_FILE = "results/gaze_on_face_regions.csv"
 
 # Yüz bölgeleri (landmark dosyalarındaki sütun isimleriyle eşleşmeli)
 FACE_REGIONS = [
     "left_eye", "right_eye", "nose", "mouth",
-    "left_cheek", "right_cheek", "forehead", "chin"
+    "left_cheek", "right_cheek", "forehead", "chin",
+    "left_ear", "right_ear", "face_outline"
 ]
+REGION_TOLERANCE_PX = 10.0
 
 def is_point_in_region(gaze_x, gaze_y, frame_data, region_name, tolerance=0.0):
     """Gaze noktasının belirli bir yüz bölgesi içinde olup olmadığını kontrol eder"""
-    min_x = frame_data.get(f"{region_name}_min_x")
-    max_x = frame_data.get(f"{region_name}_max_x")
-    min_y = frame_data.get(f"{region_name}_min_y")
-    max_y = frame_data.get(f"{region_name}_max_y")
-
-    if any(pd.isna(val) for val in (min_x, max_x, min_y, max_y)):
+    bounds = get_region_bounds(frame_data, region_name)
+    if not bounds:
         return False
+    min_x, max_x, min_y, max_y = bounds
     
     min_x -= tolerance
     min_y -= tolerance
@@ -36,24 +36,54 @@ def is_point_in_region(gaze_x, gaze_y, frame_data, region_name, tolerance=0.0):
     
     return (min_x <= gaze_x <= max_x) and (min_y <= gaze_y <= max_y)
 
+def get_region_bounds(frame_data, region_name):
+    """frame_data içerisinden bölge bounding box değerlerini döndürür"""
+    min_x = frame_data.get(f"{region_name}_min_x")
+    max_x = frame_data.get(f"{region_name}_max_x")
+    min_y = frame_data.get(f"{region_name}_min_y")
+    max_y = frame_data.get(f"{region_name}_max_y")
+
+    if any(pd.isna(val) for val in (min_x, max_x, min_y, max_y)):
+        return None
+    
+    return min_x, max_x, min_y, max_y
+
+def distance_to_region(gaze_x, gaze_y, frame_data, region_name):
+    """Gaze noktasının bölge bounding box'ına olan mesafesini hesaplar"""
+    bounds = get_region_bounds(frame_data, region_name)
+    if not bounds:
+        return None
+    
+    min_x, max_x, min_y, max_y = bounds
+    
+    if min_x <= gaze_x <= max_x:
+        dx = 0.0
+    else:
+        dx = min(abs(gaze_x - min_x), abs(gaze_x - max_x))
+    
+    if min_y <= gaze_y <= max_y:
+        dy = 0.0
+    else:
+        dy = min(abs(gaze_y - min_y), abs(gaze_y - max_y))
+    
+    return math.hypot(dx, dy)
+
 def find_closest_region(gaze_x, gaze_y, frame_data):
     """Gaze noktasına en yakın yüz bölgesini bulur (eğer hiçbir bölge içinde değilse)"""
     min_distance = float('inf')
     closest_region = None
     
     for region in FACE_REGIONS:
-        center_x = frame_data.get(f"{region}_center_x")
-        center_y = frame_data.get(f"{region}_center_y")
-        
-        if pd.isna(center_x) or pd.isna(center_y):
+        distance = distance_to_region(gaze_x, gaze_y, frame_data, region)
+        if distance is None:
             continue
-        
-        # Öklid mesafesi
-        distance = ((gaze_x - center_x) ** 2 + (gaze_y - center_y) ** 2) ** 0.5
         
         if distance < min_distance:
             min_distance = distance
             closest_region = region
+    
+    if closest_region is None:
+        return None, None
     
     return closest_region, min_distance
 
@@ -141,7 +171,7 @@ def analyze_gaze_data():
             
             # Önce bölge içinde mi kontrol et
             for region in FACE_REGIONS:
-                if is_point_in_region(gaze_x, gaze_y, frame_data, region, tolerance=6.0):
+                if is_point_in_region(gaze_x, gaze_y, frame_data, region, tolerance=REGION_TOLERANCE_PX):
                     gaze_region = region
                     region_center_x = frame_data.get(f"{region}_center_x")
                     region_center_y = frame_data.get(f"{region}_center_y")

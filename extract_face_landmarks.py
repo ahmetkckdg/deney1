@@ -3,22 +3,26 @@ Video karelerindeki yüz landmark'larını tespit edip kaydeder.
 Her kare için yüz bölgelerinin (gözler, burun, ağız, vb.) piksel koordinatlarını çıkarır.
 """
 
-import cv2
-import mediapipe as mp
+import math
 import os
 import csv
-import json
 from pathlib import Path
+
+# Mediapipe GPU kullanımı macOS sandbox'larında sorun çıkarabildiği için devre dışı bırak
+os.environ.setdefault("MEDIAPIPE_DISABLE_GPU", "1")
+
+import imageio.v2 as imageio
+import mediapipe as mp
+import numpy as np
+from mediapipe.tasks import python as mp_tasks
+from mediapipe.tasks.python import vision as mp_vision
 
 # Video dizini
 VIDEO_DIR = "videos"
 OUTPUT_DIR = "results/face_landmarks"
 FPS = 30  # Video FPS (30fps)
+LANDMARKER_MODEL_PATH = Path("models/face_landmarker.task")
 
-# MediaPipe Face Mesh ayarları
-mp_face_mesh = mp.solutions.face_mesh
-mp_drawing = mp.solutions.drawing_utils
-mp_drawing_styles = mp.solutions.drawing_styles
 
 # Yüz bölgeleri bounding box'larını biraz genişletmek için padding oranı
 REGION_PADDING_RATIO = 0.12  # Her bir kenara %12 padding ekle
@@ -52,6 +56,14 @@ FACE_REGIONS = {
                      377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
 }
 
+def _get_landmark_list(landmarks):
+    """FaceMesh veya FaceLandmarker çıktısını tek tip listeye dönüştürür."""
+    if landmarks is None:
+        return []
+    if hasattr(landmarks, "landmark"):
+        return landmarks.landmark
+    return landmarks
+
 def _apply_padding(min_val, max_val, length, max_limit):
     """Belirli bir eksende padding uygular ve sınırlar dahilinde kalır"""
     padding = max(MIN_REGION_PADDING, int(length * REGION_PADDING_RATIO))
@@ -64,12 +76,16 @@ def get_region_bounds(landmarks, region_indices, img_width, img_height):
     if not region_indices:
         return None
     
+    landmark_list = _get_landmark_list(landmarks)
+    if not landmark_list:
+        return None
+    
     x_coords = []
     y_coords = []
     
     for idx in region_indices:
-        if idx < len(landmarks.landmark):
-            landmark = landmarks.landmark[idx]
+        if idx < len(landmark_list):
+            landmark = landmark_list[idx]
             x = int(landmark.x * img_width)
             y = int(landmark.y * img_height)
             x_coords.append(x)
@@ -108,13 +124,17 @@ def get_region_center(landmarks, region_indices, img_width, img_height):
     if not region_indices:
         return None
     
+    landmark_list = _get_landmark_list(landmarks)
+    if not landmark_list:
+        return None
+    
     x_sum = 0
     y_sum = 0
     count = 0
     
     for idx in region_indices:
-        if idx < len(landmarks.landmark):
-            landmark = landmarks.landmark[idx]
+        if idx < len(landmark_list):
+            landmark = landmark_list[idx]
             x_sum += landmark.x * img_width
             y_sum += landmark.y * img_height
             count += 1
@@ -127,51 +147,67 @@ def get_region_center(landmarks, region_indices, img_width, img_height):
         "center_y": y_sum / count
     }
 
-def process_video(video_path, output_file):
+def process_video(video_path, output_file, landmarker):
     """Videoyu kare kare işleyip yüz landmark'larını çıkarır"""
     video_name = os.path.basename(video_path)
     video_id = os.path.splitext(video_name)[0]
     
     print(f"İşleniyor: {video_name}")
     
-    cap = cv2.VideoCapture(video_path)
-    if not cap.isOpened():
-        print(f"Hata: {video_path} açılamadı!")
+    try:
+        reader = imageio.get_reader(video_path, "ffmpeg")
+    except Exception as exc:
+        print(f"Hata: {video_path} açılamadı! ({exc})")
         return
     
-    # Video özellikleri
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    
-    print(f"  FPS: {fps}, Toplam kare: {total_frames}, Boyut: {width}x{height}")
-    
-    # MediaPipe Face Mesh
-    with mp_face_mesh.FaceMesh(
-        static_image_mode=False,
-        max_num_faces=1,
-        refine_landmarks=True,
-        min_detection_confidence=0.5,
-        min_tracking_confidence=0.5
-    ) as face_mesh:
+    with reader:
+        try:
+            meta = reader.get_meta_data()
+        except Exception:
+            meta = {}
+        
+        fps = meta.get("fps") or FPS
+        fps = fps if fps and fps > 0 else FPS
+        
+        size = meta.get("size")
+        if size and isinstance(size, (tuple, list)) and len(size) == 2:
+            width, height = int(size[0]), int(size[1])
+        else:
+            width = height = None
+        
+        total_frames = None
+        possible_frames = meta.get("nframes")
+        if isinstance(possible_frames, (int, float)) and not math.isinf(possible_frames):
+            total_frames = int(possible_frames)
+        
+        total_frames_display = total_frames if total_frames is not None else "?"
+        width_display = width if width is not None else "?"
+        height_display = height if height is not None else "?"
+        print(f"  FPS: {fps}, Toplam kare: {total_frames_display}, Boyut: {width_display}x{height_display}")
         
         frame_data = []
         frame_number = 0
         
-        while cap.isOpened():
-            ret, frame = cap.read()
-            if not ret:
-                break
+        for frame_number, frame in enumerate(reader, start=1):
+            if frame is None:
+                continue
             
-            frame_number += 1
+            if frame.ndim == 2:
+                # Gri tonlamalı kareleri RGB'ye genişlet
+                frame = np.stack([frame] * 3, axis=-1)
+            
+            frame_height, frame_width = frame.shape[:2]
+            if width is None or height is None:
+                width, height = frame_width, frame_height
+            
             frame_time = frame_number / fps  # Saniye cinsinden zaman
             
-            # BGR'den RGB'ye çevir (MediaPipe RGB bekliyor)
-            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            rgb_frame = np.ascontiguousarray(frame)
+            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
             
             # Yüz landmark'larını tespit et
-            results = face_mesh.process(rgb_frame)
+            results = landmarker.detect(mp_image)
+            face_landmarks = results.face_landmarks[0] if results.face_landmarks else None
             
             frame_info = {
                 "video_id": video_id,
@@ -181,13 +217,9 @@ def process_video(video_path, output_file):
                 "video_height": height
             }
             
-            if results.multi_face_landmarks:
-                # İlk yüzü al (genellikle tek yüz var)
-                face_landmarks = results.multi_face_landmarks[0]
-                
+            if face_landmarks:
                 # Her yüz bölgesi için koordinatları hesapla
                 for region_name, region_indices in FACE_REGIONS.items():
-                    # Bounding box
                     bounds = get_region_bounds(face_landmarks, region_indices, width, height)
                     if bounds:
                         frame_info[f"{region_name}_min_x"] = int(bounds["min_x"])
@@ -199,7 +231,6 @@ def process_video(video_path, output_file):
                         frame_info[f"{region_name}_width"] = int(bounds["width"])
                         frame_info[f"{region_name}_height"] = int(bounds["height"])
                     else:
-                        # Yüz bölgesi bulunamadı
                         frame_info[f"{region_name}_min_x"] = None
                         frame_info[f"{region_name}_max_x"] = None
                         frame_info[f"{region_name}_min_y"] = None
@@ -224,9 +255,10 @@ def process_video(video_path, output_file):
             
             # İlerleme göster
             if frame_number % 30 == 0:
-                print(f"  İşlenen kare: {frame_number}/{total_frames}")
-        
-        cap.release()
+                if total_frames is not None:
+                    print(f"  İşlenen kare: {frame_number}/{total_frames}")
+                else:
+                    print(f"  İşlenen kare: {frame_number}")
     
     # CSV'ye kaydet
     if frame_data:
@@ -264,19 +296,37 @@ def main():
         print(f"Videolar bulunamadı: {VIDEO_DIR}")
         return
     
+    if not LANDMARKER_MODEL_PATH.exists():
+        print(f"Model dosyası bulunamadı: {LANDMARKER_MODEL_PATH}. Lütfen modeli indirip tekrar deneyin.")
+        return
+    
+    base_options = mp_tasks.BaseOptions(
+        model_asset_path=str(LANDMARKER_MODEL_PATH),
+        delegate=mp_tasks.BaseOptions.Delegate.CPU
+    )
+    landmarker_options = mp_vision.FaceLandmarkerOptions(
+        base_options=base_options,
+        num_faces=1,
+        min_face_detection_confidence=0.5,
+        min_face_presence_confidence=0.5,
+        min_tracking_confidence=0.5,
+        output_facial_transformation_matrixes=False
+    )
+    
     print(f"Toplam {len(video_files)} video bulundu.\n")
     
-    for video_path in video_files:
-        video_id = video_path.stem
-        output_file = output_dir / f"{video_id}_landmarks.csv"
-        
-        # Eğer dosya zaten varsa atla (yeniden işlemek için silin)
-        if output_file.exists():
-            print(f"Atlanıyor (zaten var): {video_id}")
-            continue
-        
-        process_video(str(video_path), str(output_file))
-        print()
+    with mp_vision.FaceLandmarker.create_from_options(landmarker_options) as landmarker:
+        for video_path in video_files:
+            video_id = video_path.stem
+            output_file = output_dir / f"{video_id}_landmarks.csv"
+            
+            # Eğer dosya zaten varsa atla (yeniden işlemek için silin)
+            if output_file.exists():
+                print(f"Atlanıyor (zaten var): {video_id}")
+                continue
+            
+            process_video(str(video_path), str(output_file), landmarker)
+            print()
     
     print("Tüm videolar işlendi!")
 
