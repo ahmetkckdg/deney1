@@ -1156,14 +1156,19 @@ def safe_exit():
                 if hasattr(win, 'backend') and win.backend is not None:
                     # Window'u kapat
                     win.close()
-                # Backend yoksa veya zaten kapatılmışsa sessizce geç
+                
+                # PsychoPy __del__ hatasını önlemek için close metodunu devre dışı bırak
+                # Bu, garbage collector window'u silerken tekrar close() çağırdığında
+                # 'NoneType' object has no attribute 'close' hatasını önler
+                def no_op_close():
+                    pass
+                win.close = no_op_close
+                
             except (AttributeError, RuntimeError, Exception):
                 # Herhangi bir hata durumunda sessizce geç
-                # Window zaten kapatılmış veya backend yok olabilir
                 pass
             finally:
-                # Window referansını temizle (garbage collector'ın tekrar kapatmaya çalışmasını önle)
-                # Global değişkeni değiştirmek için global anahtar kelimesi zaten yukarıda var
+                # Window referansını temizle
                 win = None
     except Exception as e:
         print(f"Çıkış sırasında hata: {e}")
@@ -1184,9 +1189,11 @@ def main():
         monitor = setup_monitor()
         
         # Fullscreen window oluştur (video kalitesi korunacak)
+        # size=(1280, 720) varsayılan olarak verilir, fullscr=True bunu ezer
+        # ancak size=None vermek bazen hatalara neden olabilir
         win = visual.Window(
             fullscr=True,  # Fullscreen aktif
-            size=None,  # Fullscreen'de otomatik alınır
+            size=(1280, 720),  # Varsayılan boyut
             units='pix', 
             color=(0, 0, 0), 
             screen=0,
