@@ -1,0 +1,5 @@
+participant_id,cinsiyet,yas,egitim_durumu,meslek,nöromodülasyon_aldı_mı,nöromodülasyon_kaç_kez,nöromodülasyon_ne_zaman,görme_bozukluğu_var_mı,görme_bozukluğu_detay,onam_durumu
+zeynep,Kadın,25,Lisans,psk,Hayır,,,Hayır,,Onaylandı
+jhjh,Kadın,jhjh,Lise,jhjh,Hayır,,,Hayır,,Onaylandı
+kl,Kadın,klk,Lise,lk,Evet,lk,3–6 ay önce,Evet,lk,Onaylandı
+k,Kadın,k,Lise,k,Evet,k,0–3 ay önce,Evet,k,Onaylandı

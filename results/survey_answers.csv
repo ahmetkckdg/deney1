@@ -1,0 +1,35 @@
+participant_id,question_index,question,answer_index,answer,response_time
+zeynep,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,3.0
+zeynep,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,3.46
+zeynep,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,2.52
+zeynep,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,3.05
+zeynep,5,Duygularımı kendime saklarım.,4,Sıklıkla,3.76
+zeynep,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,2.43
+zeynep,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,0.91
+zeynep,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,0.12
+zeynep,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,0.14
+zeynep,10,Hissettiklerimi saklayamam.,3,Bazen,0.22
+zeynep,11,Duygularımı ifade eden biri değilim.,3,Bazen,0.29
+zeynep,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,0.19
+zeynep,13,Başkalarının önünde ağlayabilirim.,3,Bazen,0.21
+zeynep,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,0.18
+zeynep,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,0.25
+zeynep,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,0.27
+zeynep,17,Duygularımı içimde tutarım.,3,Bazen,0.26
+k,1,Duygularımı başkalarına ifade etmem.,3,Bazen,0.79
+k,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,0.16
+k,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,0.21
+k,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,0.12
+k,5,Duygularımı kendime saklarım.,3,Bazen,0.2
+k,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,0.17
+k,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,0.22
+k,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,0.19
+k,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,0.06
+k,10,Hissettiklerimi saklayamam.,3,Bazen,0.17
+k,11,Duygularımı ifade eden biri değilim.,3,Bazen,0.05
+k,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,1.1
+k,13,Başkalarının önünde ağlayabilirim.,3,Bazen,0.24
+k,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,0.06
+k,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,0.38
+k,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,0.25
+k,17,Duygularımı içimde tutarım.,3,Bazen,0.05
