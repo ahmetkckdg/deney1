@@ -1142,17 +1142,31 @@ def safe_exit():
                 eye_tracker.disconnect()
             except:
                 pass
+            eye_tracker = None
         
-        # Window temizliği
-        if win:
+        # Window temizliği - güvenli kapatma
+        if win is not None:
             try:
-                win.close()
-            except:
+                # Window'un backend'inin var olup olmadığını kontrol et
+                if hasattr(win, 'backend') and win.backend is not None:
+                    # Window'u kapat
+                    win.close()
+                # Backend yoksa veya zaten kapatılmışsa sessizce geç
+            except (AttributeError, RuntimeError, Exception):
+                # Herhangi bir hata durumunda sessizce geç
+                # Window zaten kapatılmış veya backend yok olabilir
                 pass
+            finally:
+                # Window referansını temizle (garbage collector'ın tekrar kapatmaya çalışmasını önle)
+                # Global değişkeni değiştirmek için global anahtar kelimesi zaten yukarıda var
+                win = None
     except Exception as e:
         print(f"Çıkış sırasında hata: {e}")
     finally:
-        core.quit()
+        try:
+            core.quit()
+        except:
+            pass
 
 def main():
     global eye_tracker, win
