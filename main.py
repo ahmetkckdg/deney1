@@ -412,25 +412,67 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                 if gaze_data and participant_id and video_id:
                     x, y, timestamp = gaze_data
                     
+                    # Debug: İlk birkaç gaze verisini yazdır
+                    if not hasattr(play_video_with_controls, '_debug_count'):
+                        play_video_with_controls._debug_count = 0
+                    if play_video_with_controls._debug_count < 5:
+                        print(f"DEBUG Gaze verisi #{play_video_with_controls._debug_count}: x={x}, y={y}, timestamp={timestamp}")
+                        play_video_with_controls._debug_count += 1
+                    
                     # Geçersiz değerleri filtrele (çok büyük veya NaN değerler)
                     if not (isinstance(x, (int, float)) and isinstance(y, (int, float))):
+                        if play_video_with_controls._debug_count <= 5:
+                            print(f"DEBUG: Geçersiz tip - x={x} (type: {type(x)}), y={y} (type: {type(y)})")
                         x, y = 0, 0
                     if abs(x) > 100000 or abs(y) > 100000 or (x != x) or (y != y):  # NaN kontrolü
+                        if play_video_with_controls._debug_count <= 5:
+                            print(f"DEBUG: Geçersiz değer - x={x}, y={y}")
                         x, y = 0, 0
 
-                    # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor.
-                    # Eğer gelen değerler bu aralıktaysa ekran pikseline ölçekle.
+                    # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor VEYA piksel koordinatları olabilir.
                     # Ekran boyutlarını güvenli şekilde al
                     screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
                     screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
                     
-                    if -0.5 <= x <= 1.5 and -0.5 <= y <= 1.5:
+                    # Debug: Ekran boyutlarını yazdır
+                    if play_video_with_controls._debug_count <= 5:
+                        print(f"DEBUG: Ekran boyutu: {screen_w}x{screen_h}")
+                    
+                    # TheEyeTribe koordinatları genellikle piksel cinsinden gelir, ancak bazen normalize olabilir
+                    # Normalize kontrolü: Eğer değerler 0-1 arasındaysa normalize, değilse piksel
+                    is_normalized = (-0.5 <= x <= 1.5 and -0.5 <= y <= 1.5)
+                    
+                    if play_video_with_controls._debug_count <= 5:
+                        print(f"DEBUG: Normalize mi? {is_normalized}, x={x}, y={y}")
+                    
+                    if is_normalized:
+                        # Normalize koordinatları piksel'e çevir
                         x *= screen_w
                         y *= screen_h
+                        if play_video_with_controls._debug_count <= 5:
+                            print(f"DEBUG: Normalize'den sonra: x={x}, y={y}")
+                    else:
+                        # Zaten piksel koordinatları, olduğu gibi kullan
+                        # Ancak ekran boyutuna göre kontrol et
+                        if x < 0 or x > screen_w * 2 or y < 0 or y > screen_h * 2:
+                            # Koordinatlar ekran boyutundan çok farklıysa, normalize olabilir
+                            # Veya kalibrasyon yanlış yapılmış olabilir
+                            if play_video_with_controls._debug_count <= 5:
+                                print(f"DEBUG: UYARI - Koordinatlar ekran boyutundan çok farklı: x={x}, y={y}, ekran={screen_w}x{screen_h}")
+                            # Normalize olarak dene
+                            if abs(x) < 2 and abs(y) < 2:
+                                x *= screen_w
+                                y *= screen_h
+                                if play_video_with_controls._debug_count <= 5:
+                                    print(f"DEBUG: Normalize olarak işlendi: x={x}, y={y}")
 
                     # Ekran sınırlarını aşmasını engelle
                     x_clamped = max(0, min(screen_w, x))
                     y_clamped = max(0, min(screen_h, y))
+                    
+                    if play_video_with_controls._debug_count <= 5:
+                        print(f"DEBUG: Clamp sonrası: x={x_clamped}, y={y_clamped}")
+                    
                     video_time = current_time
                     
                     # Tüm gaze verilerini kaydet (0,0 dahil - ekranın sol üst köşesi geçerli bir değer)
@@ -889,9 +931,19 @@ def run_calibration(tracker, win):
     TheEyeTribe kalibrasyonunu çalıştırır - Video ekran boyutuna göre optimize edilmiş yüksek doğruluklu kalibrasyon
     Returns: Kalibrasyon başarılı ise True
     """
+    global SCREEN_WIDTH, SCREEN_HEIGHT
+    
     # Video ekran boyutları (kalibrasyon video ekranına göre yapılacak)
-    screen_width = SCREEN_WIDTH  # 1280
-    screen_height = SCREEN_HEIGHT  # 720
+    # Güvenli şekilde boyutları al
+    screen_width = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+    screen_height = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
+    
+    # Eğer hala None veya 0 ise varsayılan değerleri kullan (1920x1080 veya 1280x720)
+    if not screen_width or not screen_height:
+        screen_width = 1280
+        screen_height = 720
+    
+    print(f"Kalibrasyon ekran boyutu: {screen_width}x{screen_height}")
     
     # 13 nokta kalibrasyon pozisyonları (daha yüksek doğruluk için)
     # Video ekranının tamamını kapsayacak şekilde dağıtılmış
@@ -929,13 +981,17 @@ def run_calibration(tracker, win):
         return False
     
     # Talimat ekranı
+    # Ekran boyutlarını güvenli şekilde al
+    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
+    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
+    
     instruction = visual.TextStim(
         win, 
         text="Yüksek doğruluklu kalibrasyon başlayacak.\nEkranda görünen noktalara dikkatle bakın ve sabit tutun.\n\nHer noktaya en az 2 saniye bakın.\n\nHazır olduğunuzda SPACE tuşuna basın.",
         pos=(0, 0), 
-        height=SCREEN_HEIGHT * 0.03, 
+        height=screen_h * 0.03, 
         color='white', 
-        wrapWidth=SCREEN_WIDTH * 0.8
+        wrapWidth=screen_w * 0.8
     )
     
     instruction.draw()
@@ -1169,11 +1225,25 @@ def safe_exit():
                 pass
             finally:
                 # Window referansını temizle
+                # TextStim.__del__ hatalarını önlemek için win referansını koru ama None yapma
+                # Bu sayede garbage collector çalışırken win hala bir obje olarak kalır
+                # Ancak global win'i None yapabiliriz
+                try:
+                    # win objesinin weakref'lerini temizle veya kapatıldığını işaretle
+                    # PsychoPy'de isClosed attribute'u olabilir
+                    pass
+                except:
+                    pass
+                
                 win = None
     except Exception as e:
-        print(f"Çıkış sırasında hata: {e}")
+        # Kritik olmayan hataları yut
+        if "NoneType" not in str(e):
+            print(f"Çıkış sırasında hata: {e}")
     finally:
         try:
+            # PsychoPy core.quit() bazen sys.exit() çağırır, bu da exception fırlatabilir
+            # Bunu engellemek için sys modülünü import etmek gerekebilir ama burada core.quit yeterli
             core.quit()
         except:
             pass
