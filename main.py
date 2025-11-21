@@ -15,16 +15,15 @@ SURVEY_FILE = "results/survey_answers.csv"
 DEMOGRAPHIC_FILE = "results/demographic_data.csv"
 
 # Video boyutları: 720p (1280x720) 30fps
-# Uygulama fullscreen olacak, video kalitesi korunacak
-# Ekran boyutları window oluşturulduğunda alınacak
-SCREEN_WIDTH = None  # Fullscreen'de otomatik alınacak
-SCREEN_HEIGHT = None  # Fullscreen'de otomatik alınacak
+# Uygulama sabit boyutlu window olacak (fullscreen değil)
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 
 # Monitor tanımlaması
 def setup_monitor():
     """Monitor spesifikasyonunu oluşturur"""
     monitor = monitors.Monitor('default')
-    # Fullscreen için monitor boyutlarını otomatik al
+    monitor.setSizePix([SCREEN_WIDTH, SCREEN_HEIGHT])
     monitor.setWidth(30)
     monitor.setDistance(57)
     return monitor
@@ -254,42 +253,12 @@ def flush_gaze_buffer():
         gaze_buffer = []  # Buffer'ı temizle
 
 def play_video_with_controls(video_path, video_index=None, participant_id=None, video_id=None):
-    """
-    Videoyu fullscreen'de kaliteyi koruyarak oynatır.
-    Video aspect ratio'su korunur, ekrana sığdırılır (letterbox/pillarbox).
-    """
-    global SCREEN_WIDTH, SCREEN_HEIGHT
-    
-    # Ekran boyutlarını al (fullscreen window'dan)
-    screen_width = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-    screen_height = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
-    
-    # Video aspect ratio'sunu koruyarak ekrana sığdır
-    # Video genellikle 1280x720 (16:9) olduğu için bunu varsayıyoruz
-    # Gerçek video boyutunu almak için video dosyasını açıp kontrol edebiliriz
-    # Ancak performans için varsayılan 16:9 kullanıyoruz
-    video_aspect = 16.0 / 9.0  # 1280x720 için aspect ratio
-    screen_aspect = screen_width / screen_height
-    
-    # Aspect ratio'yu koruyarak video boyutunu hesapla
-    if screen_aspect > video_aspect:
-        # Ekran daha geniş (widescreen), yüksekliği kullan (letterbox)
-        video_height = screen_height
-        video_width = video_height * video_aspect
-    else:
-        # Ekran daha yüksek veya eşit, genişliği kullan (pillarbox)
-        video_width = screen_width
-        video_height = video_width / video_aspect
-    
-    # Video boyutunu hesapla (kaliteyi korumak için tam piksel değerleri)
-    video_size = (int(video_width), int(video_height))
-    
+    # Video boyutunu window boyutuna göre ayarla (1280x720 tam ekran)
     # Video yükleme optimizasyonu: noAudio=True (ses kapalı), loop=False
-    # size parametresi ile aspect ratio korunur ve kalite bozulmaz
     video = visual.MovieStim(
         win, 
         filename=video_path, 
-        size=video_size,  # Aspect ratio korunarak ekrana sığdırılmış boyut
+        size=(SCREEN_WIDTH, SCREEN_HEIGHT), 
         flipVert=False,
         noAudio=True,  # Ses kapalı (performans için ve kullanıcı isteği)
         loop=False,  # Tekrar oynatma
@@ -299,23 +268,19 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
     )
     
     # Ön-video ekranı - TextStim'leri önceden oluştur (her frame'de yeniden oluşturma)
-    # Ekran boyutlarını güvenli şekilde al
-    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
-    
     instruction_text = f"{video_index or ''} Videoyu oynatmak için aşağıdaki 'Oynat' butonuna tıklayın"
     instruction = visual.TextStim(
         win, 
         text=instruction_text.strip(), 
-        pos=(0, screen_h * 0.15), 
-        height=screen_h * 0.04, 
+        pos=(0, SCREEN_HEIGHT * 0.15), 
+        height=SCREEN_HEIGHT * 0.04, 
         color='white', 
-        wrapWidth=screen_w * 0.8
+        wrapWidth=SCREEN_WIDTH * 0.8
     )
     play_rect = visual.Rect(
         win, 
-        width=screen_w * 0.15, 
-        height=screen_h * 0.07, 
+        width=SCREEN_WIDTH * 0.15, 
+        height=SCREEN_HEIGHT * 0.07, 
         fillColor='white', 
         pos=(0, 0)
     )
@@ -323,7 +288,7 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
         win, 
         text="Oynat", 
         pos=(0, 0), 
-        height=screen_h * 0.035, 
+        height=SCREEN_HEIGHT * 0.035, 
         color='black'
     )
     mouse = event.Mouse(win=win, visible=True)
@@ -412,67 +377,21 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                 if gaze_data and participant_id and video_id:
                     x, y, timestamp = gaze_data
                     
-                    # Debug: İlk birkaç gaze verisini yazdır
-                    if not hasattr(play_video_with_controls, '_debug_count'):
-                        play_video_with_controls._debug_count = 0
-                    if play_video_with_controls._debug_count < 5:
-                        print(f"DEBUG Gaze verisi #{play_video_with_controls._debug_count}: x={x}, y={y}, timestamp={timestamp}")
-                        play_video_with_controls._debug_count += 1
-                    
                     # Geçersiz değerleri filtrele (çok büyük veya NaN değerler)
                     if not (isinstance(x, (int, float)) and isinstance(y, (int, float))):
-                        if play_video_with_controls._debug_count <= 5:
-                            print(f"DEBUG: Geçersiz tip - x={x} (type: {type(x)}), y={y} (type: {type(y)})")
                         x, y = 0, 0
                     if abs(x) > 100000 or abs(y) > 100000 or (x != x) or (y != y):  # NaN kontrolü
-                        if play_video_with_controls._debug_count <= 5:
-                            print(f"DEBUG: Geçersiz değer - x={x}, y={y}")
                         x, y = 0, 0
 
-                    # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor VEYA piksel koordinatları olabilir.
-                    # Ekran boyutlarını güvenli şekilde al
-                    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-                    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
-                    
-                    # Debug: Ekran boyutlarını yazdır
-                    if play_video_with_controls._debug_count <= 5:
-                        print(f"DEBUG: Ekran boyutu: {screen_w}x{screen_h}")
-                    
-                    # TheEyeTribe koordinatları genellikle piksel cinsinden gelir, ancak bazen normalize olabilir
-                    # Normalize kontrolü: Eğer değerler 0-1 arasındaysa normalize, değilse piksel
-                    is_normalized = (-0.5 <= x <= 1.5 and -0.5 <= y <= 1.5)
-                    
-                    if play_video_with_controls._debug_count <= 5:
-                        print(f"DEBUG: Normalize mi? {is_normalized}, x={x}, y={y}")
-                    
-                    if is_normalized:
-                        # Normalize koordinatları piksel'e çevir
-                        x *= screen_w
-                        y *= screen_h
-                        if play_video_with_controls._debug_count <= 5:
-                            print(f"DEBUG: Normalize'den sonra: x={x}, y={y}")
-                    else:
-                        # Zaten piksel koordinatları, olduğu gibi kullan
-                        # Ancak ekran boyutuna göre kontrol et
-                        if x < 0 or x > screen_w * 2 or y < 0 or y > screen_h * 2:
-                            # Koordinatlar ekran boyutundan çok farklıysa, normalize olabilir
-                            # Veya kalibrasyon yanlış yapılmış olabilir
-                            if play_video_with_controls._debug_count <= 5:
-                                print(f"DEBUG: UYARI - Koordinatlar ekran boyutundan çok farklı: x={x}, y={y}, ekran={screen_w}x{screen_h}")
-                            # Normalize olarak dene
-                            if abs(x) < 2 and abs(y) < 2:
-                                x *= screen_w
-                                y *= screen_h
-                                if play_video_with_controls._debug_count <= 5:
-                                    print(f"DEBUG: Normalize olarak işlendi: x={x}, y={y}")
+                    # TheEyeTribe 'avg' koordinatları normalize (0-1 arası) olabiliyor.
+                    # Eğer gelen değerler bu aralıktaysa ekran pikseline ölçekle.
+                    if -0.5 <= x <= 1.5 and -0.5 <= y <= 1.5:
+                        x *= SCREEN_WIDTH
+                        y *= SCREEN_HEIGHT
 
                     # Ekran sınırlarını aşmasını engelle
-                    x_clamped = max(0, min(screen_w, x))
-                    y_clamped = max(0, min(screen_h, y))
-                    
-                    if play_video_with_controls._debug_count <= 5:
-                        print(f"DEBUG: Clamp sonrası: x={x_clamped}, y={y_clamped}")
-                    
+                    x_clamped = max(0, min(SCREEN_WIDTH, x))
+                    y_clamped = max(0, min(SCREEN_HEIGHT, y))
                     video_time = current_time
                     
                     # Tüm gaze verilerini kaydet (0,0 dahil - ekranın sol üst köşesi geçerli bir değer)
@@ -497,31 +416,26 @@ def load_questions(video_id):
     return questions[:2]  # always return first two questions
 
 def ask_question(q_data, video_id, index, participant_id):
-    global SCREEN_WIDTH, SCREEN_HEIGHT
     question = q_data["question"]
     options = q_data["options"]
 
     # Soru ve seçenekleri ekran boyutuna göre ayarla
-    # Ekran boyutlarını güvenli şekilde al
-    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
-    
-    question_height = screen_h * 0.25
-    button_height = screen_h * 0.08
-    option_spacing = screen_h * 0.10  # Butonlar arası sabit boşluk
+    question_height = SCREEN_HEIGHT * 0.25
+    button_height = SCREEN_HEIGHT * 0.08
+    option_spacing = SCREEN_HEIGHT * 0.10  # Butonlar arası sabit boşluk
     num_options = len(options)
     
     # Soru ile butonlar arasında boşluk bırak
-    question_bottom = question_height - screen_h * 0.08  # Soru metninin alt kenarı
+    question_bottom = question_height - SCREEN_HEIGHT * 0.08  # Soru metninin alt kenarı
     # İlk butonun pozisyonunu hesapla (sorunun altından başla, daha yukarı)
-    start_y = question_bottom - screen_h * 0.05  # Sorunun altından 5% boşluk (daha az boşluk = daha yukarı)
+    start_y = question_bottom - SCREEN_HEIGHT * 0.05  # Sorunun altından 5% boşluk (daha az boşluk = daha yukarı)
     
     question_text = visual.TextStim(
         win, 
         text=question, 
         pos=(0, question_height), 
-        height=screen_h * 0.04, 
-        wrapWidth=screen_w * 0.8,
+        height=SCREEN_HEIGHT * 0.04, 
+        wrapWidth=SCREEN_WIDTH * 0.8,
         color='white'
     )
     
@@ -537,7 +451,7 @@ def ask_question(q_data, video_id, index, participant_id):
         key_label = chr(65 + i)  # A, B, C, D, E, F...
         
         # Buton boyutları - metni kapsayacak şekilde
-        button_width = screen_w * 0.6
+        button_width = SCREEN_WIDTH * 0.6
         
         # Buton oluştur (beyaz arka plan, siyah kenarlık)
         # Butonun merkez noktası y_pos'ta olacak
@@ -558,7 +472,7 @@ def ask_question(q_data, video_id, index, participant_id):
             win, 
             text=opt,  # Sadece seçenek metni, harf etiketi yok
             pos=(0, y_pos),  # Buton ile tam aynı pozisyon (merkez noktası)
-            height=screen_h * 0.03,
+            height=SCREEN_HEIGHT * 0.03,
             color='black',
             wrapWidth=button_width * 0.85,  # Biraz daha dar wrapWidth
             alignText='center',  # Metni ortala
@@ -931,19 +845,9 @@ def run_calibration(tracker, win):
     TheEyeTribe kalibrasyonunu çalıştırır - Video ekran boyutuna göre optimize edilmiş yüksek doğruluklu kalibrasyon
     Returns: Kalibrasyon başarılı ise True
     """
-    global SCREEN_WIDTH, SCREEN_HEIGHT
-    
     # Video ekran boyutları (kalibrasyon video ekranına göre yapılacak)
-    # Güvenli şekilde boyutları al
-    screen_width = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-    screen_height = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
-    
-    # Eğer hala None veya 0 ise varsayılan değerleri kullan (1920x1080 veya 1280x720)
-    if not screen_width or not screen_height:
-        screen_width = 1280
-        screen_height = 720
-    
-    print(f"Kalibrasyon ekran boyutu: {screen_width}x{screen_height}")
+    screen_width = SCREEN_WIDTH  # 1280
+    screen_height = SCREEN_HEIGHT  # 720
     
     # 13 nokta kalibrasyon pozisyonları (daha yüksek doğruluk için)
     # Video ekranının tamamını kapsayacak şekilde dağıtılmış
@@ -981,17 +885,13 @@ def run_calibration(tracker, win):
         return False
     
     # Talimat ekranı
-    # Ekran boyutlarını güvenli şekilde al
-    screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-    screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
-    
     instruction = visual.TextStim(
         win, 
         text="Yüksek doğruluklu kalibrasyon başlayacak.\nEkranda görünen noktalara dikkatle bakın ve sabit tutun.\n\nHer noktaya en az 2 saniye bakın.\n\nHazır olduğunuzda SPACE tuşuna basın.",
         pos=(0, 0), 
-        height=screen_h * 0.03, 
+        height=SCREEN_HEIGHT * 0.03, 
         color='white', 
-        wrapWidth=screen_w * 0.8
+        wrapWidth=SCREEN_WIDTH * 0.8
     )
     
     instruction.draw()
@@ -1203,50 +1103,17 @@ def safe_exit():
                 eye_tracker.disconnect()
             except:
                 pass
-            eye_tracker = None
         
-        # Window temizliği - güvenli kapatma
-        if win is not None:
+        # Window temizliği
+        if win:
             try:
-                # Window'un backend'inin var olup olmadığını kontrol et
-                if hasattr(win, 'backend') and win.backend is not None:
-                    # Window'u kapat
-                    win.close()
-                
-                # PsychoPy __del__ hatasını önlemek için close metodunu devre dışı bırak
-                # Bu, garbage collector window'u silerken tekrar close() çağırdığında
-                # 'NoneType' object has no attribute 'close' hatasını önler
-                def no_op_close():
-                    pass
-                win.close = no_op_close
-                
-            except (AttributeError, RuntimeError, Exception):
-                # Herhangi bir hata durumunda sessizce geç
+                win.close()
+            except:
                 pass
-            finally:
-                # Window referansını temizle
-                # TextStim.__del__ hatalarını önlemek için win referansını koru ama None yapma
-                # Bu sayede garbage collector çalışırken win hala bir obje olarak kalır
-                # Ancak global win'i None yapabiliriz
-                try:
-                    # win objesinin weakref'lerini temizle veya kapatıldığını işaretle
-                    # PsychoPy'de isClosed attribute'u olabilir
-                    pass
-                except:
-                    pass
-                
-                win = None
     except Exception as e:
-        # Kritik olmayan hataları yut
-        if "NoneType" not in str(e):
-            print(f"Çıkış sırasında hata: {e}")
+        print(f"Çıkış sırasında hata: {e}")
     finally:
-        try:
-            # PsychoPy core.quit() bazen sys.exit() çağırır, bu da exception fırlatabilir
-            # Bunu engellemek için sys modülünü import etmek gerekebilir ama burada core.quit yeterli
-            core.quit()
-        except:
-            pass
+        core.quit()
 
 def main():
     global eye_tracker, win
@@ -1258,18 +1125,16 @@ def main():
         # Monitor setup
         monitor = setup_monitor()
         
-        # Fullscreen window oluştur (video kalitesi korunacak)
-        # size=(1280, 720) varsayılan olarak verilir, fullscr=True bunu ezer
-        # ancak size=None vermek bazen hatalara neden olabilir
+        # Sabit boyutlu window oluştur (1280x720, fullscreen değil)
         win = visual.Window(
-            fullscr=True,  # Fullscreen aktif
-            size=(1280, 720),  # Varsayılan boyut
+            fullscr=False, 
+            size=(SCREEN_WIDTH, SCREEN_HEIGHT), 
             units='pix', 
             color=(0, 0, 0), 
             screen=0,
             monitor=monitor,
             waitBlanking=True,
-            allowGUI=False,  # Fullscreen'de GUI kapalı
+            allowGUI=True,
             useFBO=True,
             multiSample=False,
             allowStencil=False,
@@ -1277,13 +1142,6 @@ def main():
             checkTiming=False,
             autoLog=False
         )
-        
-        # Ekran boyutlarını global değişkenlere kaydet
-        global SCREEN_WIDTH, SCREEN_HEIGHT
-        SCREEN_WIDTH = win.size[0]
-        SCREEN_HEIGHT = win.size[1]
-        print(f"Ekran boyutu: {SCREEN_WIDTH}x{SCREEN_HEIGHT}")
-        
         win.setMouseVisible(True)
         win.setRecordFrameIntervals(False)
         
@@ -1305,13 +1163,11 @@ def main():
         eye_tracker = EyeTracker()
         
         # Bağlantı ekranı - animasyonlu (UI donmasını önlemek için)
-        # Ekran boyutlarını güvenli şekilde al
-        screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
         connecting_text = visual.TextStim(
             win, 
             text="TheEyeTribe sunucusuna bağlanılıyor...", 
             pos=(0, 0), 
-            height=screen_h * 0.04, 
+            height=SCREEN_HEIGHT * 0.04, 
             color='white'
         )
         connecting_text.draw()
@@ -1328,16 +1184,13 @@ def main():
             connection_success = eye_tracker.connect(test_connection=False)
         
         if not connection_success:
-            # Ekran boyutlarını güvenli şekilde al
-            screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-            screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
             error_text = visual.TextStim(
                 win,
                 text="TheEyeTribe sunucusuna bağlanılamadı!\nLütfen sunucunun çalıştığından emin olun.\n\nESC tuşuna basarak çıkın.",
                 pos=(0, 0),
-                height=screen_h * 0.03,
+                height=SCREEN_HEIGHT * 0.03,
                 color='red',
-                wrapWidth=screen_w * 0.8
+                wrapWidth=SCREEN_WIDTH * 0.8
             )
             error_text.draw()
             win.flip()
@@ -1349,16 +1202,13 @@ def main():
         calibration_success = run_calibration(eye_tracker, win)
         
         if not calibration_success:
-            # Ekran boyutlarını güvenli şekilde al
-            screen_w = SCREEN_WIDTH if SCREEN_WIDTH else win.size[0]
-            screen_h = SCREEN_HEIGHT if SCREEN_HEIGHT else win.size[1]
             error_text = visual.TextStim(
                 win,
                 text="Kalibrasyon başarısız oldu.\nDeney devam edemez.\n\nESC tuşuna basarak çıkın.",
                 pos=(0, 0),
-                height=screen_h * 0.03,
+                height=SCREEN_HEIGHT * 0.03,
                 color='red',
-                wrapWidth=screen_w * 0.8
+                wrapWidth=SCREEN_WIDTH * 0.8
             )
             error_text.draw()
             win.flip()
