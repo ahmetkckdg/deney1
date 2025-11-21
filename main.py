@@ -15,18 +15,133 @@ SURVEY_FILE = "results/survey_answers.csv"
 DEMOGRAPHIC_FILE = "results/demographic_data.csv"
 
 # Video boyutları: 720p (1280x720) 30fps
-# Uygulama sabit boyutlu window olacak (fullscreen değil)
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
+VIDEO_WIDTH = 1280
+VIDEO_HEIGHT = 720
+
+# Tam ekran açılmadan önce kullanılacak varsayılan ekran boyutu (fallback)
+DEFAULT_SCREEN_WIDTH = VIDEO_WIDTH
+DEFAULT_SCREEN_HEIGHT = VIDEO_HEIGHT
+
+# Çalışma sırasında güncellenecek ekran boyutu
+SCREEN_WIDTH = DEFAULT_SCREEN_WIDTH
+SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT
+
+# Video ekranda nerede render ediliyor bilgisini saklayan global yapı
+video_display_geometry = {
+    "width": VIDEO_WIDTH,
+    "height": VIDEO_HEIGHT,
+    "left": 0.0,
+    "top": 0.0,
+    "right": float(VIDEO_WIDTH),
+    "bottom": float(VIDEO_HEIGHT),
+    "scale_x": 1.0,
+    "scale_y": 1.0,
+}
 
 # Monitor tanımlaması
-def setup_monitor():
+def setup_monitor(width, height):
     """Monitor spesifikasyonunu oluşturur"""
     monitor = monitors.Monitor('default')
-    monitor.setSizePix([SCREEN_WIDTH, SCREEN_HEIGHT])
+    try:
+        monitor.setSizePix([int(width), int(height)])
+    except Exception:
+        monitor.setSizePix([DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT])
     monitor.setWidth(30)
     monitor.setDistance(57)
     return monitor
+
+
+def detect_screen_resolution(screen_index=0):
+    """Sistemdeki hedef ekranın çözünürlüğünü döndürür"""
+    try:
+        from pyglet import canvas
+        display = canvas.Display()
+        screens = display.get_screens()
+        if screens:
+            idx = min(max(screen_index, 0), len(screens) - 1)
+            selected = screens[idx]
+            return int(selected.width), int(selected.height)
+    except Exception as exc:
+        print(f"Ekran çözünürlüğü alınamadı: {exc}")
+    return DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT
+
+
+def update_video_display_geometry(window_width, window_height):
+    """
+    Tam ekran pencerede videonun nasıl yerleştirileceğini hesaplar ve
+    TheEyeTribe verilerini video koordinatlarına eşlemek için gereken
+    ölçek parametrelerini günceller.
+    """
+    global video_display_geometry
+
+    if not window_width or not window_height:
+        video_display_geometry = {
+            "width": VIDEO_WIDTH,
+            "height": VIDEO_HEIGHT,
+            "left": 0.0,
+            "top": 0.0,
+            "right": float(VIDEO_WIDTH),
+            "bottom": float(VIDEO_HEIGHT),
+            "scale_x": 1.0,
+            "scale_y": 1.0,
+        }
+        return video_display_geometry
+
+    window_width = float(window_width)
+    window_height = float(window_height)
+    video_ratio = VIDEO_WIDTH / float(VIDEO_HEIGHT)
+    window_ratio = window_width / window_height
+
+    if window_ratio >= video_ratio:
+        display_height = window_height
+        display_width = display_height * video_ratio
+    else:
+        display_width = window_width
+        display_height = display_width / video_ratio
+
+    left = (window_width - display_width) / 2.0
+    top = (window_height - display_height) / 2.0
+    right = left + display_width
+    bottom = top + display_height
+    scale_x = VIDEO_WIDTH / display_width if display_width else 1.0
+    scale_y = VIDEO_HEIGHT / display_height if display_height else 1.0
+
+    video_display_geometry = {
+        "width": display_width,
+        "height": display_height,
+        "left": left,
+        "top": top,
+        "right": right,
+        "bottom": bottom,
+        "scale_x": scale_x,
+        "scale_y": scale_y,
+    }
+    return video_display_geometry
+
+
+def screen_to_video_coordinates(x_screen, y_screen):
+    """
+    Tam ekran koordinatlarını video koordinatlarına dönüştürür.
+    Returns:
+        video_x, video_y, inside (bool)
+    """
+    geom = video_display_geometry or {}
+    left = geom.get("left", 0.0)
+    top = geom.get("top", 0.0)
+    right = geom.get("right", float(VIDEO_WIDTH))
+    bottom = geom.get("bottom", float(VIDEO_HEIGHT))
+    scale_x = geom.get("scale_x", 1.0)
+    scale_y = geom.get("scale_y", 1.0)
+
+    inside = left <= x_screen <= right and top <= y_screen <= bottom
+
+    clamped_x = min(max(x_screen, left), right)
+    clamped_y = min(max(y_screen, top), bottom)
+
+    video_x = (clamped_x - left) * scale_x
+    video_y = (clamped_y - top) * scale_y
+
+    return video_x, video_y, inside
 
 # Window'u başlangıçta None olarak tanımla (login'den sonra oluşturulacak)
 win = None
@@ -237,12 +352,22 @@ def save_gaze_data(participant_id, video_id, x, y, timestamp, video_time, flush=
         gaze_buffer = []  # Buffer'ı temizle
 
 def play_video_with_controls(video_path, video_index=None, participant_id=None, video_id=None):
-    # Video boyutunu window boyutuna göre ayarla (1280x720 tam ekran)
+    # Pencere boyutuna göre video yerleşimini güncelle
+    if win:
+        try:
+            current_width, current_height = win.size
+            update_video_display_geometry(current_width, current_height)
+        except Exception:
+            update_video_display_geometry(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+    geom = video_display_geometry
+    video_size = (geom["width"], geom["height"])
+
     # Video yükleme optimizasyonu: noAudio=True (ses kapalı), loop=False
     video = visual.MovieStim(
         win, 
         filename=video_path, 
-        size=(SCREEN_WIDTH, SCREEN_HEIGHT), 
+        size=video_size, 
         flipVert=False,
         noAudio=True,  # Ses kapalı (performans için ve kullanıcı isteği)
         loop=False,  # Tekrar oynatma
@@ -355,11 +480,16 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                         x *= SCREEN_WIDTH
                         y *= SCREEN_HEIGHT
 
-                    # Ekran sınırlarını aşmasını engelle
-                    x_clamped = max(0, min(SCREEN_WIDTH, x))
-                    y_clamped = max(0, min(SCREEN_HEIGHT, y))
+                    # Ekran sınırlarını aşmasını engelle ve video koordinatlarına eşle
+                    x_screen = max(0.0, min(float(SCREEN_WIDTH), float(x)))
+                    y_screen = max(0.0, min(float(SCREEN_HEIGHT), float(y)))
+
+                    video_x, video_y, _ = screen_to_video_coordinates(x_screen, y_screen)
+                    video_x = max(0.0, min(float(VIDEO_WIDTH), float(video_x)))
+                    video_y = max(0.0, min(float(VIDEO_HEIGHT), float(video_y)))
+
                     video_time = current_time
-                    save_gaze_data(participant_id, video_id, x_clamped, y_clamped, timestamp, video_time, flush=False)
+                    save_gaze_data(participant_id, video_id, video_x, video_y, timestamp, video_time, flush=False)
     
     # Video bittiğinde kalan gaze verilerini kaydet
     global gaze_buffer
@@ -1071,24 +1201,33 @@ def safe_exit():
                 win.close()
             except:
                 pass
+
+        # Kalan gaze verilerini kaydet
+        try:
+            save_gaze_data(None, None, 0, 0, 0, 0, flush=True)
+        except Exception as flush_error:
+            print(f"Gaze verileri kaydedilirken hata: {flush_error}")
     except Exception as e:
         print(f"Çıkış sırasında hata: {e}")
     finally:
         core.quit()
 
 def main():
-    global eye_tracker, win
+    global eye_tracker, win, SCREEN_WIDTH, SCREEN_HEIGHT
     
     try:
         # Demografik bilgi formunu çalıştır (window açılmadan önce - pop-up dialog)
         participant_id, demographic_data = run_demographic_form()
         
-        # Monitor setup
-        monitor = setup_monitor()
+        # Monitor ve tam ekran pencere ayarları
+        detected_width, detected_height = detect_screen_resolution()
+        SCREEN_WIDTH = int(detected_width)
+        SCREEN_HEIGHT = int(detected_height)
+
+        monitor = setup_monitor(SCREEN_WIDTH, SCREEN_HEIGHT)
         
-        # Sabit boyutlu window oluştur (1280x720, fullscreen değil)
         win = visual.Window(
-            fullscr=False, 
+            fullscr=True, 
             size=(SCREEN_WIDTH, SCREEN_HEIGHT), 
             units='pix', 
             color=(0, 0, 0), 
@@ -1103,6 +1242,17 @@ def main():
             checkTiming=False,
             autoLog=False
         )
+
+        # Pencerenin gerçek boyutunu dikkate alarak geometriyi güncelle
+        try:
+            current_width, current_height = win.size
+        except Exception:
+            current_width, current_height = SCREEN_WIDTH, SCREEN_HEIGHT
+
+        SCREEN_WIDTH = int(current_width)
+        SCREEN_HEIGHT = int(current_height)
+        update_video_display_geometry(SCREEN_WIDTH, SCREEN_HEIGHT)
+
         win.setMouseVisible(True)
         win.setRecordFrameIntervals(False)
         
