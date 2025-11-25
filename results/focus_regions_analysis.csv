@@ -8,3 +8,12 @@ participant_id,region,region_tr,gaze_count,total_duration,percentage,inside_coun
 1,mouth,Ağız,79,2.61,1.93,79,0.0,7
 1,chin,Çene,36,1.19,0.88,36,0.0,8
 1,unknown,Bilinmeyen,34,1.12,0.83,0,0.0,9
+2,right_cheek,Sağ Yanak,704,23.23,17.69,704,0.0,1
+2,nose,Burun,542,17.89,13.62,472,11.35,2
+2,chin,Çene,471,15.54,11.84,463,1.61,3
+2,forehead,Alın,182,6.01,4.57,182,0.0,4
+2,mouth,Ağız,170,5.61,4.27,166,5.83,5
+2,right_eye,Sağ Göz,160,5.28,4.02,160,0.0,6
+2,left_cheek,Sol Yanak,80,2.64,2.01,80,0.0,7
+2,left_eye,Sol Göz,69,2.28,1.73,69,0.0,8
+2,unknown,Bilinmeyen,34,1.12,0.85,0,0.0,9

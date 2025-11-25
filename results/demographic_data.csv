@@ -1,2 +1,3 @@
 participant_id,cinsiyet,yas,egitim_durumu,meslek,nöromodülasyon_aldı_mı,nöromodülasyon_kaç_kez,nöromodülasyon_ne_zaman,görme_bozukluğu_var_mı,görme_bozukluğu_detay,onam_durumu
 1,Kadın,25,Yüksek Lisans,psk,Hayır,,,Hayır,,Onaylandı
+2,Erkek,25,Lisans,ceng,Hayır,,,Hayır,,Onaylandı
