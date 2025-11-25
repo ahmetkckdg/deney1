@@ -839,16 +839,22 @@ class EyeTracker:
             self._log("UYARI: Gaze verisi alma hatası: {}: {}".format(type(e).__name__, e))
             return None
     
-    def get_latest_gaze(self) -> Optional[Tuple[float, float, float]]:
+    def get_latest_gaze(self, consume: bool = False) -> Optional[Tuple[float, float, float]]:
         """
         Thread-safe olarak en son gaze verisini döndürür.
         Listener thread'den gelen push mode verilerini kullanır.
+        
+        Args:
+            consume: True ise, data döndürüldükten sonra None yapılır (aynı data tekrar kullanılmaz)
         """
         if not self.connected or not self.tracking:
             return None
         
         with self.lock:
-            return self.latest_gaze
+            data = self.latest_gaze
+            if consume and data is not None:
+                self.latest_gaze = None  # Aynı data tekrar kullanılmasın
+            return data
     
     def calibration_prepare(self):
         """Yeni bir kalibrasyona başlamadan önce sunucuyu temiz duruma getirir."""

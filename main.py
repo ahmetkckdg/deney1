@@ -362,7 +362,8 @@ def play_video_with_controls(video_path, video_index=None, participant_id=None, 
                 gaze_data = None
                 
                 # Önce get_latest_gaze() ile listener thread'den veri al (daha hızlı)
-                gaze_data = eye_tracker.get_latest_gaze()
+                # consume=True: Aynı data'yı tekrar kullanmamak için data alındıktan sonra sıfırlanır
+                gaze_data = eye_tracker.get_latest_gaze(consume=True)
                 
                 # Eğer veri yoksa (None), get_gaze_data() ile manuel istek yap (fallback)
                 # Not: 0,0 geçerli bir değer olabilir (ekranın sol üst köşesi), bu yüzden sadece None kontrolü yap
