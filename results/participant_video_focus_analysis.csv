@@ -268,3 +268,136 @@ participant_id,video_id,region,region_tr,gaze_count,total_duration,percentage,ra
 2,kisi4video6,right_cheek,Sağ Yanak,25,0.83,15.43,1,1
 2,kisi4video6,chin,Çene,21,0.69,12.96,2,0
 2,kisi4video6,nose,Burun,13,0.43,8.02,3,0
+3,kisi1video1,nose,Burun,74,2.44,53.62,1,1
+3,kisi1video1,left_cheek,Sol Yanak,29,0.96,21.01,2,0
+3,kisi1video1,left_eye,Sol Göz,19,0.63,13.77,3,0
+3,kisi1video1,right_cheek,Sağ Yanak,2,0.07,1.45,4,0
+3,kisi1video1,right_eye,Sağ Göz,1,0.03,0.72,5,0
+3,kisi1video2,nose,Burun,57,1.88,43.18,1,1
+3,kisi1video2,left_cheek,Sol Yanak,35,1.16,26.52,2,0
+3,kisi1video2,left_eye,Sol Göz,7,0.23,5.3,3,0
+3,kisi1video2,right_eye,Sağ Göz,4,0.13,3.03,4,0
+3,kisi1video2,right_cheek,Sağ Yanak,3,0.1,2.27,5,0
+3,kisi1video2,forehead,Alın,1,0.03,0.76,6,0
+3,kisi1video3,nose,Burun,64,2.11,47.76,1,1
+3,kisi1video3,left_cheek,Sol Yanak,16,0.53,11.94,2,0
+3,kisi1video3,mouth,Ağız,14,0.46,10.45,3,0
+3,kisi1video3,right_cheek,Sağ Yanak,13,0.43,9.7,4,0
+3,kisi1video3,right_eye,Sağ Göz,10,0.33,7.46,5,0
+3,kisi1video3,forehead,Alın,9,0.3,6.72,6,0
+3,kisi1video3,chin,Çene,2,0.07,1.49,7,0
+3,kisi1video4,nose,Burun,84,2.77,63.64,1,1
+3,kisi1video4,left_cheek,Sol Yanak,22,0.73,16.67,2,0
+3,kisi1video4,right_eye,Sağ Göz,12,0.4,9.09,3,0
+3,kisi1video4,left_eye,Sol Göz,10,0.33,7.58,4,0
+3,kisi1video5,nose,Burun,61,2.01,48.41,1,1
+3,kisi1video5,right_cheek,Sağ Yanak,17,0.56,13.49,2,0
+3,kisi1video5,forehead,Alın,13,0.43,10.32,3,0
+3,kisi1video5,left_eye,Sol Göz,7,0.23,5.56,4,0
+3,kisi1video5,right_eye,Sağ Göz,6,0.2,4.76,5,0
+3,kisi1video6,nose,Burun,38,1.25,29.46,1,1
+3,kisi1video6,mouth,Ağız,38,1.25,29.46,1,0
+3,kisi1video6,right_cheek,Sağ Yanak,18,0.59,13.95,3,0
+3,kisi1video6,right_eye,Sağ Göz,6,0.2,4.65,4,0
+3,kisi1video6,left_cheek,Sol Yanak,5,0.17,3.88,5,0
+3,kisi2video1,forehead,Alın,29,0.96,22.14,1,1
+3,kisi2video1,left_eye,Sol Göz,28,0.92,21.37,2,0
+3,kisi2video1,right_eye,Sağ Göz,18,0.59,13.74,3,0
+3,kisi2video1,right_cheek,Sağ Yanak,15,0.49,11.45,4,0
+3,kisi2video1,unknown,Bilinmeyen,13,0.43,9.92,5,0
+3,kisi2video1,nose,Burun,12,0.4,9.16,6,0
+3,kisi2video1,mouth,Ağız,1,0.03,0.76,7,0
+3,kisi2video1,left_cheek,Sol Yanak,1,0.03,0.76,7,0
+3,kisi2video2,nose,Burun,40,1.32,29.85,1,1
+3,kisi2video2,left_cheek,Sol Yanak,39,1.29,29.1,2,0
+3,kisi2video2,right_cheek,Sağ Yanak,31,1.02,23.13,3,0
+3,kisi2video2,left_eye,Sol Göz,12,0.4,8.96,4,0
+3,kisi2video2,right_eye,Sağ Göz,7,0.23,5.22,5,0
+3,kisi2video2,unknown,Bilinmeyen,5,0.17,3.73,6,0
+3,kisi2video3,right_cheek,Sağ Yanak,43,1.42,35.83,1,1
+3,kisi2video3,nose,Burun,28,0.92,23.33,2,0
+3,kisi2video3,left_cheek,Sol Yanak,27,0.89,22.5,3,0
+3,kisi2video3,right_eye,Sağ Göz,12,0.4,10.0,4,0
+3,kisi2video3,chin,Çene,2,0.07,1.67,5,0
+3,kisi2video3,mouth,Ağız,1,0.03,0.83,6,0
+3,kisi2video4,mouth,Ağız,71,2.34,45.81,1,1
+3,kisi2video4,nose,Burun,21,0.69,13.55,2,0
+3,kisi2video4,chin,Çene,21,0.69,13.55,2,0
+3,kisi2video4,right_cheek,Sağ Yanak,20,0.66,12.9,4,0
+3,kisi2video4,left_cheek,Sol Yanak,10,0.33,6.45,5,0
+3,kisi2video4,forehead,Alın,2,0.07,1.29,6,0
+3,kisi2video5,mouth,Ağız,67,2.21,43.51,1,1
+3,kisi2video5,right_cheek,Sağ Yanak,41,1.35,26.62,2,0
+3,kisi2video5,left_cheek,Sol Yanak,34,1.12,22.08,3,0
+3,kisi2video5,nose,Burun,10,0.33,6.49,4,0
+3,kisi2video5,right_eye,Sağ Göz,2,0.07,1.3,5,0
+3,kisi2video6,right_cheek,Sağ Yanak,69,2.28,47.59,1,1
+3,kisi2video6,mouth,Ağız,24,0.79,16.55,2,0
+3,kisi2video6,left_cheek,Sol Yanak,23,0.76,15.86,3,0
+3,kisi2video6,nose,Burun,20,0.66,13.79,4,0
+3,kisi2video6,unknown,Bilinmeyen,7,0.23,4.83,5,0
+3,kisi2video6,chin,Çene,2,0.07,1.38,6,0
+3,kisi3video1,forehead,Alın,57,1.88,41.01,1,1
+3,kisi3video1,right_eye,Sağ Göz,32,1.06,23.02,2,0
+3,kisi3video1,left_eye,Sol Göz,8,0.26,5.76,3,0
+3,kisi3video1,nose,Burun,8,0.26,5.76,3,0
+3,kisi3video1,left_cheek,Sol Yanak,5,0.17,3.6,5,0
+3,kisi3video1,right_cheek,Sağ Yanak,5,0.17,3.6,5,0
+3,kisi3video2,left_cheek,Sol Yanak,49,1.62,33.33,1,1
+3,kisi3video2,right_cheek,Sağ Yanak,38,1.25,25.85,2,0
+3,kisi3video2,nose,Burun,18,0.59,12.24,3,0
+3,kisi3video2,left_eye,Sol Göz,17,0.56,11.56,4,0
+3,kisi3video2,mouth,Ağız,12,0.4,8.16,5,0
+3,kisi3video2,forehead,Alın,7,0.23,4.76,6,0
+3,kisi3video3,mouth,Ağız,42,1.39,31.58,1,1
+3,kisi3video3,left_cheek,Sol Yanak,35,1.16,26.32,2,0
+3,kisi3video3,nose,Burun,26,0.86,19.55,3,0
+3,kisi3video3,right_cheek,Sağ Yanak,17,0.56,12.78,4,0
+3,kisi3video3,right_eye,Sağ Göz,6,0.2,4.51,5,0
+3,kisi3video3,left_eye,Sol Göz,1,0.03,0.75,6,0
+3,kisi3video3,chin,Çene,1,0.03,0.75,6,0
+3,kisi3video4,mouth,Ağız,48,1.58,33.8,1,1
+3,kisi3video4,right_cheek,Sağ Yanak,39,1.29,27.46,2,0
+3,kisi3video4,left_cheek,Sol Yanak,32,1.06,22.54,3,0
+3,kisi3video4,nose,Burun,15,0.49,10.56,4,0
+3,kisi3video4,right_eye,Sağ Göz,8,0.26,5.63,5,0
+3,kisi3video5,mouth,Ağız,49,1.62,33.33,1,1
+3,kisi3video5,left_cheek,Sol Yanak,29,0.96,19.73,2,0
+3,kisi3video5,nose,Burun,15,0.49,10.2,3,0
+3,kisi3video5,right_cheek,Sağ Yanak,15,0.49,10.2,3,0
+3,kisi3video5,chin,Çene,10,0.33,6.8,5,0
+3,kisi3video5,right_eye,Sağ Göz,4,0.13,2.72,6,0
+3,kisi3video6,mouth,Ağız,62,2.05,47.33,1,1
+3,kisi3video6,left_cheek,Sol Yanak,41,1.35,31.3,2,0
+3,kisi3video6,right_cheek,Sağ Yanak,9,0.3,6.87,3,0
+3,kisi3video6,left_eye,Sol Göz,6,0.2,4.58,4,0
+3,kisi3video6,nose,Burun,4,0.13,3.05,5,0
+3,kisi4video1,right_eye,Sağ Göz,40,1.32,22.99,1,1
+3,kisi4video1,right_cheek,Sağ Yanak,38,1.25,21.84,2,0
+3,kisi4video1,nose,Burun,37,1.22,21.26,3,0
+3,kisi4video1,left_cheek,Sol Yanak,31,1.02,17.82,4,0
+3,kisi4video1,left_eye,Sol Göz,5,0.17,2.87,5,0
+3,kisi4video2,right_cheek,Sağ Yanak,60,1.98,43.8,1,1
+3,kisi4video2,nose,Burun,43,1.42,31.39,2,0
+3,kisi4video2,left_cheek,Sol Yanak,19,0.63,13.87,3,0
+3,kisi4video2,right_eye,Sağ Göz,1,0.03,0.73,4,0
+3,kisi4video2,unknown,Bilinmeyen,1,0.03,0.73,4,0
+3,kisi4video3,right_cheek,Sağ Yanak,53,1.75,42.06,1,1
+3,kisi4video3,nose,Burun,26,0.86,20.63,2,0
+3,kisi4video3,mouth,Ağız,8,0.26,6.35,3,0
+3,kisi4video3,chin,Çene,4,0.13,3.17,4,0
+3,kisi4video3,right_eye,Sağ Göz,3,0.1,2.38,5,0
+3,kisi4video4,right_cheek,Sağ Yanak,61,2.01,45.19,1,1
+3,kisi4video4,mouth,Ağız,27,0.89,20.0,2,0
+3,kisi4video4,chin,Çene,16,0.53,11.85,3,0
+3,kisi4video4,nose,Burun,1,0.03,0.74,4,0
+3,kisi4video4,unknown,Bilinmeyen,1,0.03,0.74,4,0
+3,kisi4video5,right_cheek,Sağ Yanak,57,1.88,44.19,1,1
+3,kisi4video5,mouth,Ağız,34,1.12,26.36,2,0
+3,kisi4video5,chin,Çene,13,0.43,10.08,3,0
+3,kisi4video5,left_cheek,Sol Yanak,3,0.1,2.33,4,0
+3,kisi4video6,right_cheek,Sağ Yanak,45,1.49,34.35,1,1
+3,kisi4video6,left_cheek,Sol Yanak,33,1.09,25.19,2,0
+3,kisi4video6,nose,Burun,23,0.76,17.56,3,0
+3,kisi4video6,mouth,Ağız,21,0.69,16.03,4,0
+3,kisi4video6,chin,Çene,9,0.3,6.87,5,0
