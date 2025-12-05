@@ -71,6 +71,257 @@ TOPLAM               2988            98.61
   2. Sağ Yanak: %21.48 (709 bakış, 23.40s)
   3. Ağız: %15.72 (519 bakış, 17.13s)
 
+
+================================================================================
+KATILIMCI: 4
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 1360            44.88        33.70        1360       0.00        
+Sol Göz              370             12.21        9.17         370        0.00        
+Burun                307             10.13        7.61         282        4.63        
+Sağ Göz              277             9.14         6.86         277        0.00        
+Sağ Yanak            177             5.84         4.39         177        0.00        
+Sol Yanak            76              2.51         1.88         76         0.00        
+Bilinmeyen           35              1.16         0.87         0          0.00        
+Çene                 20              0.66         0.50         20         0.00        
+Ağız                 18              0.59         0.45         18         0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2640            87.12       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %33.70 (1360 bakış, 44.88s)
+  2. Sol Göz: %9.17 (370 bakış, 12.21s)
+  3. Burun: %7.61 (307 bakış, 10.13s)
+
+
+================================================================================
+KATILIMCI: 5
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 1434            47.32        35.04        1434       0.00        
+Sol Yanak            439             14.49        10.73        439        0.00        
+Sol Göz              319             10.53        7.80         319        0.00        
+Sağ Göz              274             9.04         6.70         274        0.00        
+Burun                269             8.88         6.57         269        0.00        
+Sağ Yanak            119             3.93         2.91         119        0.00        
+Bilinmeyen           34              1.12         0.83         0          0.00        
+Ağız                 13              0.43         0.32         13         0.00        
+Çene                 9               0.30         0.22         9          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2910            96.04       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %35.04 (1434 bakış, 47.32s)
+  2. Sol Yanak: %10.73 (439 bakış, 14.49s)
+  3. Sol Göz: %7.80 (319 bakış, 10.53s)
+
+
+================================================================================
+KATILIMCI: 6
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 915             30.20        22.51        915        0.00        
+Sol Göz              796             26.27        19.59        796        0.00        
+Sağ Göz              458             15.11        11.27        458        0.00        
+Sol Yanak            410             13.53        10.09        410        0.00        
+Burun                359             11.85        8.83         355        0.84        
+Sağ Yanak            187             6.17         4.60         187        0.00        
+Ağız                 37              1.22         0.91         37         0.00        
+Bilinmeyen           34              1.12         0.84         0          0.00        
+Çene                 2               0.07         0.05         2          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               3198            105.54      
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %22.51 (915 bakış, 30.20s)
+  2. Sol Göz: %19.59 (796 bakış, 26.27s)
+  3. Sağ Göz: %11.27 (458 bakış, 15.11s)
+
+
+================================================================================
+KATILIMCI: 7
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Sol Yanak            1216            40.13        29.89        1216       0.00        
+Burun                762             25.15        18.73        736        1.22        
+Sol Göz              593             19.57        14.58        593        0.00        
+Alın                 240             7.92         5.90         240        0.00        
+Sağ Yanak            173             5.71         4.25         173        0.00        
+Sağ Göz              124             4.09         3.05         124        0.00        
+Ağız                 108             3.56         2.65         108        0.00        
+Bilinmeyen           35              1.16         0.86         0          0.00        
+Çene                 24              0.79         0.59         24         0.00        
+--------------------------------------------------------------------------------
+TOPLAM               3275            108.08      
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Sol Yanak: %29.89 (1216 bakış, 40.13s)
+  2. Burun: %18.73 (762 bakış, 25.15s)
+  3. Sol Göz: %14.58 (593 bakış, 19.57s)
+
+
+================================================================================
+KATILIMCI: 8
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 1254            41.38        30.82        1254       0.00        
+Sol Göz              592             19.54        14.55        592        0.00        
+Sağ Göz              442             14.59        10.86        442        0.00        
+Burun                215             7.10         5.28         209        1.14        
+Sağ Yanak            167             5.51         4.10         167        0.00        
+Sol Yanak            127             4.19         3.12         127        0.00        
+Çene                 44              1.45         1.08         44         0.00        
+Ağız                 43              1.42         1.06         43         0.00        
+Bilinmeyen           34              1.12         0.84         0          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2918            96.30       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %30.82 (1254 bakış, 41.38s)
+  2. Sol Göz: %14.55 (592 bakış, 19.54s)
+  3. Sağ Göz: %10.86 (442 bakış, 14.59s)
+
+
+================================================================================
+KATILIMCI: 9
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Sağ Göz              782             25.81        19.27        782        0.00        
+Burun                553             18.25        13.62        497        5.84        
+Sağ Yanak            535             17.66        13.18        535        0.00        
+Alın                 515             17.00        12.69        515        0.00        
+Sol Göz              398             13.13        9.81         398        0.00        
+Sol Yanak            113             3.73         2.78         113        0.00        
+Bilinmeyen           33              1.09         0.81         0          0.00        
+Ağız                 28              0.92         0.69         28         0.00        
+Çene                 8               0.26         0.20         8          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2965            97.85       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Sağ Göz: %19.27 (782 bakış, 25.81s)
+  2. Burun: %13.62 (553 bakış, 18.25s)
+  3. Sağ Yanak: %13.18 (535 bakış, 17.66s)
+
+
+================================================================================
+KATILIMCI: 10
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 933             30.79        23.15        925        0.22        
+Burun                81              2.67         2.01         80         0.53        
+Sol Göz              74              2.44         1.84         74         0.00        
+Bilinmeyen           33              1.09         0.82         0          0.00        
+Sol Yanak            22              0.73         0.55         22         0.00        
+Sağ Göz              20              0.66         0.50         20         0.00        
+Çene                 5               0.17         0.12         5          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               1168            38.55       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %23.15 (933 bakış, 30.79s)
+  2. Burun: %2.01 (81 bakış, 2.67s)
+  3. Sol Göz: %1.84 (74 bakış, 2.44s)
+
+
+================================================================================
+KATILIMCI: 11
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 633             20.89        15.62        633        0.00        
+Burun                541             17.85        13.35        541        0.00        
+Sol Göz              326             10.76        8.04         326        0.00        
+Sağ Göz              314             10.36        7.75         314        0.00        
+Sağ Yanak            314             10.36        7.75         314        0.00        
+Sol Yanak            193             6.37         4.76         193        0.00        
+Çene                 182             6.01         4.49         182        0.00        
+Ağız                 89              2.94         2.20         89         0.00        
+Bilinmeyen           35              1.16         0.86         0          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2627            86.70       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %15.62 (633 bakış, 20.89s)
+  2. Burun: %13.35 (541 bakış, 17.85s)
+  3. Sol Göz: %8.04 (326 bakış, 10.76s)
+
+
+================================================================================
+KATILIMCI: 12
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 1732            57.16        42.75        1732       0.00        
+Sol Göz              139             4.59         3.43         139        0.00        
+Burun                136             4.49         3.36         136        0.00        
+Sağ Göz              61              2.01         1.51         61         0.00        
+Sol Yanak            61              2.01         1.51         61         0.00        
+Çene                 43              1.42         1.06         43         0.00        
+Sağ Yanak            36              1.19         0.89         36         0.00        
+Bilinmeyen           35              1.16         0.86         0          0.00        
+Ağız                 2               0.07         0.05         2          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2245            74.10       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %42.75 (1732 bakış, 57.16s)
+  2. Sol Göz: %3.43 (139 bakış, 4.59s)
+  3. Burun: %3.36 (136 bakış, 4.49s)
+
+
+================================================================================
+KATILIMCI: 13
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 1746            57.62        43.57        1746       0.00        
+Sol Göz              358             11.81        8.93         358        0.00        
+Burun                256             8.45         6.39         256        0.00        
+Sağ Göz              164             5.41         4.09         164        0.00        
+Sol Yanak            88              2.90         2.20         88         0.00        
+Sağ Yanak            49              1.62         1.22         49         0.00        
+Bilinmeyen           34              1.12         0.85         0          0.00        
+Ağız                 32              1.06         0.80         32         0.00        
+Çene                 21              0.69         0.52         21         0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2748            90.68       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %43.57 (1746 bakış, 57.62s)
+  2. Sol Göz: %8.93 (358 bakış, 11.81s)
+  3. Burun: %6.39 (256 bakış, 8.45s)
+
+
+================================================================================
+KATILIMCI: 14
+================================================================================
+Bölge                Bakış Sayısı    Süre (s)     Yüzde (%)    İçinde     Ort. Mesafe 
+--------------------------------------------------------------------------------
+Alın                 1503            49.60        37.04        1503       0.00        
+Burun                307             10.13        7.57         307        0.00        
+Sağ Yanak            109             3.60         2.69         109        0.00        
+Sol Göz              107             3.53         2.64         107        0.00        
+Sağ Göz              81              2.67         2.00         81         0.00        
+Sol Yanak            67              2.21         1.65         67         0.00        
+Bilinmeyen           33              1.09         0.81         0          0.00        
+Çene                 8               0.26         0.20         8          0.00        
+Ağız                 2               0.07         0.05         2          0.00        
+--------------------------------------------------------------------------------
+TOPLAM               2217            73.16       
+
+🏆 En Çok Odaklanılan 3 Bölge:
+  1. Alın: %37.04 (1503 bakış, 49.60s)
+  2. Burun: %7.57 (307 bakış, 10.13s)
+  3. Sağ Yanak: %2.69 (109 bakış, 3.60s)
+
 ================================================================================
 KULLANICI BAZINDA VİDEO ANALİZİ
 ================================================================================
@@ -662,3 +913,2079 @@ KATILIMCI: 3
        1. Sağ Yanak: %34.35 (45 bakış)
        2. Sol Yanak: %25.19 (33 bakış)
        3. Burun: %17.56 (23 bakış)
+
+================================================================================
+KATILIMCI: 4
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Alın (%25.44, 43 bakış)
+     Toplam bakış: 159
+     Bölge sıralaması:
+       1. Alın: %25.44 (43 bakış)
+       2. Burun: %24.26 (41 bakış)
+       3. Sol Göz: %14.79 (25 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Alın (%44.10, 71 bakış)
+     Toplam bakış: 91
+     Bölge sıralaması:
+       1. Alın: %44.10 (71 bakış)
+       2. Burun: %4.35 (7 bakış)
+       3. Çene: %3.73 (6 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%76.69, 125 bakış)
+     Toplam bakış: 125
+     Bölge sıralaması:
+       1. Alın: %76.69 (125 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%61.15, 96 bakış)
+     Toplam bakış: 124
+     Bölge sıralaması:
+       1. Alın: %61.15 (96 bakış)
+       2. Burun: %8.92 (14 bakış)
+       3. Sol Göz: %3.82 (6 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%52.60, 81 bakış)
+     Toplam bakış: 81
+     Bölge sıralaması:
+       1. Alın: %52.60 (81 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%32.08, 51 bakış)
+     Toplam bakış: 117
+     Bölge sıralaması:
+       1. Alın: %32.08 (51 bakış)
+       2. Burun: %18.24 (29 bakış)
+       3. Sağ Yanak: %11.32 (18 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Sol Göz (%36.42, 59 bakış)
+     Toplam bakış: 139
+     Bölge sıralaması:
+       1. Sol Göz: %36.42 (59 bakış)
+       2. Sağ Yanak: %13.58 (22 bakış)
+       3. Alın: %11.73 (19 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%27.16, 44 bakış)
+     Toplam bakış: 120
+     Bölge sıralaması:
+       1. Alın: %27.16 (44 bakış)
+       2. Sağ Yanak: %16.67 (27 bakış)
+       3. Sol Göz: %14.20 (23 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%12.50, 21 bakış)
+     Toplam bakış: 51
+     Bölge sıralaması:
+       1. Alın: %12.50 (21 bakış)
+       2. Sol Göz: %7.14 (12 bakış)
+       3. Sol Yanak: %4.76 (8 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Alın (%28.12, 54 bakış)
+     Toplam bakış: 119
+     Bölge sıralaması:
+       1. Alın: %28.12 (54 bakış)
+       2. Sol Göz: %19.79 (38 bakış)
+       3. Burun: %8.85 (17 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%50.00, 94 bakış)
+     Toplam bakış: 152
+     Bölge sıralaması:
+       1. Alın: %50.00 (94 bakış)
+       2. Sol Göz: %13.30 (25 bakış)
+       3. Burun: %8.51 (16 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%28.96, 53 bakış)
+     Toplam bakış: 132
+     Bölge sıralaması:
+       1. Alın: %28.96 (53 bakış)
+       2. Burun: %11.48 (21 bakış)
+       3. Sol Göz: %10.38 (19 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%51.92, 81 bakış)
+     Toplam bakış: 91
+     Bölge sıralaması:
+       1. Alın: %51.92 (81 bakış)
+       2. Sağ Göz: %3.85 (6 bakış)
+       3. Sol Göz: %2.56 (4 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%52.75, 96 bakış)
+     Toplam bakış: 127
+     Bölge sıralaması:
+       1. Alın: %52.75 (96 bakış)
+       2. Sağ Yanak: %10.44 (19 bakış)
+       3. Sol Göz: %3.30 (6 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%52.80, 85 bakış)
+     Toplam bakış: 88
+     Bölge sıralaması:
+       1. Alın: %52.80 (85 bakış)
+       2. Sol Göz: %1.86 (3 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%46.29, 81 bakış)
+     Toplam bakış: 81
+     Bölge sıralaması:
+       1. Alın: %46.29 (81 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Alın (%22.62, 38 bakış)
+     Toplam bakış: 117
+     Bölge sıralaması:
+       1. Alın: %22.62 (38 bakış)
+       2. Burun: %16.67 (28 bakış)
+       3. Sol Göz: %9.52 (16 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%31.87, 51 bakış)
+     Toplam bakış: 97
+     Bölge sıralaması:
+       1. Alın: %31.87 (51 bakış)
+       2. Burun: %10.00 (16 bakış)
+       3. Sol Göz: %3.75 (6 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Sağ Göz (%34.98, 71 bakış)
+     Toplam bakış: 153
+     Bölge sıralaması:
+       1. Sağ Göz: %34.98 (71 bakış)
+       2. Sol Göz: %23.65 (48 bakış)
+       3. Burun: %12.32 (25 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Burun (%29.59, 50 bakış)
+     Toplam bakış: 162
+     Bölge sıralaması:
+       1. Burun: %29.59 (50 bakış)
+       2. Sağ Göz: %21.89 (37 bakış)
+       3. Alın: %20.12 (34 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%20.26, 31 bakış)
+     Toplam bakış: 47
+     Bölge sıralaması:
+       1. Alın: %20.26 (31 bakış)
+       2. Sol Göz: %8.50 (13 bakış)
+       3. Sağ Yanak: %1.96 (3 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Alın (%24.55, 41 bakış)
+     Toplam bakış: 85
+     Bölge sıralaması:
+       1. Alın: %24.55 (41 bakış)
+       2. Sağ Göz: %7.78 (13 bakış)
+       3. Sol Göz: %7.19 (12 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%13.25, 22 bakış)
+     Toplam bakış: 53
+     Bölge sıralaması:
+       1. Alın: %13.25 (22 bakış)
+       2. Sağ Göz: %10.24 (17 bakış)
+       3. Sol Göz: %7.83 (13 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%25.32, 40 bakış)
+     Toplam bakış: 129
+     Bölge sıralaması:
+       1. Alın: %25.32 (40 bakış)
+       2. Sağ Yanak: %18.35 (29 bakış)
+       3. Sol Göz: %13.92 (22 bakış)
+
+================================================================================
+KATILIMCI: 5
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Sol Yanak (%54.44, 92 bakış)
+     Toplam bakış: 158
+     Bölge sıralaması:
+       1. Sol Yanak: %54.44 (92 bakış)
+       2. Burun: %29.59 (50 bakış)
+       3. Sağ Yanak: %9.47 (16 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Sol Yanak (%26.83, 44 bakış)
+     Toplam bakış: 119
+     Bölge sıralaması:
+       1. Sol Yanak: %26.83 (44 bakış)
+       2. Alın: %21.95 (36 bakış)
+       3. Sol Göz: %6.71 (11 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Sol Yanak (%36.59, 60 bakış)
+     Toplam bakış: 111
+     Bölge sıralaması:
+       1. Sol Yanak: %36.59 (60 bakış)
+       2. Alın: %17.07 (28 bakış)
+       3. Sol Göz: %10.37 (17 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Sol Yanak (%33.33, 54 bakış)
+     Toplam bakış: 116
+     Bölge sıralaması:
+       1. Sol Yanak: %33.33 (54 bakış)
+       2. Alın: %19.75 (32 bakış)
+       3. Sol Göz: %11.11 (18 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%26.14, 40 bakış)
+     Toplam bakış: 116
+     Bölge sıralaması:
+       1. Alın: %26.14 (40 bakış)
+       2. Sol Yanak: %13.73 (21 bakış)
+       3. Sol Göz: %11.11 (17 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%54.37, 87 bakış)
+     Toplam bakış: 122
+     Bölge sıralaması:
+       1. Alın: %54.37 (87 bakış)
+       2. Sol Göz: %13.75 (22 bakış)
+       3. Burun: %6.25 (10 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Sağ Göz (%23.64, 39 bakış)
+     Toplam bakış: 127
+     Bölge sıralaması:
+       1. Sağ Göz: %23.64 (39 bakış)
+       2. Alın: %21.21 (35 bakış)
+       3. Bilinmeyen: %10.30 (17 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%56.10, 92 bakış)
+     Toplam bakış: 114
+     Bölge sıralaması:
+       1. Alın: %56.10 (92 bakış)
+       2. Sol Göz: %4.88 (8 bakış)
+       3. Sağ Göz: %4.27 (7 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%25.29, 43 bakış)
+     Toplam bakış: 69
+     Bölge sıralaması:
+       1. Alın: %25.29 (43 bakış)
+       2. Sol Göz: %7.06 (12 bakış)
+       3. Sağ Göz: %7.06 (12 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Alın (%51.03, 99 bakış)
+     Toplam bakış: 159
+     Bölge sıralaması:
+       1. Alın: %51.03 (99 bakış)
+       2. Sol Yanak: %17.01 (33 bakış)
+       3. Sol Göz: %4.64 (9 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%32.11, 61 bakış)
+     Toplam bakış: 88
+     Bölge sıralaması:
+       1. Alın: %32.11 (61 bakış)
+       2. Sol Göz: %5.79 (11 bakış)
+       3. Burun: %4.21 (8 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%50.00, 93 bakış)
+     Toplam bakış: 161
+     Bölge sıralaması:
+       1. Alın: %50.00 (93 bakış)
+       2. Sol Göz: %11.83 (22 bakış)
+       3. Sağ Göz: %8.06 (15 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%33.95, 55 bakış)
+     Toplam bakış: 98
+     Bölge sıralaması:
+       1. Alın: %33.95 (55 bakış)
+       2. Sağ Göz: %10.49 (17 bakış)
+       3. Burun: %8.64 (14 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%52.43, 97 bakış)
+     Toplam bakış: 131
+     Bölge sıralaması:
+       1. Alın: %52.43 (97 bakış)
+       2. Sol Göz: %12.43 (23 bakış)
+       3. Sağ Göz: %3.24 (6 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%34.16, 55 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Alın: %34.16 (55 bakış)
+       2. Sol Yanak: %11.80 (19 bakış)
+       3. Sol Göz: %9.32 (15 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%31.82, 56 bakış)
+     Toplam bakış: 124
+     Bölge sıralaması:
+       1. Alın: %31.82 (56 bakış)
+       2. Burun: %14.20 (25 bakış)
+       3. Sağ Göz: %10.80 (19 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Sol Yanak (%27.49, 47 bakış)
+     Toplam bakış: 109
+     Bölge sıralaması:
+       1. Sol Yanak: %27.49 (47 bakış)
+       2. Alın: %18.13 (31 bakış)
+       3. Burun: %7.60 (13 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%42.86, 69 bakış)
+     Toplam bakış: 99
+     Bölge sıralaması:
+       1. Alın: %42.86 (69 bakış)
+       2. Sol Göz: %11.18 (18 bakış)
+       3. Burun: %6.83 (11 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Alın (%43.75, 91 bakış)
+     Toplam bakış: 173
+     Bölge sıralaması:
+       1. Alın: %43.75 (91 bakış)
+       2. Sağ Göz: %17.31 (36 bakış)
+       3. Sol Göz: %14.90 (31 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%33.72, 58 bakış)
+     Toplam bakış: 137
+     Bölge sıralaması:
+       1. Alın: %33.72 (58 bakış)
+       2. Sağ Göz: %16.86 (29 bakış)
+       3. Sağ Yanak: %13.95 (24 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%40.38, 63 bakış)
+     Toplam bakış: 86
+     Bölge sıralaması:
+       1. Alın: %40.38 (63 bakış)
+       2. Sol Yanak: %5.77 (9 bakış)
+       3. Sağ Yanak: %3.85 (6 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Alın (%16.57, 28 bakış)
+     Toplam bakış: 137
+     Bölge sıralaması:
+       1. Alın: %16.57 (28 bakış)
+       2. Sağ Göz: %15.38 (26 bakış)
+       3. Burun: %15.38 (26 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%58.08, 97 bakış)
+     Toplam bakış: 129
+     Bölge sıralaması:
+       1. Alın: %58.08 (97 bakış)
+       2. Sağ Göz: %12.57 (21 bakış)
+       3. Sağ Yanak: %6.59 (11 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%53.99, 88 bakış)
+     Toplam bakış: 121
+     Bölge sıralaması:
+       1. Alın: %53.99 (88 bakış)
+       2. Burun: %10.43 (17 bakış)
+       3. Sol Göz: %8.59 (14 bakış)
+
+================================================================================
+KATILIMCI: 6
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Burun (%32.54, 55 bakış)
+     Toplam bakış: 144
+     Bölge sıralaması:
+       1. Burun: %32.54 (55 bakış)
+       2. Sol Yanak: %18.34 (31 bakış)
+       3. Alın: %13.02 (22 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Sol Göz (%36.71, 58 bakış)
+     Toplam bakış: 118
+     Bölge sıralaması:
+       1. Sol Göz: %36.71 (58 bakış)
+       2. Burun: %17.09 (27 bakış)
+       3. Alın: %17.09 (27 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%54.66, 88 bakış)
+     Toplam bakış: 150
+     Bölge sıralaması:
+       1. Alın: %54.66 (88 bakış)
+       2. Sol Göz: %23.60 (38 bakış)
+       3. Sağ Göz: %10.56 (17 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%56.88, 91 bakış)
+     Toplam bakış: 150
+     Bölge sıralaması:
+       1. Alın: %56.88 (91 bakış)
+       2. Sol Göz: %21.25 (34 bakış)
+       3. Sağ Yanak: %8.12 (13 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%37.01, 57 bakış)
+     Toplam bakış: 143
+     Bölge sıralaması:
+       1. Alın: %37.01 (57 bakış)
+       2. Sol Göz: %36.36 (56 bakış)
+       3. Sol Yanak: %6.49 (10 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%30.63, 49 bakış)
+     Toplam bakış: 128
+     Bölge sıralaması:
+       1. Alın: %30.63 (49 bakış)
+       2. Sol Göz: %23.75 (38 bakış)
+       3. Sol Yanak: %13.75 (22 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Sol Göz (%28.48, 47 bakış)
+     Toplam bakış: 150
+     Bölge sıralaması:
+       1. Sol Göz: %28.48 (47 bakış)
+       2. Alın: %21.21 (35 bakış)
+       3. Sağ Göz: %18.18 (30 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%35.40, 57 bakış)
+     Toplam bakış: 127
+     Bölge sıralaması:
+       1. Alın: %35.40 (57 bakış)
+       2. Sol Göz: %13.04 (21 bakış)
+       3. Sol Yanak: %10.56 (17 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Sol Yanak (%21.18, 36 bakış)
+     Toplam bakış: 103
+     Bölge sıralaması:
+       1. Sol Yanak: %21.18 (36 bakış)
+       2. Burun: %17.65 (30 bakış)
+       3. Sol Göz: %12.35 (21 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Sol Göz (%29.69, 57 bakış)
+     Toplam bakış: 167
+     Bölge sıralaması:
+       1. Sol Göz: %29.69 (57 bakış)
+       2. Burun: %17.71 (34 bakış)
+       3. Sol Yanak: %13.02 (25 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Sol Göz (%31.18, 58 bakış)
+     Toplam bakış: 148
+     Bölge sıralaması:
+       1. Sol Göz: %31.18 (58 bakış)
+       2. Sağ Göz: %19.35 (36 bakış)
+       3. Sol Yanak: %14.52 (27 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%29.35, 54 bakış)
+     Toplam bakış: 125
+     Bölge sıralaması:
+       1. Alın: %29.35 (54 bakış)
+       2. Sol Göz: %23.37 (43 bakış)
+       3. Sağ Göz: %7.61 (14 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%54.60, 89 bakış)
+     Toplam bakış: 134
+     Bölge sıralaması:
+       1. Alın: %54.60 (89 bakış)
+       2. Sol Göz: %14.72 (24 bakış)
+       3. Sağ Göz: %12.27 (20 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Sol Göz (%21.20, 39 bakış)
+     Toplam bakış: 148
+     Bölge sıralaması:
+       1. Sol Göz: %21.20 (39 bakış)
+       2. Sağ Göz: %21.20 (39 bakış)
+       3. Sol Yanak: %20.11 (37 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Sol Yanak (%20.37, 33 bakış)
+     Toplam bakış: 135
+     Bölge sıralaması:
+       1. Sol Yanak: %20.37 (33 bakış)
+       2. Sağ Göz: %19.14 (31 bakış)
+       3. Sol Göz: %18.52 (30 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Sol Yanak (%29.48, 51 bakış)
+     Toplam bakış: 151
+     Bölge sıralaması:
+       1. Sol Yanak: %29.48 (51 bakış)
+       2. Sağ Göz: %26.01 (45 bakış)
+       3. Sol Göz: %21.97 (38 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Alın (%28.99, 49 bakış)
+     Toplam bakış: 136
+     Bölge sıralaması:
+       1. Alın: %28.99 (49 bakış)
+       2. Sol Göz: %21.30 (36 bakış)
+       3. Sol Yanak: %13.61 (23 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Sol Göz (%25.31, 41 bakış)
+     Toplam bakış: 117
+     Bölge sıralaması:
+       1. Sol Göz: %25.31 (41 bakış)
+       2. Sağ Göz: %18.52 (30 bakış)
+       3. Alın: %17.28 (28 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Sağ Göz (%28.02, 58 bakış)
+     Toplam bakış: 170
+     Bölge sıralaması:
+       1. Sağ Göz: %28.02 (58 bakış)
+       2. Alın: %25.60 (53 bakış)
+       3. Sol Göz: %21.26 (44 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Burun (%25.73, 44 bakış)
+     Toplam bakış: 154
+     Bölge sıralaması:
+       1. Burun: %25.73 (44 bakış)
+       2. Sağ Yanak: %18.13 (31 bakış)
+       3. Sol Yanak: %15.79 (27 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%23.57, 37 bakış)
+     Toplam bakış: 65
+     Bölge sıralaması:
+       1. Alın: %23.57 (37 bakış)
+       2. Sağ Göz: %8.92 (14 bakış)
+       3. Burun: %8.28 (13 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Sağ Yanak (%19.05, 32 bakış)
+     Toplam bakış: 130
+     Bölge sıralaması:
+       1. Sağ Yanak: %19.05 (32 bakış)
+       2. Burun: %17.26 (29 bakış)
+       3. Sol Yanak: %16.07 (27 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%29.34, 49 bakış)
+     Toplam bakış: 100
+     Bölge sıralaması:
+       1. Alın: %29.34 (49 bakış)
+       2. Sağ Yanak: %14.97 (25 bakış)
+       3. Sağ Göz: %13.77 (23 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%25.47, 41 bakış)
+     Toplam bakış: 105
+     Bölge sıralaması:
+       1. Alın: %25.47 (41 bakış)
+       2. Burun: %16.77 (27 bakış)
+       3. Sol Göz: %14.91 (24 bakış)
+
+================================================================================
+KATILIMCI: 7
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Sol Göz (%31.95, 54 bakış)
+     Toplam bakış: 135
+     Bölge sıralaması:
+       1. Sol Göz: %31.95 (54 bakış)
+       2. Sol Yanak: %24.26 (41 bakış)
+       3. Alın: %11.83 (20 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Sol Yanak (%27.44, 45 bakış)
+     Toplam bakış: 156
+     Bölge sıralaması:
+       1. Sol Yanak: %27.44 (45 bakış)
+       2. Sol Göz: %23.78 (39 bakış)
+       3. Burun: %22.56 (37 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Sol Yanak (%43.29, 71 bakış)
+     Toplam bakış: 156
+     Bölge sıralaması:
+       1. Sol Yanak: %43.29 (71 bakış)
+       2. Sol Göz: %23.78 (39 bakış)
+       3. Alın: %18.90 (31 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Sol Yanak (%50.32, 79 bakış)
+     Toplam bakış: 137
+     Bölge sıralaması:
+       1. Sol Yanak: %50.32 (79 bakış)
+       2. Sol Göz: %16.56 (26 bakış)
+       3. Burun: %13.38 (21 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Sol Göz (%16.88, 26 bakış)
+     Toplam bakış: 104
+     Bölge sıralaması:
+       1. Sol Göz: %16.88 (26 bakış)
+       2. Sol Yanak: %16.88 (26 bakış)
+       3. Burun: %13.64 (21 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Sol Göz (%46.88, 75 bakış)
+     Toplam bakış: 123
+     Bölge sıralaması:
+       1. Sol Göz: %46.88 (75 bakış)
+       2. Burun: %13.12 (21 bakış)
+       3. Sol Yanak: %9.38 (15 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Sol Yanak (%20.61, 34 bakış)
+     Toplam bakış: 120
+     Bölge sıralaması:
+       1. Sol Yanak: %20.61 (34 bakış)
+       2. Sol Göz: %15.76 (26 bakış)
+       3. Bilinmeyen: %10.91 (18 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Sol Yanak (%44.10, 71 bakış)
+     Toplam bakış: 134
+     Bölge sıralaması:
+       1. Sol Yanak: %44.10 (71 bakış)
+       2. Ağız: %11.18 (18 bakış)
+       3. Sol Göz: %10.56 (17 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Sol Yanak (%28.82, 49 bakış)
+     Toplam bakış: 136
+     Bölge sıralaması:
+       1. Sol Yanak: %28.82 (49 bakış)
+       2. Sol Göz: %24.71 (42 bakış)
+       3. Burun: %17.06 (29 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Sol Yanak (%25.91, 50 bakış)
+     Toplam bakış: 127
+     Bölge sıralaması:
+       1. Sol Yanak: %25.91 (50 bakış)
+       2. Burun: %21.76 (42 bakış)
+       3. Sol Göz: %13.99 (27 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Sol Yanak (%42.47, 79 bakış)
+     Toplam bakış: 142
+     Bölge sıralaması:
+       1. Sol Yanak: %42.47 (79 bakış)
+       2. Burun: %27.96 (52 bakış)
+       3. Alın: %4.30 (8 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Sol Yanak (%38.59, 71 bakış)
+     Toplam bakış: 161
+     Bölge sıralaması:
+       1. Sol Yanak: %38.59 (71 bakış)
+       2. Burun: %22.28 (41 bakış)
+       3. Sol Göz: %13.59 (25 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Sol Yanak (%28.57, 46 bakış)
+     Toplam bakış: 81
+     Bölge sıralaması:
+       1. Sol Yanak: %28.57 (46 bakış)
+       2. Burun: %11.80 (19 bakış)
+       3. Sol Göz: %4.97 (8 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Sol Yanak (%37.84, 70 bakış)
+     Toplam bakış: 123
+     Bölge sıralaması:
+       1. Sol Yanak: %37.84 (70 bakış)
+       2. Alın: %16.22 (30 bakış)
+       3. Burun: %6.49 (12 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Sol Yanak (%34.59, 55 bakış)
+     Toplam bakış: 102
+     Bölge sıralaması:
+       1. Sol Yanak: %34.59 (55 bakış)
+       2. Burun: %18.24 (29 bakış)
+       3. Sol Göz: %3.77 (6 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Sol Yanak (%19.43, 34 bakış)
+     Toplam bakış: 101
+     Bölge sıralaması:
+       1. Sol Yanak: %19.43 (34 bakış)
+       2. Alın: %19.43 (34 bakış)
+       3. Burun: %13.14 (23 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Sol Yanak (%42.94, 73 bakış)
+     Toplam bakış: 127
+     Bölge sıralaması:
+       1. Sol Yanak: %42.94 (73 bakış)
+       2. Burun: %14.12 (24 bakış)
+       3. Ağız: %7.06 (12 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Sol Yanak (%38.41, 63 bakış)
+     Toplam bakış: 124
+     Bölge sıralaması:
+       1. Sol Yanak: %38.41 (63 bakış)
+       2. Sol Göz: %26.83 (44 bakış)
+       3. Alın: %7.32 (12 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Burun (%31.25, 65 bakış)
+     Toplam bakış: 206
+     Bölge sıralaması:
+       1. Burun: %31.25 (65 bakış)
+       2. Sol Yanak: %27.40 (57 bakış)
+       3. Sol Göz: %23.08 (48 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Burun (%37.87, 64 bakış)
+     Toplam bakış: 168
+     Bölge sıralaması:
+       1. Burun: %37.87 (64 bakış)
+       2. Sağ Yanak: %18.93 (32 bakış)
+       3. Sol Yanak: %17.75 (30 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Burun (%33.97, 53 bakış)
+     Toplam bakış: 148
+     Bölge sıralaması:
+       1. Burun: %33.97 (53 bakış)
+       2. Sol Yanak: %17.95 (28 bakış)
+       3. Sağ Göz: %16.03 (25 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Sol Yanak (%38.10, 64 bakış)
+     Toplam bakış: 160
+     Bölge sıralaması:
+       1. Sol Yanak: %38.10 (64 bakış)
+       2. Burun: %33.33 (56 bakış)
+       3. Sağ Yanak: %7.14 (12 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Burun (%24.70, 41 bakış)
+     Toplam bakış: 158
+     Bölge sıralaması:
+       1. Burun: %24.70 (41 bakış)
+       2. Sağ Göz: %22.89 (38 bakış)
+       3. Sağ Yanak: %18.07 (30 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Burun (%31.25, 50 bakış)
+     Toplam bakış: 146
+     Bölge sıralaması:
+       1. Burun: %31.25 (50 bakış)
+       2. Sol Yanak: %28.12 (45 bakış)
+       3. Ağız: %20.00 (32 bakış)
+
+================================================================================
+KATILIMCI: 8
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Sol Yanak (%19.64, 33 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Sol Yanak: %19.64 (33 bakış)
+       2. Sağ Göz: %18.45 (31 bakış)
+       3. Sol Göz: %11.90 (20 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Alın (%80.98, 132 bakış)
+     Toplam bakış: 134
+     Bölge sıralaması:
+       1. Alın: %80.98 (132 bakış)
+       2. Sol Göz: %1.23 (2 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%46.91, 76 bakış)
+     Toplam bakış: 96
+     Bölge sıralaması:
+       1. Alın: %46.91 (76 bakış)
+       2. Sol Göz: %12.35 (20 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%45.96, 74 bakış)
+     Toplam bakış: 130
+     Bölge sıralaması:
+       1. Alın: %45.96 (74 bakış)
+       2. Burun: %17.39 (28 bakış)
+       3. Sol Göz: %13.04 (21 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%26.45, 41 bakış)
+     Toplam bakış: 130
+     Bölge sıralaması:
+       1. Alın: %26.45 (41 bakış)
+       2. Sol Göz: %21.29 (33 bakış)
+       3. Burun: %18.71 (29 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Sol Göz (%32.08, 51 bakış)
+     Toplam bakış: 132
+     Bölge sıralaması:
+       1. Sol Göz: %32.08 (51 bakış)
+       2. Sağ Göz: %25.16 (40 bakış)
+       3. Burun: %15.09 (24 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Alın (%63.64, 105 bakış)
+     Toplam bakış: 128
+     Bölge sıralaması:
+       1. Alın: %63.64 (105 bakış)
+       2. Bilinmeyen: %10.30 (17 bakış)
+       3. Sol Göz: %3.03 (5 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Sol Göz (%20.37, 33 bakış)
+     Toplam bakış: 89
+     Bölge sıralaması:
+       1. Sol Göz: %20.37 (33 bakış)
+       2. Alın: %17.90 (29 bakış)
+       3. Burun: %9.26 (15 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%28.24, 48 bakış)
+     Toplam bakış: 118
+     Bölge sıralaması:
+       1. Alın: %28.24 (48 bakış)
+       2. Sol Göz: %19.41 (33 bakış)
+       3. Sağ Göz: %14.12 (24 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Sol Göz (%38.66, 75 bakış)
+     Toplam bakış: 189
+     Bölge sıralaması:
+       1. Sol Göz: %38.66 (75 bakış)
+       2. Ağız: %17.01 (33 bakış)
+       3. Burun: %12.37 (24 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%26.84, 51 bakış)
+     Toplam bakış: 122
+     Bölge sıralaması:
+       1. Alın: %26.84 (51 bakış)
+       2. Sol Göz: %17.89 (34 bakış)
+       3. Sağ Göz: %8.42 (16 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%25.54, 47 bakış)
+     Toplam bakış: 129
+     Bölge sıralaması:
+       1. Alın: %25.54 (47 bakış)
+       2. Sağ Göz: %21.20 (39 bakış)
+       3. Sol Göz: %17.39 (32 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%48.77, 79 bakış)
+     Toplam bakış: 102
+     Bölge sıralaması:
+       1. Alın: %48.77 (79 bakış)
+       2. Sol Göz: %14.20 (23 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%42.25, 79 bakış)
+     Toplam bakış: 123
+     Bölge sıralaması:
+       1. Alın: %42.25 (79 bakış)
+       2. Sol Göz: %15.51 (29 bakış)
+       3. Sol Yanak: %8.02 (15 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%34.87, 53 bakış)
+     Toplam bakış: 116
+     Bölge sıralaması:
+       1. Alın: %34.87 (53 bakış)
+       2. Sağ Göz: %23.03 (35 bakış)
+       3. Sol Göz: %13.16 (20 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%29.31, 51 bakış)
+     Toplam bakış: 95
+     Bölge sıralaması:
+       1. Alın: %29.31 (51 bakış)
+       2. Sol Göz: %10.92 (19 bakış)
+       3. Sağ Göz: %9.77 (17 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Sol Yanak (%23.84, 41 bakış)
+     Toplam bakış: 163
+     Bölge sıralaması:
+       1. Sol Yanak: %23.84 (41 bakış)
+       2. Sağ Göz: %19.77 (34 bakış)
+       3. Sol Göz: %16.28 (28 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%30.25, 49 bakış)
+     Toplam bakış: 92
+     Bölge sıralaması:
+       1. Alın: %30.25 (49 bakış)
+       2. Sağ Göz: %15.43 (25 bakış)
+       3. Sol Göz: %8.64 (14 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Alın (%45.89, 95 bakış)
+     Toplam bakış: 126
+     Bölge sıralaması:
+       1. Alın: %45.89 (95 bakış)
+       2. Burun: %7.25 (15 bakış)
+       3. Sağ Göz: %4.35 (9 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%50.30, 85 bakış)
+     Toplam bakış: 100
+     Bölge sıralaması:
+       1. Alın: %50.30 (85 bakış)
+       2. Sol Göz: %7.69 (13 bakış)
+       3. Sol Yanak: %0.59 (1 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%26.45, 41 bakış)
+     Toplam bakış: 118
+     Bölge sıralaması:
+       1. Alın: %26.45 (41 bakış)
+       2. Sağ Göz: %21.29 (33 bakış)
+       3. Sağ Yanak: %16.13 (25 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Sağ Göz (%24.55, 41 bakış)
+     Toplam bakış: 130
+     Bölge sıralaması:
+       1. Sağ Göz: %24.55 (41 bakış)
+       2. Sağ Yanak: %20.96 (35 bakış)
+       3. Sol Göz: %16.17 (27 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Sağ Yanak (%27.38, 46 bakış)
+     Toplam bakış: 114
+     Bölge sıralaması:
+       1. Sağ Yanak: %27.38 (46 bakış)
+       2. Sol Göz: %14.88 (25 bakış)
+       3. Sağ Göz: %8.33 (14 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Sağ Göz (%36.02, 58 bakış)
+     Toplam bakış: 136
+     Bölge sıralaması:
+       1. Sağ Göz: %36.02 (58 bakış)
+       2. Alın: %26.09 (42 bakış)
+       3. Sol Göz: %9.94 (16 bakış)
+
+================================================================================
+KATILIMCI: 9
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Sağ Göz (%24.40, 41 bakış)
+     Toplam bakış: 157
+     Bölge sıralaması:
+       1. Sağ Göz: %24.40 (41 bakış)
+       2. Burun: %23.81 (40 bakış)
+       3. Alın: %19.64 (33 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Sağ Göz (%28.12, 45 bakış)
+     Toplam bakış: 141
+     Bölge sıralaması:
+       1. Sağ Göz: %28.12 (45 bakış)
+       2. Burun: %23.75 (38 bakış)
+       3. Sol Göz: %16.88 (27 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Sağ Göz (%31.90, 52 bakış)
+     Toplam bakış: 141
+     Bölge sıralaması:
+       1. Sağ Göz: %31.90 (52 bakış)
+       2. Burun: %27.61 (45 bakış)
+       3. Sol Göz: %22.09 (36 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Sağ Göz (%39.38, 63 bakış)
+     Toplam bakış: 113
+     Bölge sıralaması:
+       1. Sağ Göz: %39.38 (63 bakış)
+       2. Alın: %27.50 (44 bakış)
+       3. Sağ Yanak: %3.75 (6 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Sağ Göz (%52.26, 81 bakış)
+     Toplam bakış: 118
+     Bölge sıralaması:
+       1. Sağ Göz: %52.26 (81 bakış)
+       2. Sol Göz: %20.00 (31 bakış)
+       3. Alın: %3.23 (5 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Sağ Göz (%30.43, 49 bakış)
+     Toplam bakış: 113
+     Bölge sıralaması:
+       1. Sağ Göz: %30.43 (49 bakış)
+       2. Alın: %13.66 (22 bakış)
+       3. Sol Göz: %12.42 (20 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Sağ Göz (%22.70, 37 bakış)
+     Toplam bakış: 142
+     Bölge sıralaması:
+       1. Sağ Göz: %22.70 (37 bakış)
+       2. Sağ Yanak: %14.72 (24 bakış)
+       3. Sol Göz: %12.88 (21 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%32.52, 53 bakış)
+     Toplam bakış: 115
+     Bölge sıralaması:
+       1. Alın: %32.52 (53 bakış)
+       2. Burun: %16.56 (27 bakış)
+       3. Sağ Yanak: %9.82 (16 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%43.20, 73 bakış)
+     Toplam bakış: 119
+     Bölge sıralaması:
+       1. Alın: %43.20 (73 bakış)
+       2. Sağ Göz: %12.43 (21 bakış)
+       3. Sağ Yanak: %8.28 (14 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Burun (%26.29, 51 bakış)
+     Toplam bakış: 121
+     Bölge sıralaması:
+       1. Burun: %26.29 (51 bakış)
+       2. Sağ Yanak: %17.53 (34 bakış)
+       3. Sol Göz: %8.76 (17 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Sağ Yanak (%22.75, 43 bakış)
+     Toplam bakış: 140
+     Bölge sıralaması:
+       1. Sağ Yanak: %22.75 (43 bakış)
+       2. Sağ Göz: %21.69 (41 bakış)
+       3. Sol Göz: %14.29 (27 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%26.52, 48 bakış)
+     Toplam bakış: 83
+     Bölge sıralaması:
+       1. Alın: %26.52 (48 bakış)
+       2. Burun: %9.39 (17 bakış)
+       3. Bilinmeyen: %4.97 (9 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Sağ Yanak (%27.50, 44 bakış)
+     Toplam bakış: 158
+     Bölge sıralaması:
+       1. Sağ Yanak: %27.50 (44 bakış)
+       2. Sağ Göz: %24.38 (39 bakış)
+       3. Burun: %18.12 (29 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Burun (%19.89, 37 bakış)
+     Toplam bakış: 148
+     Bölge sıralaması:
+       1. Burun: %19.89 (37 bakış)
+       2. Sol Yanak: %14.52 (27 bakış)
+       3. Alın: %13.44 (25 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Sol Göz (%35.62, 57 bakış)
+     Toplam bakış: 143
+     Bölge sıralaması:
+       1. Sol Göz: %35.62 (57 bakış)
+       2. Sağ Yanak: %13.75 (22 bakış)
+       3. Sağ Göz: %13.12 (21 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Sağ Göz (%24.42, 42 bakış)
+     Toplam bakış: 159
+     Bölge sıralaması:
+       1. Sağ Göz: %24.42 (42 bakış)
+       2. Sağ Yanak: %22.09 (38 bakış)
+       3. Sol Göz: %18.60 (32 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Sağ Göz (%22.22, 38 bakış)
+     Toplam bakış: 119
+     Bölge sıralaması:
+       1. Sağ Göz: %22.22 (38 bakış)
+       2. Burun: %21.64 (37 bakış)
+       3. Sol Göz: %8.77 (15 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Sağ Göz (%21.47, 35 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Sağ Göz: %21.47 (35 bakış)
+       2. Sol Göz: %14.72 (24 bakış)
+       3. Sağ Yanak: %11.66 (19 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Burun (%34.30, 71 bakış)
+     Toplam bakış: 191
+     Bölge sıralaması:
+       1. Burun: %34.30 (71 bakış)
+       2. Sağ Yanak: %33.33 (69 bakış)
+       3. Sağ Göz: %19.81 (41 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%17.96, 30 bakış)
+     Toplam bakış: 58
+     Bölge sıralaması:
+       1. Alın: %17.96 (30 bakış)
+       2. Burun: %8.38 (14 bakış)
+       3. Sağ Göz: %4.79 (8 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Sağ Yanak (%24.03, 37 bakış)
+     Toplam bakış: 116
+     Bölge sıralaması:
+       1. Sağ Yanak: %24.03 (37 bakış)
+       2. Sağ Göz: %22.73 (35 bakış)
+       3. Alın: %16.23 (25 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Sağ Yanak (%45.24, 76 bakış)
+     Toplam bakış: 136
+     Bölge sıralaması:
+       1. Sağ Yanak: %45.24 (76 bakış)
+       2. Sağ Göz: %20.24 (34 bakış)
+       3. Burun: %14.88 (25 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%13.86, 23 bakış)
+     Toplam bakış: 52
+     Bölge sıralaması:
+       1. Alın: %13.86 (23 bakış)
+       2. Burun: %6.63 (11 bakış)
+       3. Sağ Göz: %6.02 (10 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%18.87, 30 bakış)
+     Toplam bakış: 76
+     Bölge sıralaması:
+       1. Alın: %18.87 (30 bakış)
+       2. Sağ Yanak: %17.61 (28 bakış)
+       3. Burun: %5.66 (9 bakış)
+
+================================================================================
+KATILIMCI: 10
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Burun (%22.02, 37 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Burun: %22.02 (37 bakış)
+       2. Sol Göz: %17.86 (30 bakış)
+       3. Alın: %13.10 (22 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Alın (%85.80, 139 bakış)
+     Toplam bakış: 139
+     Bölge sıralaması:
+       1. Alın: %85.80 (139 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%67.92, 108 bakış)
+     Toplam bakış: 108
+     Bölge sıralaması:
+       1. Alın: %67.92 (108 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%18.47, 29 bakış)
+     Toplam bakış: 29
+     Bölge sıralaması:
+       1. Alın: %18.47 (29 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%54.25, 83 bakış)
+     Toplam bakış: 83
+     Bölge sıralaması:
+       1. Alın: %54.25 (83 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%25.62, 41 bakış)
+     Toplam bakış: 41
+     Bölge sıralaması:
+       1. Alın: %25.62 (41 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Alın (%19.75, 32 bakış)
+     Toplam bakış: 49
+     Bölge sıralaması:
+       1. Alın: %19.75 (32 bakış)
+       2. Bilinmeyen: %10.49 (17 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%36.08, 57 bakış)
+     Toplam bakış: 68
+     Bölge sıralaması:
+       1. Alın: %36.08 (57 bakış)
+       2. Sol Yanak: %3.80 (6 bakış)
+       3. Bilinmeyen: %3.16 (5 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%23.17, 38 bakış)
+     Toplam bakış: 50
+     Bölge sıralaması:
+       1. Alın: %23.17 (38 bakış)
+       2. Sol Göz: %5.49 (9 bakış)
+       3. Çene: %1.83 (3 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Alın (%23.94, 45 bakış)
+     Toplam bakış: 63
+     Bölge sıralaması:
+       1. Alın: %23.94 (45 bakış)
+       2. Sol Göz: %9.57 (18 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%16.04, 30 bakış)
+     Toplam bakış: 47
+     Bölge sıralaması:
+       1. Alın: %16.04 (30 bakış)
+       2. Sol Göz: %5.35 (10 bakış)
+       3. Sol Yanak: %3.21 (6 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Bilinmeyen (%4.97, 9 bakış)
+     Toplam bakış: 12
+     Bölge sıralaması:
+       1. Bilinmeyen: %4.97 (9 bakış)
+       2. Alın: %1.10 (2 bakış)
+       3. Burun: %0.55 (1 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%19.75, 32 bakış)
+     Toplam bakış: 32
+     Bölge sıralaması:
+       1. Alın: %19.75 (32 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%41.18, 77 bakış)
+     Toplam bakış: 87
+     Bölge sıralaması:
+       1. Alın: %41.18 (77 bakış)
+       2. Sağ Göz: %3.21 (6 bakış)
+       3. Burun: %2.14 (4 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%29.19, 47 bakış)
+     Toplam bakış: 47
+     Bölge sıralaması:
+       1. Alın: %29.19 (47 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%2.89, 5 bakış)
+     Toplam bakış: 5
+     Bölge sıralaması:
+       1. Alın: %2.89 (5 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Alın (%11.24, 19 bakış)
+     Toplam bakış: 19
+     Bölge sıralaması:
+       1. Alın: %11.24 (19 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Alın (%16.10, 33 bakış)
+     Toplam bakış: 57
+     Bölge sıralaması:
+       1. Alın: %16.10 (33 bakış)
+       2. Burun: %8.29 (17 bakış)
+       3. Sol Göz: %2.93 (6 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%36.69, 62 bakış)
+     Toplam bakış: 75
+     Bölge sıralaması:
+       1. Alın: %36.69 (62 bakış)
+       2. Sol Yanak: %4.73 (8 bakış)
+       3. Burun: %1.78 (3 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Burun (%10.91, 18 bakış)
+     Toplam bakış: 30
+     Bölge sıralaması:
+       1. Burun: %10.91 (18 bakış)
+       2. Alın: %6.67 (11 bakış)
+       3. Bilinmeyen: %0.61 (1 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%13.04, 21 bakış)
+     Toplam bakış: 21
+     Bölge sıralaması:
+       1. Alın: %13.04 (21 bakış)
+
+================================================================================
+KATILIMCI: 11
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Burun (%31.58, 54 bakış)
+     Toplam bakış: 123
+     Bölge sıralaması:
+       1. Burun: %31.58 (54 bakış)
+       2. Sol Yanak: %15.79 (27 bakış)
+       3. Sağ Yanak: %15.79 (27 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Burun (%22.98, 37 bakış)
+     Toplam bakış: 127
+     Bölge sıralaması:
+       1. Burun: %22.98 (37 bakış)
+       2. Ağız: %19.88 (32 bakış)
+       3. Alın: %11.18 (18 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%26.71, 43 bakış)
+     Toplam bakış: 134
+     Bölge sıralaması:
+       1. Alın: %26.71 (43 bakış)
+       2. Sol Göz: %23.60 (38 bakış)
+       3. Burun: %12.42 (20 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%29.05, 43 bakış)
+     Toplam bakış: 71
+     Bölge sıralaması:
+       1. Alın: %29.05 (43 bakış)
+       2. Sol Göz: %8.11 (12 bakış)
+       3. Sağ Göz: %5.41 (8 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Burun (%33.55, 52 bakış)
+     Toplam bakış: 118
+     Bölge sıralaması:
+       1. Burun: %33.55 (52 bakış)
+       2. Sol Göz: %16.77 (26 bakış)
+       3. Sağ Göz: %13.55 (21 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%22.15, 35 bakış)
+     Toplam bakış: 114
+     Bölge sıralaması:
+       1. Alın: %22.15 (35 bakış)
+       2. Sol Göz: %18.99 (30 bakış)
+       3. Burun: %18.35 (29 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Burun (%23.95, 40 bakış)
+     Toplam bakış: 107
+     Bölge sıralaması:
+       1. Burun: %23.95 (40 bakış)
+       2. Alın: %22.16 (37 bakış)
+       3. Bilinmeyen: %10.18 (17 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Burun (%19.38, 31 bakış)
+     Toplam bakış: 137
+     Bölge sıralaması:
+       1. Burun: %19.38 (31 bakış)
+       2. Alın: %18.75 (30 bakış)
+       3. Sol Yanak: %15.00 (24 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%16.47, 28 bakış)
+     Toplam bakış: 98
+     Bölge sıralaması:
+       1. Alın: %16.47 (28 bakış)
+       2. Çene: %14.71 (25 bakış)
+       3. Burun: %11.76 (20 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Çene (%19.07, 37 bakış)
+     Toplam bakış: 105
+     Bölge sıralaması:
+       1. Çene: %19.07 (37 bakış)
+       2. Burun: %14.95 (29 bakış)
+       3. Sağ Göz: %10.31 (20 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Burun (%12.77, 24 bakış)
+     Toplam bakış: 49
+     Bölge sıralaması:
+       1. Burun: %12.77 (24 bakış)
+       2. Sol Göz: %6.38 (12 bakış)
+       3. Sağ Göz: %3.72 (7 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Çene (%32.61, 60 bakış)
+     Toplam bakış: 136
+     Bölge sıralaması:
+       1. Çene: %32.61 (60 bakış)
+       2. Burun: %10.33 (19 bakış)
+       3. Sağ Göz: %9.24 (17 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%30.06, 49 bakış)
+     Toplam bakış: 134
+     Bölge sıralaması:
+       1. Alın: %30.06 (49 bakış)
+       2. Sol Göz: %17.79 (29 bakış)
+       3. Burun: %12.27 (20 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%40.54, 75 bakış)
+     Toplam bakış: 101
+     Bölge sıralaması:
+       1. Alın: %40.54 (75 bakış)
+       2. Sol Göz: %8.65 (16 bakış)
+       3. Sol Yanak: %5.41 (10 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Sol Göz (%31.65, 50 bakış)
+     Toplam bakış: 100
+     Bölge sıralaması:
+       1. Sol Göz: %31.65 (50 bakış)
+       2. Alın: %18.35 (29 bakış)
+       3. Sağ Göz: %5.06 (8 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%34.68, 60 bakış)
+     Toplam bakış: 98
+     Bölge sıralaması:
+       1. Alın: %34.68 (60 bakış)
+       2. Sağ Yanak: %8.09 (14 bakış)
+       3. Sol Göz: %5.20 (9 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Alın (%30.95, 52 bakış)
+     Toplam bakış: 131
+     Bölge sıralaması:
+       1. Alın: %30.95 (52 bakış)
+       2. Sol Yanak: %16.07 (27 bakış)
+       3. Burun: %13.10 (22 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%36.25, 58 bakış)
+     Toplam bakış: 70
+     Bölge sıralaması:
+       1. Alın: %36.25 (58 bakış)
+       2. Sol Göz: %4.38 (7 bakış)
+       3. Sağ Göz: %1.88 (3 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Burun (%12.62, 26 bakış)
+     Toplam bakış: 148
+     Bölge sıralaması:
+       1. Burun: %12.62 (26 bakış)
+       2. Sağ Yanak: %12.14 (25 bakış)
+       3. Sağ Göz: %11.65 (24 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Sağ Göz (%16.37, 28 bakış)
+     Toplam bakış: 98
+     Bölge sıralaması:
+       1. Sağ Göz: %16.37 (28 bakış)
+       2. Burun: %12.87 (22 bakış)
+       3. Sağ Yanak: %10.53 (18 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Sağ Yanak (%28.39, 44 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Sağ Yanak: %28.39 (44 bakış)
+       2. Sağ Göz: %23.87 (37 bakış)
+       3. Alın: %8.39 (13 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Sağ Yanak (%37.87, 64 bakış)
+     Toplam bakış: 115
+     Bölge sıralaması:
+       1. Sağ Yanak: %37.87 (64 bakış)
+       2. Burun: %20.12 (34 bakış)
+       3. Sağ Göz: %4.73 (8 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Sağ Yanak (%26.19, 44 bakış)
+     Toplam bakış: 99
+     Bölge sıralaması:
+       1. Sağ Yanak: %26.19 (44 bakış)
+       2. Burun: %10.71 (18 bakış)
+       3. Sol Göz: %10.12 (17 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Sağ Göz (%20.62, 33 bakış)
+     Toplam bakış: 108
+     Bölge sıralaması:
+       1. Sağ Göz: %20.62 (33 bakış)
+       2. Burun: %18.75 (30 bakış)
+       3. Sol Yanak: %8.12 (13 bakış)
+
+================================================================================
+KATILIMCI: 12
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Alın (%43.45, 73 bakış)
+     Toplam bakış: 134
+     Bölge sıralaması:
+       1. Alın: %43.45 (73 bakış)
+       2. Sol Göz: %20.24 (34 bakış)
+       3. Burun: %12.50 (21 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Alın (%70.00, 112 bakış)
+     Toplam bakış: 121
+     Bölge sıralaması:
+       1. Alın: %70.00 (112 bakış)
+       2. Sol Göz: %1.88 (3 bakış)
+       3. Sağ Göz: %1.88 (3 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%71.43, 115 bakış)
+     Toplam bakış: 119
+     Bölge sıralaması:
+       1. Alın: %71.43 (115 bakış)
+       2. Burun: %2.48 (4 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%81.25, 130 bakış)
+     Toplam bakış: 132
+     Bölge sıralaması:
+       1. Alın: %81.25 (130 bakış)
+       2. Sol Yanak: %1.25 (2 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%67.32, 103 bakış)
+     Toplam bakış: 103
+     Bölge sıralaması:
+       1. Alın: %67.32 (103 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%74.84, 119 bakış)
+     Toplam bakış: 119
+     Bölge sıralaması:
+       1. Alın: %74.84 (119 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Alın (%36.20, 59 bakış)
+     Toplam bakış: 95
+     Bölge sıralaması:
+       1. Alın: %36.20 (59 bakış)
+       2. Burun: %11.04 (18 bakış)
+       3. Bilinmeyen: %10.43 (17 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%43.83, 71 bakış)
+     Toplam bakış: 93
+     Bölge sıralaması:
+       1. Alın: %43.83 (71 bakış)
+       2. Burun: %5.56 (9 bakış)
+       3. Bilinmeyen: %4.32 (7 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Sol Yanak (%17.96, 30 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Sol Yanak: %17.96 (30 bakış)
+       2. Alın: %15.57 (26 bakış)
+       3. Sol Göz: %10.78 (18 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Alın (%35.60, 68 bakış)
+     Toplam bakış: 104
+     Bölge sıralaması:
+       1. Alın: %35.60 (68 bakış)
+       2. Burun: %7.33 (14 bakış)
+       3. Sol Göz: %4.19 (8 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%20.53, 39 bakış)
+     Toplam bakış: 79
+     Bölge sıralaması:
+       1. Alın: %20.53 (39 bakış)
+       2. Burun: %8.42 (16 bakış)
+       3. Çene: %7.37 (14 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%16.39, 30 bakış)
+     Toplam bakış: 57
+     Bölge sıralaması:
+       1. Alın: %16.39 (30 bakış)
+       2. Sol Yanak: %6.01 (11 bakış)
+       3. Bilinmeyen: %4.92 (9 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%67.50, 108 bakış)
+     Toplam bakış: 108
+     Bölge sıralaması:
+       1. Alın: %67.50 (108 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%34.43, 63 bakış)
+     Toplam bakış: 89
+     Bölge sıralaması:
+       1. Alın: %34.43 (63 bakış)
+       2. Sol Göz: %12.02 (22 bakış)
+       3. Burun: %2.19 (4 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%51.25, 82 bakış)
+     Toplam bakış: 82
+     Bölge sıralaması:
+       1. Alın: %51.25 (82 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%36.05, 62 bakış)
+     Toplam bakış: 115
+     Bölge sıralaması:
+       1. Alın: %36.05 (62 bakış)
+       2. Sol Göz: %13.95 (24 bakış)
+       3. Sağ Göz: %12.21 (21 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Alın (%42.35, 72 bakış)
+     Toplam bakış: 80
+     Bölge sıralaması:
+       1. Alın: %42.35 (72 bakış)
+       2. Sol Göz: %4.12 (7 bakış)
+       3. Sol Yanak: %0.59 (1 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%27.16, 44 bakış)
+     Toplam bakış: 64
+     Bölge sıralaması:
+       1. Alın: %27.16 (44 bakış)
+       2. Sol Göz: %7.41 (12 bakış)
+       3. Burun: %4.94 (8 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Alın (%45.15, 93 bakış)
+     Toplam bakış: 121
+     Bölge sıralaması:
+       1. Alın: %45.15 (93 bakış)
+       2. Sağ Göz: %6.80 (14 bakış)
+       3. Sağ Yanak: %5.83 (12 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%33.73, 57 bakış)
+     Toplam bakış: 67
+     Bölge sıralaması:
+       1. Alın: %33.73 (57 bakış)
+       2. Sağ Göz: %2.96 (5 bakış)
+       3. Sol Yanak: %1.18 (2 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%42.21, 65 bakış)
+     Toplam bakış: 73
+     Bölge sıralaması:
+       1. Alın: %42.21 (65 bakış)
+       2. Sağ Göz: %5.19 (8 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Alın (%43.79, 74 bakış)
+     Toplam bakış: 89
+     Bölge sıralaması:
+       1. Alın: %43.79 (74 bakış)
+       2. Burun: %4.73 (8 bakış)
+       3. Sağ Göz: %3.55 (6 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%24.40, 41 bakış)
+     Toplam bakış: 52
+     Bölge sıralaması:
+       1. Alın: %24.40 (41 bakış)
+       2. Çene: %5.95 (10 bakış)
+       3. Sağ Göz: %0.60 (1 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%16.15, 26 bakış)
+     Toplam bakış: 43
+     Bölge sıralaması:
+       1. Alın: %16.15 (26 bakış)
+       2. Sağ Yanak: %6.21 (10 bakış)
+       3. Burun: %3.73 (6 bakış)
+
+================================================================================
+KATILIMCI: 13
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Burun (%38.32, 64 bakış)
+     Toplam bakış: 167
+     Bölge sıralaması:
+       1. Burun: %38.32 (64 bakış)
+       2. Sol Yanak: %25.15 (42 bakış)
+       3. Sol Göz: %16.77 (28 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Alın (%45.62, 73 bakış)
+     Toplam bakış: 135
+     Bölge sıralaması:
+       1. Alın: %45.62 (73 bakış)
+       2. Sol Göz: %21.25 (34 bakış)
+       3. Ağız: %8.75 (14 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%69.14, 112 bakış)
+     Toplam bakış: 116
+     Bölge sıralaması:
+       1. Alın: %69.14 (112 bakış)
+       2. Burun: %1.85 (3 bakış)
+       3. Sol Göz: %0.62 (1 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%75.00, 111 bakış)
+     Toplam bakış: 129
+     Bölge sıralaması:
+       1. Alın: %75.00 (111 bakış)
+       2. Sol Göz: %12.16 (18 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%68.92, 102 bakış)
+     Toplam bakış: 120
+     Bölge sıralaması:
+       1. Alın: %68.92 (102 bakış)
+       2. Sol Göz: %9.46 (14 bakış)
+       3. Burun: %1.35 (2 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%47.47, 75 bakış)
+     Toplam bakış: 120
+     Bölge sıralaması:
+       1. Alın: %47.47 (75 bakış)
+       2. Sol Göz: %15.82 (25 bakış)
+       3. Burun: %8.86 (14 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Alın (%41.46, 68 bakış)
+     Toplam bakış: 114
+     Bölge sıralaması:
+       1. Alın: %41.46 (68 bakış)
+       2. Sol Göz: %11.59 (19 bakış)
+       3. Bilinmeyen: %10.37 (17 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%26.42, 42 bakış)
+     Toplam bakış: 97
+     Bölge sıralaması:
+       1. Alın: %26.42 (42 bakış)
+       2. Burun: %12.58 (20 bakış)
+       3. Sol Göz: %11.95 (19 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%56.02, 93 bakış)
+     Toplam bakış: 116
+     Bölge sıralaması:
+       1. Alın: %56.02 (93 bakış)
+       2. Burun: %6.02 (10 bakış)
+       3. Sol Göz: %4.82 (8 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Alın (%50.26, 95 bakış)
+     Toplam bakış: 132
+     Bölge sıralaması:
+       1. Alın: %50.26 (95 bakış)
+       2. Sol Göz: %8.99 (17 bakış)
+       3. Burun: %5.82 (11 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%40.66, 74 bakış)
+     Toplam bakış: 90
+     Bölge sıralaması:
+       1. Alın: %40.66 (74 bakış)
+       2. Sol Göz: %5.49 (10 bakış)
+       3. Burun: %3.30 (6 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%56.91, 103 bakış)
+     Toplam bakış: 128
+     Bölge sıralaması:
+       1. Alın: %56.91 (103 bakış)
+       2. Bilinmeyen: %4.97 (9 bakış)
+       3. Sol Yanak: %4.42 (8 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Sağ Göz (%39.38, 63 bakış)
+     Toplam bakış: 137
+     Bölge sıralaması:
+       1. Sağ Göz: %39.38 (63 bakış)
+       2. Sol Göz: %15.62 (25 bakış)
+       3. Alın: %13.12 (21 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%42.93, 79 bakış)
+     Toplam bakış: 117
+     Bölge sıralaması:
+       1. Alın: %42.93 (79 bakış)
+       2. Burun: %13.59 (25 bakış)
+       3. Sol Göz: %3.26 (6 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%47.53, 77 bakış)
+     Toplam bakış: 125
+     Bölge sıralaması:
+       1. Alın: %47.53 (77 bakış)
+       2. Sol Göz: %17.90 (29 bakış)
+       3. Sağ Göz: %9.26 (15 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%47.13, 82 bakış)
+     Toplam bakış: 108
+     Bölge sıralaması:
+       1. Alın: %47.13 (82 bakış)
+       2. Burun: %9.20 (16 bakış)
+       3. Sol Göz: %3.45 (6 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Alın (%43.20, 73 bakış)
+     Toplam bakış: 121
+     Bölge sıralaması:
+       1. Alın: %43.20 (73 bakış)
+       2. Sol Göz: %13.02 (22 bakış)
+       3. Burun: %7.10 (12 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%35.22, 56 bakış)
+     Toplam bakış: 106
+     Bölge sıralaması:
+       1. Alın: %35.22 (56 bakış)
+       2. Sol Göz: %20.75 (33 bakış)
+       3. Sağ Göz: %7.55 (12 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Alın (%50.25, 101 bakış)
+     Toplam bakış: 169
+     Bölge sıralaması:
+       1. Alın: %50.25 (101 bakış)
+       2. Sol Göz: %14.93 (30 bakış)
+       3. Burun: %12.44 (25 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%58.68, 98 bakış)
+     Toplam bakış: 109
+     Bölge sıralaması:
+       1. Alın: %58.68 (98 bakış)
+       2. Burun: %4.79 (8 bakış)
+       3. Sağ Göz: %1.20 (2 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%35.48, 55 bakış)
+     Toplam bakış: 79
+     Bölge sıralaması:
+       1. Alın: %35.48 (55 bakış)
+       2. Sağ Göz: %14.84 (23 bakış)
+       3. Sol Göz: %0.65 (1 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Alın (%33.94, 56 bakış)
+     Toplam bakış: 71
+     Bölge sıralaması:
+       1. Alın: %33.94 (56 bakış)
+       2. Sağ Yanak: %4.24 (7 bakış)
+       3. Çene: %3.64 (6 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%20.00, 33 bakış)
+     Toplam bakış: 42
+     Bölge sıralaması:
+       1. Alın: %20.00 (33 bakış)
+       2. Çene: %4.85 (8 bakış)
+       3. Sağ Göz: %0.61 (1 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Alın (%35.80, 58 bakış)
+     Toplam bakış: 100
+     Bölge sıralaması:
+       1. Alın: %35.80 (58 bakış)
+       2. Burun: %13.58 (22 bakış)
+       3. Ağız: %8.64 (14 bakış)
+
+================================================================================
+KATILIMCI: 14
+================================================================================
+
+  📹 kisi1video1
+     En çok bakılan: Burun (%20.59, 35 bakış)
+     Toplam bakış: 151
+     Bölge sıralaması:
+       1. Burun: %20.59 (35 bakış)
+       2. Sağ Yanak: %20.59 (35 bakış)
+       3. Sol Göz: %18.24 (31 bakış)
+
+  📹 kisi1video2
+     En çok bakılan: Alın (%49.69, 80 bakış)
+     Toplam bakış: 104
+     Bölge sıralaması:
+       1. Alın: %49.69 (80 bakış)
+       2. Burun: %14.91 (24 bakış)
+
+  📹 kisi1video3
+     En çok bakılan: Alın (%53.66, 88 bakış)
+     Toplam bakış: 88
+     Bölge sıralaması:
+       1. Alın: %53.66 (88 bakış)
+
+  📹 kisi1video4
+     En çok bakılan: Alın (%68.32, 110 bakış)
+     Toplam bakış: 114
+     Bölge sıralaması:
+       1. Alın: %68.32 (110 bakış)
+       2. Sol Göz: %2.48 (4 bakış)
+
+  📹 kisi1video5
+     En çok bakılan: Alın (%49.68, 77 bakış)
+     Toplam bakış: 77
+     Bölge sıralaması:
+       1. Alın: %49.68 (77 bakış)
+
+  📹 kisi1video6
+     En çok bakılan: Alın (%49.07, 79 bakış)
+     Toplam bakış: 107
+     Bölge sıralaması:
+       1. Alın: %49.07 (79 bakış)
+       2. Sağ Göz: %12.42 (20 bakış)
+       3. Burun: %3.73 (6 bakış)
+
+  📹 kisi2video1
+     En çok bakılan: Alın (%46.95, 77 bakış)
+     Toplam bakış: 111
+     Bölge sıralaması:
+       1. Alın: %46.95 (77 bakış)
+       2. Bilinmeyen: %10.37 (17 bakış)
+       3. Sol Göz: %9.76 (16 bakış)
+
+  📹 kisi2video2
+     En çok bakılan: Alın (%21.88, 35 bakış)
+     Toplam bakış: 98
+     Bölge sıralaması:
+       1. Alın: %21.88 (35 bakış)
+       2. Burun: %17.50 (28 bakış)
+       3. Sağ Yanak: %9.38 (15 bakış)
+
+  📹 kisi2video3
+     En çok bakılan: Alın (%51.16, 88 bakış)
+     Toplam bakış: 112
+     Bölge sıralaması:
+       1. Alın: %51.16 (88 bakış)
+       2. Burun: %9.30 (16 bakış)
+       3. Sol Yanak: %4.07 (7 bakış)
+
+  📹 kisi2video4
+     En çok bakılan: Alın (%25.57, 45 bakış)
+     Toplam bakış: 109
+     Bölge sıralaması:
+       1. Alın: %25.57 (45 bakış)
+       2. Burun: %21.59 (38 bakış)
+       3. Sağ Yanak: %7.39 (13 bakış)
+
+  📹 kisi2video5
+     En çok bakılan: Alın (%41.49, 78 bakış)
+     Toplam bakış: 108
+     Bölge sıralaması:
+       1. Alın: %41.49 (78 bakış)
+       2. Burun: %9.04 (17 bakış)
+       3. Sağ Göz: %4.26 (8 bakış)
+
+  📹 kisi2video6
+     En çok bakılan: Alın (%32.97, 61 bakış)
+     Toplam bakış: 80
+     Bölge sıralaması:
+       1. Alın: %32.97 (61 bakış)
+       2. Burun: %5.41 (10 bakış)
+       3. Bilinmeyen: %4.86 (9 bakış)
+
+  📹 kisi3video1
+     En çok bakılan: Alın (%53.50, 84 bakış)
+     Toplam bakış: 84
+     Bölge sıralaması:
+       1. Alın: %53.50 (84 bakış)
+
+  📹 kisi3video2
+     En çok bakılan: Alın (%51.09, 94 bakış)
+     Toplam bakış: 124
+     Bölge sıralaması:
+       1. Alın: %51.09 (94 bakış)
+       2. Burun: %9.24 (17 bakış)
+       3. Sağ Yanak: %3.80 (7 bakış)
+
+  📹 kisi3video3
+     En çok bakılan: Alın (%66.25, 106 bakış)
+     Toplam bakış: 113
+     Bölge sıralaması:
+       1. Alın: %66.25 (106 bakış)
+       2. Sağ Göz: %3.75 (6 bakış)
+       3. Sol Göz: %0.62 (1 bakış)
+
+  📹 kisi3video4
+     En çok bakılan: Alın (%35.43, 62 bakış)
+     Toplam bakış: 86
+     Bölge sıralaması:
+       1. Alın: %35.43 (62 bakış)
+       2. Burun: %6.29 (11 bakış)
+       3. Sağ Yanak: %4.00 (7 bakış)
+
+  📹 kisi3video5
+     En çok bakılan: Sol Göz (%22.02, 37 bakış)
+     Toplam bakış: 125
+     Bölge sıralaması:
+       1. Sol Göz: %22.02 (37 bakış)
+       2. Sol Yanak: %17.26 (29 bakış)
+       3. Alın: %15.48 (26 bakış)
+
+  📹 kisi3video6
+     En çok bakılan: Alın (%23.31, 38 bakış)
+     Toplam bakış: 38
+     Bölge sıralaması:
+       1. Alın: %23.31 (38 bakış)
+
+  📹 kisi4video1
+     En çok bakılan: Alın (%49.28, 103 bakış)
+     Toplam bakış: 111
+     Bölge sıralaması:
+       1. Alın: %49.28 (103 bakış)
+       2. Burun: %2.39 (5 bakış)
+       3. Sağ Göz: %1.44 (3 bakış)
+
+  📹 kisi4video2
+     En çok bakılan: Alın (%39.77, 68 bakış)
+     Toplam bakış: 83
+     Bölge sıralaması:
+       1. Alın: %39.77 (68 bakış)
+       2. Burun: %8.19 (14 bakış)
+       3. Bilinmeyen: %0.58 (1 bakış)
+
+  📹 kisi4video3
+     En çok bakılan: Alın (%14.01, 22 bakış)
+     Toplam bakış: 42
+     Bölge sıralaması:
+       1. Alın: %14.01 (22 bakış)
+       2. Sağ Yanak: %7.64 (12 bakış)
+       3. Çene: %5.10 (8 bakış)
+
+  📹 kisi4video4
+     En çok bakılan: Alın (%13.61, 23 bakış)
+     Toplam bakış: 52
+     Bölge sıralaması:
+       1. Alın: %13.61 (23 bakış)
+       2. Burun: %10.06 (17 bakış)
+       3. Sağ Göz: %3.55 (6 bakış)
+
+  📹 kisi4video5
+     En çok bakılan: Alın (%14.37, 24 bakış)
+     Toplam bakış: 24
+     Bölge sıralaması:
+       1. Alın: %14.37 (24 bakış)
+
+  📹 kisi4video6
+     En çok bakılan: Burun (%29.19, 47 bakış)
+     Toplam bakış: 76
+     Bölge sıralaması:
+       1. Burun: %29.19 (47 bakış)
+       2. Alın: %8.07 (13 bakış)
+       3. Sol Yanak: %7.45 (12 bakış)

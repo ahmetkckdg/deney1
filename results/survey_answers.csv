@@ -50,3 +50,785 @@ participant_id,question_index,question,answer_index,answer,response_time
 3,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,6.1
 3,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,7.61
 3,17,Duygularımı içimde tutarım.,3,Bazen,14.68
+4,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,7.3
+4,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,1,Asla,5.94
+4,3,Başkaları benim çok duygusal olduğumu düşünür.,6,Her zaman,10.17
+4,4,"İnsanlar benim duygularımı ""okuyabilir"".",6,Her zaman,2.36
+4,5,Duygularımı kendime saklarım.,1,Asla,1.87
+4,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,1,Asla,4.06
+4,7,Duygularımı diğer insanlara gösteririm.,6,Her zaman,2.49
+4,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,6.93
+4,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,4.36
+4,10,Hissettiklerimi saklayamam.,6,Her zaman,3.76
+4,11,Duygularımı ifade eden biri değilim.,1,Asla,2.41
+4,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,4.01
+4,13,Başkalarının önünde ağlayabilirim.,6,Her zaman,2.18
+4,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,13.66
+4,15,Kendimi duygularını ifade eden biri olarak görürüm.,6,Her zaman,2.08
+4,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",1,Asla,4.53
+4,17,Duygularımı içimde tutarım.,1,Asla,1.74
+5,1,Duygularımı başkalarına ifade etmem.,6,Her zaman,8.34
+5,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,12.04
+5,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,6.85
+5,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,4.67
+5,5,Duygularımı kendime saklarım.,5,Çoğu zaman,5.25
+5,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,7.34
+5,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,5.05
+5,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,7.52
+5,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,5,Çoğu zaman,11.06
+5,10,Hissettiklerimi saklayamam.,2,Nadiren,5.75
+5,11,Duygularımı ifade eden biri değilim.,3,Bazen,7.61
+5,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,9.69
+5,13,Başkalarının önünde ağlayabilirim.,6,Her zaman,3.55
+5,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,7.41
+5,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,7.34
+5,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",5,Çoğu zaman,6.35
+5,17,Duygularımı içimde tutarım.,5,Çoğu zaman,3.23
+6,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,6.84
+6,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,7.36
+6,3,Başkaları benim çok duygusal olduğumu düşünür.,1,Asla,4.44
+6,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,6.38
+6,5,Duygularımı kendime saklarım.,4,Sıklıkla,7.46
+6,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,5.2
+6,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,6.13
+6,8,İnsanlar beni duygusuz biri olarak görür.,5,Çoğu zaman,4.11
+6,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,3.85
+6,10,Hissettiklerimi saklayamam.,2,Nadiren,6.96
+6,11,Duygularımı ifade eden biri değilim.,3,Bazen,2.77
+6,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,8.13
+6,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,6.75
+6,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,5.43
+6,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,5.55
+6,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,18.76
+6,17,Duygularımı içimde tutarım.,3,Bazen,0.35
+7,1,Duygularımı başkalarına ifade etmem.,3,Bazen,6.01
+7,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,7.82
+7,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,3.57
+7,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,2.84
+7,5,Duygularımı kendime saklarım.,4,Sıklıkla,3.35
+7,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,7.03
+7,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,3.16
+7,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,5.49
+7,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,5.21
+7,10,Hissettiklerimi saklayamam.,4,Sıklıkla,4.99
+7,11,Duygularımı ifade eden biri değilim.,2,Nadiren,4.19
+7,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,4.17
+7,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,4.39
+7,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,6.73
+7,15,Kendimi duygularını ifade eden biri olarak görürüm.,2,Nadiren,10.74
+7,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,13.35
+7,17,Duygularımı içimde tutarım.,4,Sıklıkla,4.28
+8,1,Duygularımı başkalarına ifade etmem.,3,Bazen,8.56
+8,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,8.43
+8,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,4.43
+8,4,"İnsanlar benim duygularımı ""okuyabilir"".",1,Asla,4.35
+8,5,Duygularımı kendime saklarım.,4,Sıklıkla,6.12
+8,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,6,Her zaman,6.13
+8,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,4.35
+8,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,4.57
+8,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,6,Her zaman,7.48
+8,10,Hissettiklerimi saklayamam.,3,Bazen,7.79
+8,11,Duygularımı ifade eden biri değilim.,6,Her zaman,4.07
+8,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,6.83
+8,13,Başkalarının önünde ağlayabilirim.,1,Asla,3.11
+8,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,8.99
+8,15,Kendimi duygularını ifade eden biri olarak görürüm.,6,Her zaman,4.59
+8,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,6.01
+8,17,Duygularımı içimde tutarım.,6,Her zaman,6.82
+9,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,3.02
+9,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,5.35
+9,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,2.58
+9,4,"İnsanlar benim duygularımı ""okuyabilir"".",5,Çoğu zaman,2.28
+9,5,Duygularımı kendime saklarım.,2,Nadiren,1.96
+9,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,1,Asla,3.19
+9,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,7.16
+9,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,1.99
+9,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,1,Asla,3.82
+9,10,Hissettiklerimi saklayamam.,1,Asla,1.7
+9,11,Duygularımı ifade eden biri değilim.,2,Nadiren,2.02
+9,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,2.44
+9,13,Başkalarının önünde ağlayabilirim.,4,Sıklıkla,2.26
+9,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,4.74
+9,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,2.18
+9,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,2.95
+9,17,Duygularımı içimde tutarım.,2,Nadiren,1.79
+10,1,Duygularımı başkalarına ifade etmem.,3,Bazen,18.8
+10,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,15.32
+10,3,Başkaları benim çok duygusal olduğumu düşünür.,1,Asla,4.77
+10,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,3.67
+10,5,Duygularımı kendime saklarım.,4,Sıklıkla,6.51
+10,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,5.03
+10,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,5.22
+10,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,4.88
+10,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,14.25
+10,10,Hissettiklerimi saklayamam.,1,Asla,4.95
+10,11,Duygularımı ifade eden biri değilim.,3,Bazen,13.14
+10,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,3.76
+10,13,Başkalarının önünde ağlayabilirim.,3,Bazen,4.52
+10,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,8.86
+10,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,3.37
+10,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,7.61
+10,17,Duygularımı içimde tutarım.,2,Nadiren,4.37
+11,1,Duygularımı başkalarına ifade etmem.,5,Çoğu zaman,6.42
+11,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,7.83
+11,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,7.74
+11,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,4.18
+11,5,Duygularımı kendime saklarım.,1,Asla,5.18
+11,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,1,Asla,13.26
+11,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,4.62
+11,8,İnsanlar beni duygusuz biri olarak görür.,5,Çoğu zaman,0.03
+11,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,4.97
+11,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,2.98
+11,11,Duygularımı ifade eden biri değilim.,2,Nadiren,9.28
+11,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,4,Sıklıkla,6.89
+11,13,Başkalarının önünde ağlayabilirim.,3,Bazen,4.81
+11,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,7.81
+11,15,Kendimi duygularını ifade eden biri olarak görürüm.,6,Her zaman,4.95
+11,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",6,Her zaman,4.63
+11,17,Duygularımı içimde tutarım.,1,Asla,2.94
+12,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,6.78
+12,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,5.36
+12,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,4.21
+12,4,"İnsanlar benim duygularımı ""okuyabilir"".",5,Çoğu zaman,3.06
+12,5,Duygularımı kendime saklarım.,5,Çoğu zaman,2.41
+12,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,6,Her zaman,7.08
+12,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,6.76
+12,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,3.91
+12,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,3.97
+12,10,Hissettiklerimi saklayamam.,3,Bazen,3.52
+12,11,Duygularımı ifade eden biri değilim.,4,Sıklıkla,3.35
+12,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,5.52
+12,13,Başkalarının önünde ağlayabilirim.,3,Bazen,3.16
+12,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,4.79
+12,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,5.38
+12,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,9.51
+12,17,Duygularımı içimde tutarım.,3,Bazen,3.1
+13,1,Duygularımı başkalarına ifade etmem.,3,Bazen,5.45
+13,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,1,Asla,11.93
+13,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,3.74
+13,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,2.47
+13,5,Duygularımı kendime saklarım.,3,Bazen,3.58
+13,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,2,Nadiren,6.44
+13,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,2.87
+13,8,İnsanlar beni duygusuz biri olarak görür.,5,Çoğu zaman,3.41
+13,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,4,Sıklıkla,3.24
+13,10,Hissettiklerimi saklayamam.,3,Bazen,3.14
+13,11,Duygularımı ifade eden biri değilim.,3,Bazen,4.38
+13,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,6.87
+13,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,2.81
+13,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,9.58
+13,15,Kendimi duygularını ifade eden biri olarak görürüm.,2,Nadiren,7.34
+13,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",6,Her zaman,5.57
+13,17,Duygularımı içimde tutarım.,4,Sıklıkla,4.18
+14,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,7.06
+14,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,7.14
+14,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,6.11
+14,4,"İnsanlar benim duygularımı ""okuyabilir"".",1,Asla,3.71
+14,5,Duygularımı kendime saklarım.,4,Sıklıkla,3.5
+14,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,6,Her zaman,11.68
+14,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,4.14
+14,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,9.4
+14,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,7.3
+14,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,3.4
+14,11,Duygularımı ifade eden biri değilim.,2,Nadiren,3.77
+14,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,6.06
+14,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,3.25
+14,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,6.5
+14,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,7.1
+14,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,12.75
+14,17,Duygularımı içimde tutarım.,3,Bazen,2.54
+15,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,10.33
+15,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,7.92
+15,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,4.25
+15,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,2.88
+15,5,Duygularımı kendime saklarım.,2,Nadiren,2.67
+15,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,4.89
+15,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,4.46
+15,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,2.66
+15,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,3.85
+15,10,Hissettiklerimi saklayamam.,2,Nadiren,10.46
+15,11,Duygularımı ifade eden biri değilim.,2,Nadiren,8.88
+15,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,3.21
+15,13,Başkalarının önünde ağlayabilirim.,3,Bazen,2.81
+15,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,4.87
+15,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,4.48
+15,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,6.36
+15,17,Duygularımı içimde tutarım.,2,Nadiren,2.77
+15,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,9.64
+15,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,2.04
+15,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,2.41
+15,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,2.0
+15,5,Duygularımı kendime saklarım.,4,Sıklıkla,1.91
+15,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,2.64
+15,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,5.4
+15,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.37
+15,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,38.8
+15,10,Hissettiklerimi saklayamam.,2,Nadiren,2.4
+15,11,Duygularımı ifade eden biri değilim.,4,Sıklıkla,2.03
+15,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,3.46
+15,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,2.84
+15,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,2.83
+15,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,3.11
+15,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,4.91
+15,17,Duygularımı içimde tutarım.,4,Sıklıkla,1.48
+17,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,7.09
+17,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,3.8
+17,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,3.69
+17,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,4.33
+17,5,Duygularımı kendime saklarım.,5,Çoğu zaman,4.25
+17,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,3.44
+17,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,13.39
+17,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,4.47
+17,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,4,Sıklıkla,4.93
+17,10,Hissettiklerimi saklayamam.,4,Sıklıkla,2.03
+17,11,Duygularımı ifade eden biri değilim.,3,Bazen,2.51
+17,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,11.83
+17,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,3.68
+17,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,5.11
+17,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,3.85
+17,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",5,Çoğu zaman,5.11
+17,17,Duygularımı içimde tutarım.,3,Bazen,2.39
+16,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,8.86
+16,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,4.66
+16,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,3.1
+16,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,2.89
+16,5,Duygularımı kendime saklarım.,2,Nadiren,2.77
+16,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,5.04
+16,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,2.14
+16,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.85
+16,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,3.63
+16,10,Hissettiklerimi saklayamam.,4,Sıklıkla,3.49
+16,11,Duygularımı ifade eden biri değilim.,2,Nadiren,2.39
+16,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,5.26
+16,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,3.74
+16,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,3.99
+16,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,4.8
+16,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,7.01
+16,17,Duygularımı içimde tutarım.,2,Nadiren,2.14
+18,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,6.54
+18,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,3.33
+18,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,2.28
+18,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,5.02
+18,5,Duygularımı kendime saklarım.,3,Bazen,0.04
+18,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,5.56
+18,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,2.29
+18,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,2.63
+18,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,2.82
+18,10,Hissettiklerimi saklayamam.,3,Bazen,2.85
+18,11,Duygularımı ifade eden biri değilim.,2,Nadiren,1.85
+18,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,3.85
+18,13,Başkalarının önünde ağlayabilirim.,3,Bazen,2.32
+18,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,3.18
+18,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,2.31
+18,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,4.98
+18,17,Duygularımı içimde tutarım.,4,Sıklıkla,2.47
+19,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,7.1
+19,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,12.52
+19,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,3.78
+19,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,3.67
+19,5,Duygularımı kendime saklarım.,1,Asla,6.16
+19,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,2,Nadiren,6.83
+19,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,3.28
+19,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,2.67
+19,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,3.76
+19,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,5.17
+19,11,Duygularımı ifade eden biri değilim.,1,Asla,3.12
+19,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,9.39
+19,13,Başkalarının önünde ağlayabilirim.,4,Sıklıkla,3.0
+19,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,3.03
+19,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,5.32
+19,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,4.54
+19,17,Duygularımı içimde tutarım.,2,Nadiren,2.56
+20,1,Duygularımı başkalarına ifade etmem.,3,Bazen,6.79
+20,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,3.32
+20,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,3.83
+20,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,3.76
+20,5,Duygularımı kendime saklarım.,3,Bazen,2.94
+20,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,3.24
+20,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,2.87
+20,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,3.65
+20,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,3.89
+20,10,Hissettiklerimi saklayamam.,3,Bazen,2.21
+20,11,Duygularımı ifade eden biri değilim.,1,Asla,3.41
+20,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,2.87
+20,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,3.3
+20,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,7.41
+20,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,5.32
+20,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,5.14
+20,17,Duygularımı içimde tutarım.,2,Nadiren,2.11
+21,1,Duygularımı başkalarına ifade etmem.,5,Çoğu zaman,4.0
+21,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,6.3
+21,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,7.61
+21,4,"İnsanlar benim duygularımı ""okuyabilir"".",1,Asla,4.32
+21,5,Duygularımı kendime saklarım.,5,Çoğu zaman,5.44
+21,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,6,Her zaman,6.89
+21,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,5.69
+21,8,İnsanlar beni duygusuz biri olarak görür.,4,Sıklıkla,4.52
+21,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,4.31
+21,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,5.46
+21,11,Duygularımı ifade eden biri değilim.,5,Çoğu zaman,3.14
+21,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,5,Çoğu zaman,4.03
+21,13,Başkalarının önünde ağlayabilirim.,4,Sıklıkla,3.82
+21,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,5.59
+21,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,4.5
+21,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",5,Çoğu zaman,6.31
+21,17,Duygularımı içimde tutarım.,5,Çoğu zaman,2.28
+22,1,Duygularımı başkalarına ifade etmem.,5,Çoğu zaman,10.76
+22,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,6.62
+22,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,5.33
+22,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,5.71
+22,5,Duygularımı kendime saklarım.,2,Nadiren,0.03
+22,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,7.26
+22,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,3.83
+22,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,4.64
+22,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,10.06
+22,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,5.14
+22,11,Duygularımı ifade eden biri değilim.,3,Bazen,5.82
+22,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,8.53
+22,13,Başkalarının önünde ağlayabilirim.,1,Asla,4.33
+22,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,8.48
+22,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,5.07
+22,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,8.77
+22,17,Duygularımı içimde tutarım.,3,Bazen,2.52
+23,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,6.81
+23,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,11.0
+23,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,6.66
+23,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,4.4
+23,5,Duygularımı kendime saklarım.,4,Sıklıkla,6.54
+23,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,15.52
+23,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,2.72
+23,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,8.86
+23,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,4.45
+23,10,Hissettiklerimi saklayamam.,2,Nadiren,5.76
+23,11,Duygularımı ifade eden biri değilim.,3,Bazen,4.72
+23,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,3.81
+23,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,7.2
+23,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,19.72
+23,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,8.56
+23,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,16.66
+23,17,Duygularımı içimde tutarım.,4,Sıklıkla,5.53
+24,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,18.66
+24,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,18.15
+24,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,7.71
+24,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,7.92
+24,5,Duygularımı kendime saklarım.,5,Çoğu zaman,10.19
+24,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,13.0
+24,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,8.4
+24,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,7.0
+24,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,10.43
+24,10,Hissettiklerimi saklayamam.,4,Sıklıkla,8.43
+24,11,Duygularımı ifade eden biri değilim.,3,Bazen,11.14
+24,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,18.31
+24,13,Başkalarının önünde ağlayabilirim.,1,Asla,10.52
+24,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,12.53
+24,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,6.07
+24,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,7.98
+24,17,Duygularımı içimde tutarım.,3,Bazen,5.86
+25,1,Duygularımı başkalarına ifade etmem.,1,Asla,9.59
+25,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,1,Asla,5.02
+25,3,Başkaları benim çok duygusal olduğumu düşünür.,6,Her zaman,5.55
+25,4,"İnsanlar benim duygularımı ""okuyabilir"".",6,Her zaman,3.38
+25,5,Duygularımı kendime saklarım.,1,Asla,3.32
+25,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,1,Asla,3.99
+25,7,Duygularımı diğer insanlara gösteririm.,6,Her zaman,4.43
+25,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,4.27
+25,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,1,Asla,4.93
+25,10,Hissettiklerimi saklayamam.,6,Her zaman,3.74
+25,11,Duygularımı ifade eden biri değilim.,1,Asla,4.48
+25,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,4.74
+25,13,Başkalarının önünde ağlayabilirim.,5,Çoğu zaman,5.25
+25,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,5.13
+25,15,Kendimi duygularını ifade eden biri olarak görürüm.,6,Her zaman,4.98
+25,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,9.0
+25,17,Duygularımı içimde tutarım.,2,Nadiren,5.66
+26,1,Duygularımı başkalarına ifade etmem.,5,Çoğu zaman,10.68
+26,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,6,Her zaman,4.79
+26,3,Başkaları benim çok duygusal olduğumu düşünür.,6,Her zaman,13.75
+26,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,6.35
+26,5,Duygularımı kendime saklarım.,1,Asla,4.07
+26,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,6.19
+26,7,Duygularımı diğer insanlara gösteririm.,6,Her zaman,3.06
+26,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.15
+26,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,4,Sıklıkla,3.99
+26,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,3.17
+26,11,Duygularımı ifade eden biri değilim.,4,Sıklıkla,4.01
+26,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,3.92
+26,13,Başkalarının önünde ağlayabilirim.,4,Sıklıkla,3.72
+26,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,6.83
+26,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,3.88
+26,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",6,Her zaman,10.47
+26,17,Duygularımı içimde tutarım.,2,Nadiren,3.82
+27,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,6.95
+27,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,7.81
+27,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,2.63
+27,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,2.6
+27,5,Duygularımı kendime saklarım.,3,Bazen,2.11
+27,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,4.31
+27,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,2.29
+27,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,2.13
+27,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,1,Asla,12.65
+27,10,Hissettiklerimi saklayamam.,4,Sıklıkla,3.93
+27,11,Duygularımı ifade eden biri değilim.,2,Nadiren,2.67
+27,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,3.26
+27,13,Başkalarının önünde ağlayabilirim.,3,Bazen,3.3
+27,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,4.58
+27,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,2.91
+27,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,4.78
+27,17,Duygularımı içimde tutarım.,3,Bazen,4.81
+28,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,6.51
+28,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,9.57
+28,3,Başkaları benim çok duygusal olduğumu düşünür.,6,Her zaman,5.55
+28,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,4.49
+28,5,Duygularımı kendime saklarım.,3,Bazen,5.59
+28,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,0.3
+28,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,5.3
+28,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,2.92
+28,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,5,Çoğu zaman,4.66
+28,10,Hissettiklerimi saklayamam.,3,Bazen,6.89
+28,11,Duygularımı ifade eden biri değilim.,2,Nadiren,7.16
+28,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,4.07
+28,13,Başkalarının önünde ağlayabilirim.,3,Bazen,5.64
+28,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,10.29
+28,15,Kendimi duygularını ifade eden biri olarak görürüm.,6,Her zaman,3.4
+28,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,15.62
+28,17,Duygularımı içimde tutarım.,2,Nadiren,3.9
+29,1,Duygularımı başkalarına ifade etmem.,3,Bazen,2.64
+29,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,3.85
+29,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,3.09
+29,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,2.58
+29,5,Duygularımı kendime saklarım.,4,Sıklıkla,2.0
+29,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,3.02
+29,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,2.3
+29,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,1.73
+29,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,2.33
+29,10,Hissettiklerimi saklayamam.,2,Nadiren,1.9
+29,11,Duygularımı ifade eden biri değilim.,3,Bazen,1.87
+29,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,3.76
+29,13,Başkalarının önünde ağlayabilirim.,3,Bazen,2.34
+29,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,5.35
+29,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,2.82
+29,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,5.37
+29,17,Duygularımı içimde tutarım.,4,Sıklıkla,2.77
+30,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,7.63
+30,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,10.62
+30,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,4.38
+30,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,2.8
+30,5,Duygularımı kendime saklarım.,3,Bazen,2.79
+30,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,8.13
+30,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,0.03
+30,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,2.73
+30,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,4.73
+30,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,4.3
+30,11,Duygularımı ifade eden biri değilim.,3,Bazen,3.99
+30,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,4.73
+30,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,2.23
+30,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,11.02
+30,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,3.93
+30,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,7.1
+30,17,Duygularımı içimde tutarım.,4,Sıklıkla,5.18
+31,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,17.74
+31,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,11.03
+31,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,4.52
+31,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,2.72
+31,5,Duygularımı kendime saklarım.,4,Sıklıkla,4.22
+31,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,11.23
+31,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,4.09
+31,8,İnsanlar beni duygusuz biri olarak görür.,5,Çoğu zaman,3.62
+31,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,5,Çoğu zaman,3.85
+31,10,Hissettiklerimi saklayamam.,2,Nadiren,3.69
+31,11,Duygularımı ifade eden biri değilim.,5,Çoğu zaman,3.27
+31,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,4,Sıklıkla,4.97
+31,13,Başkalarının önünde ağlayabilirim.,1,Asla,3.04
+31,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,9.07
+31,15,Kendimi duygularını ifade eden biri olarak görürüm.,2,Nadiren,4.35
+31,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,5.04
+31,17,Duygularımı içimde tutarım.,4,Sıklıkla,4.33
+32,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,12.39
+32,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,6.78
+32,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,4.54
+32,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,4.11
+32,5,Duygularımı kendime saklarım.,3,Bazen,5.68
+32,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,4.46
+32,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,2.49
+32,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,3.48
+32,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,1,Asla,4.61
+32,10,Hissettiklerimi saklayamam.,3,Bazen,3.12
+32,11,Duygularımı ifade eden biri değilim.,3,Bazen,3.61
+32,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,3.01
+32,13,Başkalarının önünde ağlayabilirim.,5,Çoğu zaman,3.19
+32,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,3.96
+32,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,7.98
+32,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",1,Asla,10.45
+32,17,Duygularımı içimde tutarım.,3,Bazen,3.05
+33,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,13.83
+33,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,4.92
+33,3,Başkaları benim çok duygusal olduğumu düşünür.,6,Her zaman,31.26
+33,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,17.21
+33,5,Duygularımı kendime saklarım.,3,Bazen,4.18
+33,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,2.81
+33,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,2.42
+33,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,3.25
+33,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,8.94
+33,10,Hissettiklerimi saklayamam.,3,Bazen,4.87
+33,11,Duygularımı ifade eden biri değilim.,2,Nadiren,8.93
+33,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,5.01
+33,13,Başkalarının önünde ağlayabilirim.,3,Bazen,4.49
+33,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,5.08
+33,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,5.12
+33,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,93.95
+33,17,Duygularımı içimde tutarım.,4,Sıklıkla,3.71
+34,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,6.28
+34,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,3.69
+34,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,4.78
+34,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,3.05
+34,5,Duygularımı kendime saklarım.,2,Nadiren,3.32
+34,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,3.99
+34,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,2.57
+34,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.86
+34,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,6,Her zaman,4.32
+34,10,Hissettiklerimi saklayamam.,3,Bazen,4.25
+34,11,Duygularımı ifade eden biri değilim.,3,Bazen,1.77
+34,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,4,Sıklıkla,10.86
+34,13,Başkalarının önünde ağlayabilirim.,1,Asla,3.13
+34,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,30.9
+34,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,7.41
+34,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,7.17
+34,17,Duygularımı içimde tutarım.,3,Bazen,2.17
+35,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,16.41
+35,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,4,Sıklıkla,8.94
+35,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,5.96
+35,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,6.53
+35,5,Duygularımı kendime saklarım.,5,Çoğu zaman,2.93
+35,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,4.59
+35,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,3.54
+35,8,İnsanlar beni duygusuz biri olarak görür.,4,Sıklıkla,8.77
+35,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,5,Çoğu zaman,3.76
+35,10,Hissettiklerimi saklayamam.,2,Nadiren,2.45
+35,11,Duygularımı ifade eden biri değilim.,5,Çoğu zaman,2.73
+35,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,5,Çoğu zaman,4.79
+35,13,Başkalarının önünde ağlayabilirim.,4,Sıklıkla,6.69
+35,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,6.68
+35,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,7.08
+35,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,6.26
+35,17,Duygularımı içimde tutarım.,5,Çoğu zaman,2.39
+37,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,5.36
+37,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,9.92
+37,3,Başkaları benim çok duygusal olduğumu düşünür.,5,Çoğu zaman,3.7
+37,4,"İnsanlar benim duygularımı ""okuyabilir"".",5,Çoğu zaman,2.52
+37,5,Duygularımı kendime saklarım.,1,Asla,3.95
+37,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,1,Asla,4.84
+37,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,2.5
+37,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,2.91
+37,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,5.12
+37,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,7.4
+37,11,Duygularımı ifade eden biri değilim.,1,Asla,4.32
+37,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,4.15
+37,13,Başkalarının önünde ağlayabilirim.,5,Çoğu zaman,2.16
+37,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,9.34
+37,15,Kendimi duygularını ifade eden biri olarak görürüm.,5,Çoğu zaman,4.85
+37,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,3.98
+37,17,Duygularımı içimde tutarım.,1,Asla,2.97
+38,1,Duygularımı başkalarına ifade etmem.,6,Her zaman,16.35
+38,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,26.93
+38,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,11.04
+38,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,6.7
+38,5,Duygularımı kendime saklarım.,3,Bazen,17.44
+38,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,2,Nadiren,29.05
+38,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,7.11
+38,8,İnsanlar beni duygusuz biri olarak görür.,4,Sıklıkla,0.52
+38,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,1,Asla,14.04
+38,10,Hissettiklerimi saklayamam.,1,Asla,4.22
+38,11,Duygularımı ifade eden biri değilim.,1,Asla,0.31
+38,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,1.25
+38,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,7.48
+38,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,2,Nadiren,11.78
+38,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,17.35
+38,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,9.72
+38,17,Duygularımı içimde tutarım.,3,Bazen,5.27
+40,1,Duygularımı başkalarına ifade etmem.,5,Çoğu zaman,15.81
+40,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,2.22
+40,3,Başkaları benim çok duygusal olduğumu düşünür.,4,Sıklıkla,8.98
+40,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,4.56
+40,5,Duygularımı kendime saklarım.,2,Nadiren,3.12
+40,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,7.14
+40,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,4.77
+40,8,İnsanlar beni duygusuz biri olarak görür.,1,Asla,2.68
+40,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,5.64
+40,10,Hissettiklerimi saklayamam.,5,Çoğu zaman,5.21
+40,11,Duygularımı ifade eden biri değilim.,2,Nadiren,8.93
+40,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,11.47
+40,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,5.43
+40,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,1,Asla,4.23
+40,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,6.21
+40,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,5.78
+40,17,Duygularımı içimde tutarım.,2,Nadiren,2.64
+41,1,Duygularımı başkalarına ifade etmem.,3,Bazen,8.25
+41,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,8.5
+41,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,6.36
+41,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,4.81
+41,5,Duygularımı kendime saklarım.,4,Sıklıkla,5.35
+41,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,2,Nadiren,4.46
+41,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,6.1
+41,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,7.63
+41,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,3.57
+41,10,Hissettiklerimi saklayamam.,2,Nadiren,7.29
+41,11,Duygularımı ifade eden biri değilim.,3,Bazen,4.8
+41,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,6.82
+41,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,5.89
+41,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,8.01
+41,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,3.94
+41,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,10.31
+41,17,Duygularımı içimde tutarım.,2,Nadiren,3.13
+45,1,Duygularımı başkalarına ifade etmem.,5,Çoğu zaman,2.74
+45,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,4.79
+45,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,2.02
+45,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,2.6
+45,5,Duygularımı kendime saklarım.,5,Çoğu zaman,1.56
+45,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,3.18
+45,7,Duygularımı diğer insanlara gösteririm.,1,Asla,4.76
+45,8,İnsanlar beni duygusuz biri olarak görür.,6,Her zaman,2.9
+45,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,6,Her zaman,3.39
+45,10,Hissettiklerimi saklayamam.,2,Nadiren,3.68
+45,11,Duygularımı ifade eden biri değilim.,6,Her zaman,1.82
+45,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,3.56
+45,13,Başkalarının önünde ağlayabilirim.,1,Asla,2.49
+45,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,4.65
+45,15,Kendimi duygularını ifade eden biri olarak görürüm.,1,Asla,2.63
+45,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,5.36
+45,17,Duygularımı içimde tutarım.,5,Çoğu zaman,2.23
+46,1,Duygularımı başkalarına ifade etmem.,6,Her zaman,7.4
+46,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,6.22
+46,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,4.1
+46,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,1.93
+46,5,Duygularımı kendime saklarım.,5,Çoğu zaman,2.09
+46,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,2.57
+46,7,Duygularımı diğer insanlara gösteririm.,1,Asla,2.61
+46,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.69
+46,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,5,Çoğu zaman,4.71
+46,10,Hissettiklerimi saklayamam.,2,Nadiren,8.25
+46,11,Duygularımı ifade eden biri değilim.,6,Her zaman,3.37
+46,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,4.5
+46,13,Başkalarının önünde ağlayabilirim.,1,Asla,2.53
+46,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,5.42
+46,15,Kendimi duygularını ifade eden biri olarak görürüm.,1,Asla,2.68
+46,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,2.95
+46,17,Duygularımı içimde tutarım.,5,Çoğu zaman,2.15
+47,1,Duygularımı başkalarına ifade etmem.,3,Bazen,7.14
+47,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,4.54
+47,3,Başkaları benim çok duygusal olduğumu düşünür.,1,Asla,3.18
+47,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,5.74
+47,5,Duygularımı kendime saklarım.,4,Sıklıkla,4.43
+47,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,4.68
+47,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,7.6
+47,8,İnsanlar beni duygusuz biri olarak görür.,4,Sıklıkla,3.2
+47,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,5,Çoğu zaman,4.39
+47,10,Hissettiklerimi saklayamam.,1,Asla,3.71
+47,11,Duygularımı ifade eden biri değilim.,4,Sıklıkla,5.06
+47,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,5,Çoğu zaman,4.03
+47,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,8.91
+47,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,8.28
+47,15,Kendimi duygularını ifade eden biri olarak görürüm.,2,Nadiren,3.87
+47,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",5,Çoğu zaman,3.99
+47,17,Duygularımı içimde tutarım.,3,Bazen,3.37
+48,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,2.84
+48,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,1.55
+48,3,Başkaları benim çok duygusal olduğumu düşünür.,1,Asla,2.43
+48,4,"İnsanlar benim duygularımı ""okuyabilir"".",2,Nadiren,3.67
+48,5,Duygularımı kendime saklarım.,6,Her zaman,2.29
+48,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,5,Çoğu zaman,3.21
+48,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,2.79
+48,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.49
+48,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,2,Nadiren,5.16
+48,10,Hissettiklerimi saklayamam.,2,Nadiren,4.02
+48,11,Duygularımı ifade eden biri değilim.,6,Her zaman,2.11
+48,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,1,Asla,4.44
+48,13,Başkalarının önünde ağlayabilirim.,1,Asla,3.21
+48,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,5,Çoğu zaman,4.31
+48,15,Kendimi duygularını ifade eden biri olarak görürüm.,2,Nadiren,3.46
+48,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",6,Her zaman,4.22
+48,17,Duygularımı içimde tutarım.,5,Çoğu zaman,2.17
+49,1,Duygularımı başkalarına ifade etmem.,3,Bazen,5.68
+49,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,15.14
+49,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,5.26
+49,4,"İnsanlar benim duygularımı ""okuyabilir"".",4,Sıklıkla,6.29
+49,5,Duygularımı kendime saklarım.,4,Sıklıkla,13.67
+49,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,2,Nadiren,8.65
+49,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,4.71
+49,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,8.44
+49,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,7.12
+49,10,Hissettiklerimi saklayamam.,3,Bazen,4.42
+49,11,Duygularımı ifade eden biri değilim.,2,Nadiren,6.53
+49,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,7.6
+49,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,5.44
+49,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,7.48
+49,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,8.48
+49,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",2,Nadiren,8.25
+49,17,Duygularımı içimde tutarım.,3,Bazen,7.05
+50,1,Duygularımı başkalarına ifade etmem.,3,Bazen,6.98
+50,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,2,Nadiren,10.0
+50,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,8.61
+50,4,"İnsanlar benim duygularımı ""okuyabilir"".",5,Çoğu zaman,7.6
+50,5,Duygularımı kendime saklarım.,3,Bazen,4.83
+50,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,2,Nadiren,8.21
+50,7,Duygularımı diğer insanlara gösteririm.,4,Sıklıkla,4.05
+50,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,5.41
+50,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,5.03
+50,10,Hissettiklerimi saklayamam.,2,Nadiren,8.16
+50,11,Duygularımı ifade eden biri değilim.,3,Bazen,16.18
+50,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,3.71
+50,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,2.67
+50,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,6.3
+50,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,3.76
+50,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,8.26
+50,17,Duygularımı içimde tutarım.,2,Nadiren,5.34
+51,1,Duygularımı başkalarına ifade etmem.,4,Sıklıkla,7.62
+51,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,5.66
+51,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,5.78
+51,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,6.88
+51,5,Duygularımı kendime saklarım.,4,Sıklıkla,5.7
+51,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,4.55
+51,7,Duygularımı diğer insanlara gösteririm.,3,Bazen,13.17
+51,8,İnsanlar beni duygusuz biri olarak görür.,4,Sıklıkla,4.86
+51,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,5.8
+51,10,Hissettiklerimi saklayamam.,2,Nadiren,3.79
+51,11,Duygularımı ifade eden biri değilim.,2,Nadiren,5.71
+51,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,3,Bazen,4.8
+51,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,2.79
+51,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,7.14
+51,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,7.76
+51,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,7.61
+51,17,Duygularımı içimde tutarım.,4,Sıklıkla,0.04
+52,1,Duygularımı başkalarına ifade etmem.,2,Nadiren,10.04
+52,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,3,Bazen,16.74
+52,3,Başkaları benim çok duygusal olduğumu düşünür.,3,Bazen,3.94
+52,4,"İnsanlar benim duygularımı ""okuyabilir"".",5,Çoğu zaman,4.13
+52,5,Duygularımı kendime saklarım.,4,Sıklıkla,3.21
+52,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,4,Sıklıkla,7.34
+52,7,Duygularımı diğer insanlara gösteririm.,5,Çoğu zaman,2.7
+52,8,İnsanlar beni duygusuz biri olarak görür.,2,Nadiren,4.52
+52,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,3,Bazen,8.7
+52,10,Hissettiklerimi saklayamam.,4,Sıklıkla,3.22
+52,11,Duygularımı ifade eden biri değilim.,3,Bazen,3.02
+52,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,2,Nadiren,5.39
+52,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,3.42
+52,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,3,Bazen,6.75
+52,15,Kendimi duygularını ifade eden biri olarak görürüm.,3,Bazen,12.84
+52,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",3,Bazen,3.7
+52,17,Duygularımı içimde tutarım.,3,Bazen,2.21
+53,1,Duygularımı başkalarına ifade etmem.,3,Bazen,6.24
+53,2,Güçlü duygular yaşadığımda bile bunları dışarıya yansıtmam.,5,Çoğu zaman,23.57
+53,3,Başkaları benim çok duygusal olduğumu düşünür.,2,Nadiren,3.41
+53,4,"İnsanlar benim duygularımı ""okuyabilir"".",3,Bazen,3.29
+53,5,Duygularımı kendime saklarım.,4,Sıklıkla,2.33
+53,6,Başkaları benim ne hissettiğimi kolayca gözlemleyemez.,3,Bazen,8.23
+53,7,Duygularımı diğer insanlara gösteririm.,2,Nadiren,3.86
+53,8,İnsanlar beni duygusuz biri olarak görür.,3,Bazen,2.56
+53,9,İnsanların benim ne hissettiğimi anlamasından hoşlanmam.,4,Sıklıkla,7.4
+53,10,Hissettiklerimi saklayamam.,2,Nadiren,3.17
+53,11,Duygularımı ifade eden biri değilim.,3,Bazen,3.91
+53,12,Başkaları tarafından çoğu zaman kayıtsız olarak değerlendirilirim.,4,Sıklıkla,3.83
+53,13,Başkalarının önünde ağlayabilirim.,2,Nadiren,3.93
+53,14,Çok duygusal hissetsem bile başkalarının duygularımı görmesine izin vermem.,4,Sıklıkla,11.21
+53,15,Kendimi duygularını ifade eden biri olarak görürüm.,4,Sıklıkla,7.35
+53,16,"Benim hissettiklerim, başkalarının benim ne hissettiğimi düşündüklerinden farklı.",4,Sıklıkla,20.85
+53,17,Duygularımı içimde tutarım.,4,Sıklıkla,1.63

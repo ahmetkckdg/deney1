@@ -2,3 +2,70 @@ participant_id,cinsiyet,yas,egitim_durumu,meslek,nöromodülasyon_aldı_mı,nör
 1,Kadın,25,Yüksek Lisans,psk,Hayır,,,Hayır,,Onaylandı
 2,Erkek,25,Lisans,ceng,Hayır,,,Hayır,,Onaylandı
 3,Kadın,59,Yüksek Lisans,dis hekimi,Hayır,,,Hayır,,Onaylandı
+4,Kadın,30,Lisans,AVUKAT,Evet,5,0–3 ay önce,Hayır,,Onaylandı
+5,Kadın,45,Lise,IHRACAT,Hayır,,,Hayır,,Onaylandı
+6,Erkek,26,Lisans,MADEN MUHENDISI,Hayır,,,Hayır,,Onaylandı
+7,Erkek,32,Lisans,makine muh,Hayır,,,Hayır,,Onaylandı
+8,Erkek,44,Lisans,satis muduru,Evet,6,0–3 ay önce,Hayır,,Onaylandı
+9,Kadın,26,Yüksek Lisans,psk,Hayır,,,Hayır,,Onaylandı
+10,Kadın,39,Lisans,satis,Evet,7,0–3 ay önce,Hayır,,Onaylandı
+11,Kadın,55,Ön Lisans,ogretmen,Evet,12,0–3 ay önce,Hayır,,Onaylandı
+12,Kadın,39,Lise,tibbi sekreter,Evet,6,3–6 ay önce,Hayır,,Onaylandı
+13,Kadın,22,Ön Lisans,laborant,Hayır,,,Hayır,,Onaylandı
+14,Kadın,26,Lisans,hemsire,Evet,5,3–6 ay önce,Hayır,,Onaylandı15,Erkek,44,Lisans,mali musavir,Hayır,,,Hayır,,Onaylandı
+2323,Kadın,2323,Lise,2323,Hayır,,,Hayır,,Onaylandı
+16,Erkek,57,Doktora,muhendis,Evet,8,3–6 ay önce,Hayır,,Onaylandı
+17,Erkek,57,Doktora,muhendis,Evet,8,3–6 ay önce,Hayır,,Onaylandı
+16,Kadın,25,Lisans,psikolog,Hayır,,,Hayır,,Onaylandı
+18,Kadın,26,Lisans,psikolog,Hayır,,,Hayır,,Onaylandı
+18,Kadın,26,Lisans,psikolog,Hayır,,,Hayır,,Onaylandı
+19,Kadın,35,Lise,akademisyen,Evet,20,0–3 ay önce,Hayır,,Onaylandı
+20,Kadın,45,Yüksek Lisans,Devlet Memuru,Evet,15,0–3 ay önce,Hayır,,Onaylandı
+21,Erkek,52,Lise,esnaf,Evet,5,0–3 ay önce,Hayır,,Onaylandı
+22,Erkek,41,Lise,esnaf,Evet,20,0–3 ay önce,Hayır,,Onaylandı
+23,Kadın,55,Doktora,Ogretmen,Evet,15,0–3 ay önce,Hayır,,Onaylandı
+24,Erkek,52,Lise,mutahit,Evet,12,3–6 ay önce,Hayır,,Onaylandı
+24,Erkek,52,Lise,mutahit,Evet,12,3–6 ay önce,Hayır,,Onaylandı
+24,Erkek,52,Lise,mutahit,Evet,12,3–6 ay önce,Hayır,,Onaylandı
+24,Erkek,52,Lise,mutaht,Evet,12,3–6 ay önce,Hayır,,Onaylandı
+25,Erkek,54,Yüksek Lisans,ticaret,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+25,Erkek,54,Yüksek Lisans,ticaret,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+25,Erkek,54,Yüksek Lisans,ticaret,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+26,Kadın,23,Lise,ogrenci,Hayır,,,Hayır,,Onaylandı
+27,Kadın,26,Yüksek Lisans,avukat,Hayır,,,Evet,miyop,Onaylandı
+28,Kadın,45,Lise,muhasebe,Evet,5,6 ay–1 yıl önce,Hayır,,Onaylandı
+28,Kadın,45,Lise,muhasebe,Evet,5,6 ay–1 yıl önce,Hayır,,Onaylandı
+29,Kadın,29,Lisans,Kabin memuru,Hayır,,,Evet,miyop-astigmat,Onaylandı
+30,Kadın,48,Lisans,Avukat,Hayır,,,Hayır,,Onaylandı
+31,Erkek,25,Lisans,muhabir,Hayır,,,Hayır,,Onaylandı
+32,Kadın,24,Ön Lisans,hemsire,Hayır,,,Hayır,,Onaylandı
+32,Kadın,24,Ön Lisans,hemsire,Hayır,,,Hayır,,Onaylandı
+33,Kadın,45,Lisans,insaat muhendisi,Evet,15,3–6 ay önce,Hayır,,Onaylandı
+33,Kadın,45,Lisans,insaat muhendis,Evet,15,3–6 ay önce,Hayır,,Onaylandı
+34,Kadın,63,Lisans,eczaci,Evet,6,6 ay–1 yıl önce,Evet,miyop,Onaylandı
+35,Kadın,21,Lise,ogrenci,Hayır,,,Hayır,,Onaylandı
+36,Kadın,43,Lisans,hasta danismani,Evet,3,0–3 ay önce,Hayır,,Onaylandı
+37,Kadın,43,Lise,hasta danismani,Evet,3,0–3 ay önce,Evet,hayir,Onaylandı
+38,Erkek,44,Lise,Turizm,Evet,11,0–3 ay önce,Hayır,,Onaylandı
+39,Erkek,32,Lisans,makina muhendisi,Hayır,,,Evet,miyop,Onaylandı
+40,Erkek,32,Lisans,makine muhendisligi,Hayır,,,Evet,miyop,Onaylandı
+41,Erkek,34,Lisans,makina muhendisi,Hayır,,,Hayır,,Onaylandı
+42,Erkek,56,Lisans,ogretmen,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+43,Erkek,56,Lisans,ogretmen,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+44,Erkek,56,Lisans,ogretmen,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+test,Kadın,qw,Lise,qw,Evet,qw,0–3 ay önce,Evet,qw,Onaylandı
+45,Erkek,56,Lisans,ogretmen,Evet,4,3–6 ay önce,Hayır,,Onaylandı
+46,Erkek,31,Lisans,vize danismani,Evet,3,0–3 ay önce,Hayır,,Onaylandı
+47,Erkek,26,Lisans,avukat,Hayır,,,Hayır,,Onaylandı
+48,Kadın,26,Lisans,avukat,Hayır,,,Hayır,,Onaylandı
+49,Erkek,44,Lisans,avukat,Hayır,,,Hayır,,Onaylandı
+49,Erkek,44,Lisans,avukat,Hayır,,,Hayır,,Onaylandı
+50,Erkek,52,Lisans,avukat,Hayır,,,Hayır,,Onaylandı
+52,Kadın,42,Yüksek Lisans,insan kaynaklari,Evet,5,3–6 ay önce,Hayır,,Onaylandı
+51,Kadın,42,Yüksek Lisans,ik,Evet,5,3–6 ay önce,Hayır,,Onaylandı
+52,Erkek,26,Lisans,emlak,Hayır,,,Hayır,,Onaylandı
+52,Erkek,26,Lisans,emlak,Hayır,,,Hayır,,Onaylandı
+52,Erkek,26,Lisans,emlak,Hayır,,,Hayır,,Onaylandı
+tesytrtr,Kadın,we,Lise,we,Hayır,,,Hayır,,Onaylandı
+52,Erkek,26,Lisans,emlak,Hayır,,,Hayır,,Onaylandı
+53,Kadın,27,Lise,ticaret,Evet,3,0–3 ay önce,Hayır,,Onaylandı
