@@ -1727,12 +1727,6 @@ participant_id,video_id,question_index,selected_index,response_time
 35,kisi3video6,1,2,4.08
 35,kisi4video6,0,1,1.82
 35,kisi4video6,1,2,1.59
-36,kisi1video1,0,3,14.62
-36,kisi1video1,1,1,40.56
-36,kisi2video1,0,1,22.48
-36,kisi2video1,1,1,5.91
-36,kisi3video1,0,1,1.48
-36,kisi3video1,1,1,0.43
 37,kisi1video1,0,3,14.32
 37,kisi1video1,1,1,1.56
 37,kisi2video1,0,3,1.68
